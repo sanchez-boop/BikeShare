@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static('build'));
 if (process.env.NODE_ENV === "production"){
   app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send('Email Successfully Verified!!!');
   });
 }
 
