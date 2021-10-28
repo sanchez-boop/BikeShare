@@ -4,7 +4,7 @@ import './homeScreen.css'
 export default ()=>{
     return(
         <div>
-            Front end
+            Home screen
         </div>   
     )
 }
