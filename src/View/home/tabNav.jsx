@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import HomeTab from '../tabs/homeTab';
+import HomeTab from './tabs/homeTab';
 import './tabNav.css';
 
 export default ()=>{
