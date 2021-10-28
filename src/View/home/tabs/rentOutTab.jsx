@@ -4,7 +4,7 @@ import './rentOutTab.css'
 export default ()=>{
     return(
         <div>
-            Rent out
+            Rent out tab
         </div>   
     )
 }
