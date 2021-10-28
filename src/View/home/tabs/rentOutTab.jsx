@@ -1,10 +1,10 @@
 import React from 'react';
-import './homeTab.css'
+import './rentOutTab.css'
 
 export default ()=>{
     return(
         <div>
-            Home tab
+            Rent out
         </div>   
     )
 }
