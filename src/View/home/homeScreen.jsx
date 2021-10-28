@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import Navbar from '../navbar/navbar';
+import TabNav from './tabNav';
 import './homeScreen.css'
 
 export default ()=>{
 
     return(
         <>
-            <Navbar/>
+            <TabNav/>
         </>
     )
 }

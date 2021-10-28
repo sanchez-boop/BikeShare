@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import HomeTab from '../tabs/homeTab';
-import './navbar.css';
+import './tabNav.css';
 
 export default ()=>{
     const [currTab,setCurrTab] = useState(<HomeTab/>);
