@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Navbar from '../navbar/navbar';
 import './homeScreen.css'
 
 export default ()=>{
+
     return(
-        <div>
-            Home screen
-        </div>   
+        <>
+            <Navbar/>
+        </>
     )
 }

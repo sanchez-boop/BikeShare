@@ -1,16 +1,18 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
+import HomeTab from '../tabs/homeTab';
 import './navbar.css';
 
 export default ()=>{
+    const [currTab,setCurrTab] = useState(<HomeTab/>);
+
     return(
-        <nav>
-            <Link to="/" className='tab'>Home</Link>
-            <Link to="/rent-out" className='tab'>Rent Out</Link>
-            <Link to="/renew-return" className='tab'>Renew/Return</Link>
-            <Link to="/repair" className='tab'>Repair</Link>
-            <Link to="/blacklist" className='tab'>Blacklist</Link>
-            <Link to="/assign-roles" className='tab'>Assign Roles</Link>
-        </nav> 
+        <>
+            <button className='tab' onClick={()=>setCurrTab(<HomeTab/>)}>Home</button>
+            <button className='tab' onClick={()=>alert('not implemented')}>Rent Out</button>
+            <button className='tab' onClick={()=>alert('not implemented')}>Renew/Return</button>
+            <button className='tab' onClick={()=>alert('not implemented')}>Blacklist</button>
+            <button className='tab' onClick={()=>alert('not implemented')}>Assign Roles</button>
+            {currTab}
+        </>
     )
 }

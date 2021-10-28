@@ -7,7 +7,6 @@ function App() {
   /* Set up routing at app level in App.js */
   return (
     <Router>
-      <Navbar/>
       <Switch>
         <Route path="/" exact><HomeScreen/></Route>
       </Switch>
