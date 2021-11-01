@@ -2,7 +2,7 @@
 Front end
 
 # dependencies
-npm install react-scripts@latest\n
-npm install react-router-dom\n
-npm install react-bootstrap bootstrap@5.1.3\n
-npm install --save bootstrap\n
+npm install react-scripts@latest |
+npm install react-router-dom |
+npm install react-bootstrap bootstrap@5.1.3 |
+npm install --save bootstrap
