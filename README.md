@@ -2,6 +2,7 @@
 Front end
 
 # dependencies
-npx create-react-app    //react app is already created
-npm install react-scripts@latest
-npm install react-router-dom
+npm install react-scripts@latest\n
+npm install react-router-dom\n
+npm install react-bootstrap bootstrap@5.1.3\n
+npm install --save bootstrap\n
