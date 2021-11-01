@@ -2,7 +2,11 @@
     "name": "backend",
     "version": "1.0.0",
     "description": "",
+  
     "main": "server.js",
+    "engines": {
+      "node": "14.x"
+    },
     "scripts": {
     "start": "node server.js",
     "heroku-postbuild":  "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build -- prefix frontend"
