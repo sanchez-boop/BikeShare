@@ -5,8 +5,7 @@
   
     "main": "server.js",
     "engines": {
-      "node": "14.x",
-      "npm": "14.x"
+      "node": "14.x"
     },
     "scripts": {
     "start": "npm run start --prefix backend",
