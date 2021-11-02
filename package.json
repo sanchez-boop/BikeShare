@@ -1,15 +1,15 @@
 {
     "name": "backend",
     "version": "0.1.0",
+    "private": true,
+    "main": "server.js",
     "scripts": {
-        "start": "npm run start --prefix backend",
-        "postinstall": "npm install --prefix web && npm install --prefix backend && npm run build --prefix web"
+        "start": "node server.js"
     },
-    "cacheDirectories": [
-        "web/node_modules",
-        "backend/node_modules"
-    ],
     "dependencies": {
-        "request": "^2.88.2"
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "mongodb": "^3.6.9"
     }
 }
