@@ -5,7 +5,7 @@ import './homeTab.css'
 
 export default ()=>{
     //due table, search the due table, repair table, search repair table
-
+    //use css classes to style tables
 
     return(
         <>

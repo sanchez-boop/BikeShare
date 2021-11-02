@@ -4,8 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './rentOutTab.css'
 
 export default ()=>{
-    //due table, search the due table, repair table, search repair table
-
+    
 
     return(
         <>
