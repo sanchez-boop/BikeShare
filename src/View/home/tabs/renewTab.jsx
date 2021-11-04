@@ -56,8 +56,8 @@ export default ()=>{
                                 {user[5]}
                                 {userClicked[key] && 
                                     <>
-                                        <button className="return" onClick={confirmReturn}>RETURN</button>
-                                        <button className="renew" onClick={confirmRenew}>RENEW</button>
+                                        <button className="return" onClick={confirmReturn}>Return</button>
+                                        <button className="renew" onClick={confirmRenew}>Renew</button>
                                     </>
                                 }
                             </td>
