@@ -1,13 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './renewTab.css'
 
 export default ()=>{
-    
+    //create state of false arrays. toggle them to show return renew
+    const arr = [[1,'mark','111-111-1111','today','bike','bike'],[1,'mdrk','111-111-1111','today','bike','bike'],[1,'mfrk','111-111-1111','today','bike','bike']];
+    const [userClicked,setUserClicked] = useState(arr.map(()=>{return false}));
+
+    function toggleRow(idx){
+        userClicked[idx]= !userClicked[idx];
+        setUserClicked([...userClicked]);
+    }
+
+    function confirmRenew(){
+        if (window.confirm("Are you sure you want to renew?")) {
+            //post renew
+            alert('Renewed');
+        }          
+    }
+
+    function confirmReturn(){
+        if (window.confirm("Are you sure you want to return?")) {
+            //post return
+            alert('Returned');
+        }          
+    }
 
     return(
         <>
+            <input type="text" placeholder="Search.."/>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -20,24 +42,29 @@ export default ()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>111-111-1111</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>111-111-1111</td>
-                        <td>@fat</td>
-                    </tr>
-                        <tr>
-                        <td>3</td>
-                        <td>Larry the Bird</td>
-                        <td>111-111-1111</td>
-                        <td>@twitter</td>
-                    </tr>
+                {
+                    //map thru arr & toggle btn based on row idx (key)
+                    arr.map((user,key)=>{
+                        return(
+                        <tr onClick={()=>{toggleRow(key)}}>
+                            <td>{user[0]}</td>
+                            <td>{user[1]}</td>
+                            <td>{user[2]}</td>
+                            <td>{user[3]}</td>
+                            <td>{user[4]}</td>
+                            <td>
+                                {user[5]}
+                                {userClicked[key] && 
+                                    <>
+                                        <button className="return" onClick={confirmReturn}>RETURN</button>
+                                        <button className="renew" onClick={confirmRenew}>RENEW</button>
+                                    </>
+                                }
+                            </td>
+                        </tr>
+                        )
+                    })
+                }
                 </tbody>
             </Table> 
         </>

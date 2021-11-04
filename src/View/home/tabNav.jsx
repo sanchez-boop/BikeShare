@@ -11,11 +11,13 @@ export default ()=>{
 
     return(
         <>
-            <button className='tab' onClick={()=>setCurrTab(<HomeTab/>)}>Home</button>
-            <button className='tab' onClick={()=>setCurrTab(<RentOutTab/>)}>Rent Out</button>
-            <button className='tab' onClick={()=>setCurrTab(<RenewTab/>)}>Renew/Return</button>
-            <button className='tab' onClick={()=>setCurrTab(<BlacklistTab/>)}>Blacklist</button>
-            <button className='tab' onClick={()=>setCurrTab(<AssignRolesTab/>)}>Assign Roles</button>
+            <div classname="background">
+                <button className='tab' onClick={()=>setCurrTab(<HomeTab/>)}>Home</button>
+                <button className='tab' onClick={()=>setCurrTab(<RentOutTab/>)}>Rent Out</button>
+                <button className='tab' onClick={()=>setCurrTab(<RenewTab/>)}>Renew/Return</button>
+                <button className='tab' onClick={()=>setCurrTab(<BlacklistTab/>)}>Blacklist</button>
+                <button className='tab' onClick={()=>setCurrTab(<AssignRolesTab/>)}>Assign Roles</button>
+            </div>
             {currTab}
         </>
     )

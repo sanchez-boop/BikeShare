@@ -4,9 +4,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './assignRolesTab.css'
 
 export default ()=>{
+    const arr = [[1,'mark','111-111-1111','today','Yes'],[1,'mdrk','111-111-1111','today','No'],[1,'madd','111-111-1111','today','No']]
 
     return(
         <>
+            <input type="text" placeholder="Search.."/>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -18,27 +20,18 @@ export default ()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>111-111-1111</td>
-                        <td>@mdo</td>
-                        <td>No</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>111-111-1111</td>
-                        <td>@fat</td>
-                        <td>No</td>
-                    </tr>
-                        <tr>
-                        <td>3</td>
-                        <td>Larry the Bird</td>
-                        <td>111-111-1111</td>
-                        <td>@twitter</td>
-                        <td>No</td>
-                    </tr>
+                {
+                    arr.map((user,key)=>{
+                        return(
+                            <tr>
+                                <td>{user[0]}</td>
+                                <td>{user[1]}</td>
+                                <td>{user[2]}</td>
+                                <td>{user[3]}</td>
+                                <td>{user[4]}</td>
+                            </tr>
+                    )})
+                }
                 </tbody>
             </Table>
         </>
