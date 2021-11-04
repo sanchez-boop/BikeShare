@@ -8,6 +8,8 @@ import {
   LogBox,
   Image,
   TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -20,95 +22,104 @@ import colors from "../config/colors";
   const [passwordInput, changePasswordInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
 */
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
+
 export default function LoginScreen({ navigation }) {
   const [emailInput, changeEmailInput] = React.useState(null);
   const [passwordInput, changePasswordInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
 
   return (
-    <View style={styles.mainView}>
-      <View style={styles.topRectangle} />
-      <Image source={logo} style={styles.logo} />
-      <View style={styles.content}>
-        <Text style={styles.title}>BikeN'Gold</Text>
+    <DismissKeyboard>
+      <View style={styles.mainView}>
+        <View style={styles.topRectangle} />
+        <Image source={logo} style={styles.logo} />
+        <View style={styles.content}>
+          <Text style={styles.title}>BikeN'Gold</Text>
 
-        <TextInput
-          style={styles.emailInput}
-          onChangeText={changeEmailInput}
-          value={emailInput}
-          placeholder="Knights Email"
-        />
-        <View>
           <TextInput
-            style={styles.passwordinput}
-            secureTextEntry={isSecureEntry}
-            onChangeText={changePasswordInput}
-            value={passwordInput}
-            placeholder="Password"
+            style={styles.emailInput}
+            onChangeText={changeEmailInput}
+            value={emailInput}
+            placeholder="Knights Email"
           />
-
-          <TouchableOpacity
-            onPress={() => {
-              changeIsSecureEntry((prev) => !prev);
-            }}
-            style={styles.passwordView}
-          >
-            <Image
-              source={eye}
-              style={{
-                right: 24,
-                height: 22,
-                width: 22,
-                marginLeft: 1,
-                marginTop: 1,
-              }}
+          <View>
+            <TextInput
+              style={styles.passwordinput}
+              secureTextEntry={isSecureEntry}
+              onChangeText={changePasswordInput}
+              value={passwordInput}
+              placeholder="Password"
             />
+
+            <TouchableOpacity
+              onPress={() => {
+                changeIsSecureEntry((prev) => !prev);
+              }}
+              style={styles.passwordView}
+            >
+              <Image
+                source={eye}
+                style={{
+                  right: 24,
+                  height: 22,
+                  width: 22,
+                  marginLeft: 1,
+                  marginTop: 1,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={() => alert("Continue to password forget here!")}
+            style={{ alignSelf: "flex-start", left: 46, top: -29 }}
+          >
+            <Text style={styles.forgotPassword}>Forget your password?</Text>
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          onPress={() => alert("Continue to password forget here!")}
-          style={{ alignSelf: "flex-start", left: 46, top: -29 }}
-        >
-          <Text style={styles.forgotPassword}>Forget your password?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => alert("Continue to sign in here!")}
-          style={styles.signInButton}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              color: "#fff",
-              textAlign: "center",
-              top: 5,
-            }}
+          <TouchableOpacity
+            onPress={() => alert("Continue to sign in here!")}
+            style={styles.signInButton}
           >
-            Sign In
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.signInUpRedirect}>
-          <Text
-            style={{
-              fontSize: 12,
-              textAlign: "center",
-              margin: 6.8,
-              color: "#000000",
-            }}
-          >
-            Don't have an account?{" "}
             <Text
-              onPress={() => navigation.navigate("Sign-Up")}
               style={{
-                color: "#00A4EB",
+                fontSize: 20,
+                color: "#fff",
+                textAlign: "center",
+                top: 5,
               }}
             >
-              Sign Up
+              Sign In
             </Text>
-          </Text>
+          </TouchableOpacity>
+          <View style={styles.signInUpRedirect}>
+            <Text
+              style={{
+                fontSize: 12,
+                textAlign: "center",
+                margin: 6.8,
+                color: "#000000",
+              }}
+            >
+              Don't have an account?{" "}
+              <Text
+                onPress={() => navigation.navigate("Sign-Up")}
+                style={{
+                  color: "#00A4EB",
+                }}
+              >
+                Sign Up
+              </Text>
+            </Text>
+          </View>
         </View>
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
-    </View>
+    </DismissKeyboard>
   );
 }
 //}

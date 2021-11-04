@@ -8,6 +8,8 @@ import {
   LogBox,
   Image,
   TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -22,6 +24,13 @@ import colors from "../config/colors";
   const [firstNameInput, changeFirstNameInput] = React.useState(null);
   const [lastNameInput, changeLastNameInput] = React.useState(null);
 */
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
+
 export default function RegisterScreen({ navigation }) {
   const [emailInput, changeEmailInput] = React.useState(null);
   const [passwordInput, changePasswordInput] = React.useState(null);
@@ -30,121 +39,123 @@ export default function RegisterScreen({ navigation }) {
   const [lastNameInput, changeLastNameInput] = React.useState(null);
 
   return (
-    <View style={styles.mainView}>
-      <View style={styles.topRectangle} />
-      <Image source={logo} style={styles.logo} />
-      <View style={styles.content}>
-        <Text style={styles.title}>BikeN'Gold</Text>
+    <DismissKeyboard>
+      <View style={styles.mainView}>
+        <View style={styles.topRectangle} />
+        <Image source={logo} style={styles.logo} />
+        <View style={styles.content}>
+          <Text style={styles.title}>BikeN'Gold</Text>
 
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1 }}>
-            <TextInput
-              style={styles.firstNameInput}
-              onChangeText={changeFirstNameInput}
-              value={firstNameInput}
-              placeholder="First Name"
-            />
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <TextInput
+                style={styles.firstNameInput}
+                onChangeText={changeFirstNameInput}
+                value={firstNameInput}
+                placeholder="First Name"
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <TextInput
+                style={styles.lastNameInput}
+                onChangeText={changeLastNameInput}
+                value={lastNameInput}
+                placeholder="Last Name"
+              />
+            </View>
           </View>
-          <View style={{ flex: 1 }}>
-            <TextInput
-              style={styles.lastNameInput}
-              onChangeText={changeLastNameInput}
-              value={lastNameInput}
-              placeholder="Last Name"
-            />
-          </View>
-        </View>
 
-        <TextInput
-          style={styles.phoneNumber}
-          onChangeText={changeEmailInput}
-          value={emailInput}
-          placeholder="Phone Number"
-        />
-
-        <TextInput
-          style={styles.emailInput}
-          onChangeText={changeEmailInput}
-          value={emailInput}
-          placeholder="Knights Email"
-        />
-
-        <TextInput
-          style={styles.passwordinput}
-          secureTextEntry={isSecureEntry}
-          onChangeText={changePasswordInput}
-          value={passwordInput}
-          placeholder="Password"
-        />
-
-        <TouchableOpacity
-          onPress={() => {
-            changeIsSecureEntry((prev) => !prev);
-          }}
-          style={styles.passwordView}
-        >
-          <Image
-            source={eye}
-            style={{ height: 22, width: 22, marginLeft: 1, marginTop: 1 }}
+          <TextInput
+            style={styles.phoneNumber}
+            onChangeText={changeEmailInput}
+            value={emailInput}
+            placeholder="Phone Number"
           />
-        </TouchableOpacity>
 
-        <TextInput
-          style={styles.passwordinput}
-          secureTextEntry={isSecureEntry}
-          onChangeText={changePasswordInput}
-          value={passwordInput}
-          placeholder="Re-enter Password"
-        />
-
-        <TouchableOpacity
-          onPress={() => {
-            changeIsSecureEntry((prev) => !prev);
-          }}
-          style={styles.passwordView}
-        >
-          <Image
-            source={eye}
-            style={{ height: 22, width: 22, marginLeft: 1, marginTop: 1 }}
+          <TextInput
+            style={styles.emailInput}
+            onChangeText={changeEmailInput}
+            value={emailInput}
+            placeholder="Knights Email"
           />
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => alert("Continue to sign up here!")}
-          style={styles.signUpButton}
-        >
-          <Text style={{ fontSize: 20, color: "#fff", marginLeft: 70 }}>
-            Sign Up
-          </Text>
-        </TouchableOpacity>
+          <TextInput
+            style={styles.passwordinput}
+            secureTextEntry={isSecureEntry}
+            onChangeText={changePasswordInput}
+            value={passwordInput}
+            placeholder="Password"
+          />
 
-        <View style={styles.signInUpRedirect}>
-          <Text
-            style={{
-              width: 167,
-              fontSize: 12,
-              color: "#000000",
-              marginLeft: 34,
-              marginTop: 4,
+          <TouchableOpacity
+            onPress={() => {
+              changeIsSecureEntry((prev) => !prev);
             }}
+            style={styles.passwordView}
           >
-            Have an account?{" "}
+            <Image
+              source={eye}
+              style={{ height: 22, width: 22, marginLeft: 1, marginTop: 1 }}
+            />
+          </TouchableOpacity>
+
+          <TextInput
+            style={styles.passwordinput}
+            secureTextEntry={isSecureEntry}
+            onChangeText={changePasswordInput}
+            value={passwordInput}
+            placeholder="Re-enter Password"
+          />
+
+          <TouchableOpacity
+            onPress={() => {
+              changeIsSecureEntry((prev) => !prev);
+            }}
+            style={styles.passwordView}
+          >
+            <Image
+              source={eye}
+              style={{ height: 22, width: 22, marginLeft: 1, marginTop: 1 }}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => alert("Continue to sign up here!")}
+            style={styles.signUpButton}
+          >
+            <Text style={{ fontSize: 20, color: "#fff", marginLeft: 70 }}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+
+          <View style={styles.signInUpRedirect}>
             <Text
-              onPress={() => navigation.navigate("Sign-In")}
               style={{
+                width: 167,
                 fontSize: 12,
-                color: "#00A4EB",
-                marginLeft: 12,
+                color: "#000000",
+                marginLeft: 34,
                 marginTop: 4,
               }}
             >
-              Sign In
+              Have an account?{" "}
+              <Text
+                onPress={() => navigation.navigate("Sign-In")}
+                style={{
+                  fontSize: 12,
+                  color: "#00A4EB",
+                  marginLeft: 12,
+                  marginTop: 4,
+                }}
+              >
+                Sign In
+              </Text>
             </Text>
-          </Text>
+          </View>
         </View>
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
-    </View>
+    </DismissKeyboard>
   );
 }
 //}
