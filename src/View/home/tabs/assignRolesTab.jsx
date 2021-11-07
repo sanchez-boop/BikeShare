@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './assignRolesTab.css'
 
 export default ()=>{
-    const arr = [[1,'mark','111-111-1111','today','Yes'],[1,'mdrk','111-111-1111','today','No'],[1,'madd','111-111-1111','today','No']]
+    const arr = [['mark','111-111-1111','today','Yes'],[1,'mdrk','111-111-1111','today','No'],[1,'madd','111-111-1111','today','No']]
 
     return(
         <>
@@ -12,7 +12,6 @@ export default ()=>{
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>NAME</th>
                         <th>PHONE</th>
                         <th>EMAIL</th>

@@ -1,13 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import {Provider} from 'react-redux'
+import {configureStore,combineReducers} from '@reduxjs/toolkit'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//reducers
+import accReducer from './Model/accSlice'
+
+//Redux configuration
+const reducer = combineReducers({
+  acc : accReducer
+});
+
+const store = configureStore({
+  reducer,
+});
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

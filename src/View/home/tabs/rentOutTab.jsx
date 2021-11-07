@@ -16,7 +16,6 @@ export default ()=>{
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>NAME</th>
                         <th>PHONE</th>
                         <th>EMAIL</th>
@@ -52,7 +51,7 @@ export default ()=>{
                 </thead>
                 <tbody>
                 {
-                    arr.map((user,key)=>{
+                    ar.map((user,key)=>{
                         return(
                             <tr>
                                 <td>{user[0]}</td>

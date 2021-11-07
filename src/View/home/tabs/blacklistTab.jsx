@@ -39,7 +39,6 @@ export default ()=>{
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>NAME</th>
                         <th>PHONE</th>
                         <th>EMAIL</th>
@@ -73,7 +72,6 @@ export default ()=>{
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>NAME</th>
                         <th>PHONE</th>
                         <th>EMAIL</th>
