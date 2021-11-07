@@ -1,13 +1,13 @@
-.background{
-    background-color: #EDEDED;
+.background {
+  background-color: #ededed;
 }
-.logo{
-    width: 50px;
-    background-color: #FFCC00;
-    padding: 5px;
+.logo {
+  width: 50px;
+  background-color: #ffcc00;
+  padding: 5px;
 }
-.logoBackground{
-    background-color: #FFCC00;
-    font: 1.2em "Hind Vadodara";
-    font-size: 24px;
+.logoBackground {
+  background-color: #ffcc00;
+  font: 1.2em "Hind Vadodara";
+  font-size: 24px;
 }
