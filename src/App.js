@@ -5,7 +5,7 @@ import HomeScreen from "./View/home/homeScreen";
 
 function App() {
   /* Set up routing at app level in App.js */
-  /*
+
   return (
     <Router>
       <Switch>
@@ -15,8 +15,8 @@ function App() {
       </Switch>
     </Router>
   );
-*/
-  return <Login />;
+
+  //return <Login />;
 }
 
 export default App;
