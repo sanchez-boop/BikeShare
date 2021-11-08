@@ -1,0 +1,139 @@
+#center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0px;
+}
+
+#container {
+  display: flex;
+  background-image: url("../../Images/ucfKnight.png");
+  background-size: 1000px;
+  background-repeat: no-repeat;
+  background-position-y: -100px;
+  min-height: 557px;
+  min-width: 718px;
+  height: 80vh;
+  width: 70vw;
+  box-shadow: 18px 29px 64px -7px rgba(0, 0, 0, 0.25);
+}
+
+#left-side {
+  background-color: #f9f9f999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+#right-side {
+  background-color: #ffcc0099;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+#forget-password {
+  margin-top: 4px;
+  margin-bottom: 40px;
+  text-decoration: underline;
+  color: #888888;
+}
+
+#forget-password span:hover {
+  color: #555555;
+  cursor: pointer;
+}
+
+#name-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+#name-textfield:first-child {
+  margin-right: 40px;
+}
+
+.title {
+  margin-top: 70px;
+  margin-bottom: 40px;
+  font-size: 3vw;
+  white-space: nowrap;
+}
+
+.input-field {
+  width: 70%;
+}
+
+.signin {
+  width: 214px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.25));
+  color: black;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.signin:hover {
+  background-color: #f7c500;
+}
+
+.signin:active {
+  background-color: #e9ba00;
+}
+
+.logoBig {
+  margin-top: 40px;
+  width: 210px;
+}
+
+.linkField {
+  padding: 5px 14px;
+  background-color: #eff5fc;
+  border-radius: 20px;
+  margin-top: 236.4px;
+}
+
+.link {
+  color: #00a4eb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #008bc7;
+}
+
+/* Ensure title does not shrink too much */
+@media only screen and (max-width: 1145px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .logoBig {
+    margin-top: 10px;
+    margin-left: 200px;
+    width: 130px;
+  }
+
+  .linkField {
+    padding: 5px 14px;
+    background-color: #eff5fc;
+    border-radius: 20px;
+    margin-top: 350px;
+  }
+}
+
+@media only screen and (min-width: 1402px) {
+  #container {
+    background-size: cover;
+  }
+}
