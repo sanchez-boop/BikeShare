@@ -1,22 +1,25 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./View/auth/login";
+import Register from "./View/auth/register";
 import HomeScreen from "./View/home/homeScreen";
 
 function App() {
-  /* Set up routing at app level in App.js */
-
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/homeScreen">
           <HomeScreen />
         </Route>
       </Switch>
     </Router>
   );
-
-  //return <Login />;
 }
 
 export default App;

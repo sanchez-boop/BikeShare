@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./login.css";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import logo from "../../Images/bikengold.png";
@@ -41,16 +42,16 @@ export default () => {
                 <span onClick={ForgetPasswordAlert}>Forget your password?</span>
               </div>
             </div>
-            <button className="signin" onClick={signinAlert}>
+            <Link to="/homeScreen" className="signin">
               Sign in
-            </button>
+            </Link>
           </div>
           <div id="right-side">
             <img className="logoBig" src={logo} alt="BikeN'Gold Logo" />
             <div className="linkField">
               <span>New to BikeN'Gold?</span>{" "}
-              <span className="link" onClick={createAccountAlert}>
-                Create an account
+              <span className="link">
+                <Link to="/register">Create an account</Link>
               </span>
             </div>
           </div>
