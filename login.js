@@ -27,4 +27,4 @@ db.collection('Users').find({Email:email,Password:password}).toArray();
       res.status(200).json(ret);
     });
     
-
+module.exports= app;
