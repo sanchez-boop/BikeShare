@@ -1,15 +1,15 @@
 app.post('/api/login', async (req, res, next) => 
     {
-      // incoming: login, password
+      // incoming: Email, Password
       // outgoing: id, firstName, lastName, error
     
      var error = '';
     
-      const { login, password } = req.body;
+      const { email, password } = req.body;
     
       const db = client.db();
       const results = await 
-db.collection('Users').find({Login:login,Password:password}).toArray();
+db.collection('Users').find({Email:email,Password:password}).toArray();
     
       var id = -1;
       var fn = '';
@@ -17,11 +17,11 @@ db.collection('Users').find({Login:login,Password:password}).toArray();
     
       if( results.length > 0 )
       {
-        id = results[0].UserId;
+        id = results[0]._id;
         fn = results[0].FirstName;
         ln = results[0].LastName;
       }
     
-      var ret = { id:id, firstName:fn, lastName:ln, error:''};
+      var ret = { _id:id, firstName:fn, lastName:ln, error:''};
       res.status(200).json(ret);
     });
