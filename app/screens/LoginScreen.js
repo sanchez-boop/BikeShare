@@ -91,33 +91,30 @@ export default function LoginScreen({ navigation }) {
                 fontSize: 20,
                 color: "#fff",
                 textAlign: "center",
-                top: 0,
               }}
             >
               Sign In
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Sign-Up")}>
-          <View style={styles.signInUpRedirect}>
-            <Text
-              style={{
-                fontSize: 12,
-                textAlign: "center",
-                margin: 6.8,
-                marginTop: 4,
-                color: "#000000",
-              }}
-            >
-              Don't have an account?{" "}
+            <View style={styles.signInUpRedirect}>
               <Text
                 style={{
-                  color: "#00A4EB",
+                  fontSize: 12,
+                  textAlign: "center",
+                  color: "#000000",
                 }}
               >
-                Sign Up
+                Don't have an account?{" "}
+                <Text
+                  style={{
+                    color: "#00A4EB",
+                  }}
+                >
+                  Sign Up
+                </Text>
               </Text>
-            </Text>
-          </View>
+            </View>
           </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
@@ -167,14 +164,13 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: "bold",
     top: 20,
-    margin: 10,
+    marginTop: 10,
   },
   emailInput: {
     width: 271.15,
     height: 55,
     margin: 40,
     padding: 10,
-
     borderRadius: 8.5,
     borderWidth: 0.85,
     borderColor: "#B5B5B5",
@@ -207,23 +203,20 @@ const styles = StyleSheet.create({
     height: 45,
     width: 214,
     backgroundColor: "#000000",
-    padding: 5,
-
     borderRadius: 5,
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
+    justifyContent: "center",
   },
   signInUpRedirect: {
     height: 30,
     width: 210,
     backgroundColor: "#F4FEFF",
-    padding: 1,
-    alignSelf: "center",
-    margin: 28,
+    marginTop: 28,
     borderRadius: 20,
+    justifyContent: "center",
   },
 });
