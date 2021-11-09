@@ -174,10 +174,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   logo: {
-    height: 275,
-    width: 275,
-    marginTop: -85,
-    marginBottom: -36,
+    height: 170,
+    width: 170,
+    marginTop: -35,
+    marginBottom: 5,
   },
   content: {
     width: "90%",
