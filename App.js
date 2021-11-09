@@ -1,12 +1,16 @@
-import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
 import {} from "react-native";
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  Ionicons,
+  Entypo,
+} from "@expo/vector-icons";
 import {
   useFonts,
   HindVadodara_600SemiBold,
 } from "@expo-google-fonts/hind-vadodara";
 import AppLoading from "expo-app-loading";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -16,6 +20,7 @@ import BikeAvailability from "./app/screens/BikeAvailability";
 import Waiver from "./app/screens/Waiver";
 import Profile from "./app/screens/Profile";
 import ShopInfo from "./app/screens/ShopInfo";
+import colors from "./app/config/colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,11 +52,97 @@ export default function App() {
 
 function Main() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Bike Availability" component={BikeAvailability} />
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Waiver" component={Waiver} />
-      <Tab.Screen name="Info" component={ShopInfo} />
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTitleStyle: {
+            fontFamily: "HindVadodara_600SemiBold",
+            fontSize: 20,
+          },
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            iconName = focused ? "account-circle" : "account-circle";
+
+            // You can return any component that you like here!
+            return (
+              <MaterialCommunityIcons name={iconName} size={28} color={color} />
+            );
+          },
+          tabBarActiveTintColor: colors.secondary,
+          tabBarInactiveTintColor: "gray",
+        }}
+      />
+      <Tab.Screen
+        name="Bike Availability"
+        component={BikeAvailability}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTitleStyle: {
+            fontFamily: "HindVadodara_600SemiBold",
+            fontSize: 20,
+          },
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            iconName = focused ? "pedal-bike" : "pedal-bike";
+
+            // You can return any component that you like here!
+            return <MaterialIcons name={iconName} size={30} color={color} />;
+          },
+          tabBarActiveTintColor: colors.secondary,
+          tabBarInactiveTintColor: "gray",
+        }}
+      />
+      <Tab.Screen
+        name="Waiver"
+        component={Waiver}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTitleStyle: {
+            fontFamily: "HindVadodara_600SemiBold",
+            fontSize: 20,
+          },
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            iconName = focused ? "ios-newspaper" : "ios-newspaper";
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: colors.secondary,
+          tabBarInactiveTintColor: "gray",
+        }}
+      />
+      <Tab.Screen
+        name="Info"
+        component={ShopInfo}
+        options={{
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTitleStyle: {
+            fontFamily: "HindVadodara_600SemiBold",
+            fontSize: 20,
+          },
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            iconName = focused ? "info-with-circle" : "info-with-circle";
+
+            // You can return any component that you like here!
+            return <Entypo name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: colors.secondary,
+          tabBarInactiveTintColor: "gray",
+        }}
+      />
     </Tab.Navigator>
   );
 }

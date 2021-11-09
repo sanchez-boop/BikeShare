@@ -6,9 +6,6 @@ import colors from "../config/colors";
 export default function ShopInfo(props) {
   return (
     <View style={styles.mainView}>
-      <View style={styles.topRectangle}>
-        <Text style={styles.tabTitle}>Profile</Text>
-      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -28,10 +25,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "flex-end",
-  },
-  tabTitle: {
-    fontFamily: "HindVadodara_600SemiBold",
-    fontSize: 20,
-    marginBottom: 3,
   },
 });
