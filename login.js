@@ -1,3 +1,5 @@
+exports.setApp = function ( app, client )
+{
 app.post('/api/login', async (req, res, next) => 
     {
       // incoming: Email, Password
@@ -25,3 +27,5 @@ db.collection('Users').find({Email:email,Password:password}).toArray();
       var ret = { _id:id, firstName:fn, lastName:ln, error:''};
       res.status(200).json(ret);
     });
+    
+}
