@@ -1,7 +1,6 @@
 // renew: changes date checked out on Bike table to today. 
-// return: makes date checked out and id null
-// Take in: Bike_ID, Customer_ID
-// Return: Success or fail
+// Take in: Bike id, CustomerID
+// Return: Success or fail, bike must already be rented out
 
 // bike : {
 // 	id : string
@@ -11,7 +10,7 @@
 // 	notes : string (100 char limit)
 // 	customerID : (account id)
 // }
-
+const app = require("express").Router();
 app.post('/api/renew', async (req, res, next) => 
 {
     let todayDate = new Date().toLocaleDateString();
@@ -31,3 +30,4 @@ app.post('/api/renew', async (req, res, next) =>
         res.status(409).json(ret);  //409 conflict with current state of server?? maybe change status code
     }
 });
+modules.exports=app;
