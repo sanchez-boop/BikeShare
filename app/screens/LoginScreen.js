@@ -14,6 +14,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import logo from "../assets/Shop-Logo.png";
+import oldlogo from "../assets/Shop-Logo-Old.png";
 import eye from "../assets/icons8-eye-30.png";
 import colors from "../config/colors";
 
@@ -82,7 +83,7 @@ export default function LoginScreen({ navigation }) {
             <Text style={styles.forgotPassword}>Forget your password?</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => alert("Continue to sign in here!")}
+            onPress={() => navigation.navigate("Main")}
             style={styles.signInButton}
           >
             <Text
@@ -90,24 +91,25 @@ export default function LoginScreen({ navigation }) {
                 fontSize: 20,
                 color: "#fff",
                 textAlign: "center",
-                top: 5,
+                top: 0,
               }}
             >
               Sign In
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Sign-Up")}>
           <View style={styles.signInUpRedirect}>
             <Text
               style={{
                 fontSize: 12,
                 textAlign: "center",
                 margin: 6.8,
+                marginTop: 4,
                 color: "#000000",
               }}
             >
               Don't have an account?{" "}
               <Text
-                onPress={() => navigation.navigate("Sign-Up")}
                 style={{
                   color: "#00A4EB",
                 }}
@@ -116,6 +118,7 @@ export default function LoginScreen({ navigation }) {
               </Text>
             </Text>
           </View>
+          </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
       </View>
@@ -138,10 +141,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   logo: {
-    height: 275,
-    width: 275,
-    marginTop: -85,
-    marginBottom: -10,
+    height: 170,
+    width: 170,
+    marginTop: -35,
+    marginBottom: 15,
   },
   content: {
     width: "90%",

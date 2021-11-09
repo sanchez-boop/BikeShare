@@ -13,7 +13,9 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import logo from "../assets/Shop-Logo.png";
+import oldlogo from "../assets/Shop-Logo-Old.png";
 import eye from "../assets/icons8-eye-30.png";
 import colors from "../config/colors";
 
@@ -40,6 +42,11 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <DismissKeyboard>
+      <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.testView}
+      showsVerticalScrollIndicator={false}
+      enableOnAndroid={true}
+      scrollEnabled={false}>
       <View style={styles.mainView}>
         <View style={styles.topRectangle} />
         <Image source={logo} style={styles.logo} />
@@ -120,27 +127,26 @@ export default function RegisterScreen({ navigation }) {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => alert("Continue to sign up here!")}
+            onPress={() => navigation.navigate("Main")}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", marginLeft: 70 }}>
               Sign Up
             </Text>
           </TouchableOpacity>
-
+          <TouchableOpacity onPress={() => navigation.navigate("Sign-In")}>
           <View style={styles.signInUpRedirect}>
             <Text
               style={{
                 width: 167,
                 fontSize: 12,
                 color: "#000000",
-                marginLeft: 34,
+                marginLeft: 30,
                 marginTop: 4,
               }}
             >
               Have an account?{" "}
               <Text
-                onPress={() => navigation.navigate("Sign-In")}
                 style={{
                   fontSize: 12,
                   color: "#00A4EB",
@@ -152,15 +158,25 @@ export default function RegisterScreen({ navigation }) {
               </Text>
             </Text>
           </View>
+          </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
       </View>
+      </KeyboardAwareScrollView>
     </DismissKeyboard>
   );
 }
 //}
 
 const styles = StyleSheet.create({
+  testView: {
+    height: "100%",
+    width: "100%",
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#fff",
+    marginBottom: -150,
+  }, 
   mainView: {
     height: "100%",
     width: "100%",
@@ -170,18 +186,17 @@ const styles = StyleSheet.create({
   },
   topRectangle: {
     width: "100%",
-    height: "10%",
+    height: "8.55%",
     backgroundColor: colors.primary,
   },
   logo: {
-    height: 275,
-    width: 275,
-    marginTop: -85,
-    marginBottom: -36,
+    height: 170,
+    width: 170,
+    marginTop: -35,
+    marginBottom: 5,
   },
   content: {
     width: "90%",
-    height: "68%",
     backgroundColor: "#ffeda6",
     borderRadius: 10,
     borderWidth: 0.7,
