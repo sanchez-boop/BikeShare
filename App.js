@@ -52,13 +52,16 @@ export default function App() {
 
 function Main() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator  screenOptions={{}}
+    >
       <Tab.Screen
         name="Profile"
         component={Profile}
+        
         options={{
           headerStyle: {
             backgroundColor: colors.primary,
+            height: 85,
           },
           headerTitleStyle: {
             fontFamily: "HindVadodara_600SemiBold",
@@ -83,6 +86,7 @@ function Main() {
         options={{
           headerStyle: {
             backgroundColor: colors.primary,
+            height: 85,
           },
           headerTitleStyle: {
             fontFamily: "HindVadodara_600SemiBold",
@@ -105,6 +109,7 @@ function Main() {
         options={{
           headerStyle: {
             backgroundColor: colors.primary,
+            height: 85,
           },
           headerTitleStyle: {
             fontFamily: "HindVadodara_600SemiBold",
@@ -127,6 +132,7 @@ function Main() {
         options={{
           headerStyle: {
             backgroundColor: colors.primary,
+            height: 85,
           },
           headerTitleStyle: {
             fontFamily: "HindVadodara_600SemiBold",
