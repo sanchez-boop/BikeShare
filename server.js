@@ -19,6 +19,7 @@ app.use(bodyParser.json());
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
+app.use('/' , require('./login'));
 app.listen(PORT, () => 
 {
   console.log('Server listening on port ' + PORT);
