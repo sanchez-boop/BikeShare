@@ -1,3 +1,5 @@
+//load user model
+const User = require("./models/user.js");
 const app = require("express").Router();
 app.post('/api/login', async (req, res, next) => 
     {
@@ -8,9 +10,9 @@ app.post('/api/login', async (req, res, next) =>
     
       const { email, password } = req.body;
     
-      const db = client.db();
-      const results = await 
-db.collection('Users').find({Email:email,Password:password}).toArray();
+      //const db = client.db();
+      //const results = await db.collection('Users').find({Email:email,Password:password}).toArray();
+      const results =  await User.find({ Email : email, Password : password });
     
       var id = -1;
       var fn = '';
