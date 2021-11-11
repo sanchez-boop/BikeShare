@@ -8,11 +8,11 @@ app.post('/api/login', async (req, res, next) =>
     
      var error = '';
     
-      const { email, password } = req.body;
+      const { Email, Password } = req.body;
     
       //const db = client.db();
       //const results = await db.collection('Users').find({Email:email,Password:password}).toArray();
-      const results =  await User.find({ Email : email, Password : password });
+      const results =  await User.find({ email : Email, password : Password });
     
       var id = -1;
       var fn = '';
@@ -20,12 +20,12 @@ app.post('/api/login', async (req, res, next) =>
     
       if( results.length > 0 )
       {
-        id = results[0]._id;
-        fn = results[0].FirstName;
-        ln = results[0].LastName;
+        id = results[0].id;
+        fn = results[0].firstName;
+        ln = results[0].lastName;
       }
     
-      var ret = { _id:id, firstName:fn, lastName:ln, error:''};
+      var ret = { id:id, firstName:fn, lastName:ln, error:''};
       res.status(200).json(ret);
     });
     
