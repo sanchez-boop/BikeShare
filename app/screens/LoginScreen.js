@@ -147,17 +147,14 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "53%",
     backgroundColor: "#ffeda6",
-
     borderRadius: 10,
     borderWidth: 0.7,
     borderColor: "#B5B5B5",
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-
     alignItems: "center",
   },
   title: {

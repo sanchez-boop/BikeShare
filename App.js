@@ -52,12 +52,10 @@ export default function App() {
 
 function Main() {
   return (
-    <Tab.Navigator  screenOptions={{}}
-    >
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
         name="Profile"
         component={Profile}
-        
         options={{
           headerStyle: {
             backgroundColor: colors.primary,
@@ -107,6 +105,9 @@ function Main() {
         name="Waiver"
         component={Waiver}
         options={{
+          defaultNavigationOptions: {
+            headerTitleAlign: "center",
+          },
           headerStyle: {
             backgroundColor: colors.primary,
             height: 85,
@@ -130,14 +131,6 @@ function Main() {
         name="Info"
         component={ShopInfo}
         options={{
-          headerStyle: {
-            backgroundColor: colors.primary,
-            height: 85,
-          },
-          headerTitleStyle: {
-            fontFamily: "HindVadodara_600SemiBold",
-            fontSize: 20,
-          },
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             iconName = focused ? "info-with-circle" : "info-with-circle";

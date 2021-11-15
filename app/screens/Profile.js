@@ -6,6 +6,10 @@ import colors from "../config/colors";
 export default function ShopInfo(props) {
   return (
     <View style={styles.mainView}>
+      <View style={styles.topRectangle}>
+        <Text>Profile</Text>
+      </View>
+
       <StatusBar style="auto" />
     </View>
   );
