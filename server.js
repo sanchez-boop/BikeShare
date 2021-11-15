@@ -11,8 +11,14 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to db'))
-
-
+{
+  // Set static folder
+  app.use(express.static('frontend/build'));
+  app.get('*', (req, res) => 
+ {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 app.use(express.json())
 const announcmentsRouter = require('./routes/announcementsRoute')
 app.use('/announcements',announcmentsRouter)
