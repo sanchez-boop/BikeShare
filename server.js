@@ -4,7 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-
+const path = require('path');
 app.use(cors())
 app.use(bodyParser.json())
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
