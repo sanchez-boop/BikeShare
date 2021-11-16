@@ -10,6 +10,11 @@ import {
   useFonts,
   HindVadodara_600SemiBold,
 } from "@expo-google-fonts/hind-vadodara";
+import {
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -29,6 +34,9 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   let [fontsLoaded] = useFonts({
     HindVadodara_600SemiBold,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
   });
 
   if (!fontsLoaded) {
@@ -57,14 +65,6 @@ function Main() {
         name="Profile"
         component={Profile}
         options={{
-          headerStyle: {
-            backgroundColor: colors.primary,
-            height: 85,
-          },
-          headerTitleStyle: {
-            fontFamily: "HindVadodara_600SemiBold",
-            fontSize: 20,
-          },
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             iconName = focused ? "account-circle" : "account-circle";
@@ -82,14 +82,6 @@ function Main() {
         name="Bike Availability"
         component={BikeAvailability}
         options={{
-          headerStyle: {
-            backgroundColor: colors.primary,
-            height: 85,
-          },
-          headerTitleStyle: {
-            fontFamily: "HindVadodara_600SemiBold",
-            fontSize: 20,
-          },
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             iconName = focused ? "pedal-bike" : "pedal-bike";
@@ -105,17 +97,6 @@ function Main() {
         name="Waiver"
         component={Waiver}
         options={{
-          defaultNavigationOptions: {
-            headerTitleAlign: "center",
-          },
-          headerStyle: {
-            backgroundColor: colors.primary,
-            height: 85,
-          },
-          headerTitleStyle: {
-            fontFamily: "HindVadodara_600SemiBold",
-            fontSize: 20,
-          },
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             iconName = focused ? "ios-newspaper" : "ios-newspaper";

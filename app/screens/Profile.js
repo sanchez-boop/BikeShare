@@ -7,7 +7,7 @@ export default function ShopInfo(props) {
   return (
     <View style={styles.mainView}>
       <View style={styles.topRectangle}>
-        <Text>Profile</Text>
+        <Text style={styles.headerText}>Profile</Text>
       </View>
 
       <StatusBar style="auto" />
@@ -29,5 +29,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "flex-end",
+  },
+  headerText: {
+    fontFamily: "HindVadodara_600SemiBold",
+    fontSize: 20,
+    marginBottom: 4,
   },
 });

@@ -6,7 +6,9 @@ import colors from "../config/colors";
 export default function ShopInfo(props) {
   return (
     <View style={styles.mainView}>
-      <View style={styles.topRectangle} />
+      <View style={styles.topRectangle}>
+        <Text style={styles.headerText}>Info</Text>
+      </View>
 
       <StatusBar style="auto" />
     </View>
@@ -23,7 +25,14 @@ const styles = StyleSheet.create({
   },
   topRectangle: {
     width: "100%",
-    height: "10%",
+    height: "11%",
     backgroundColor: colors.primary,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  headerText: {
+    fontFamily: "HindVadodara_600SemiBold",
+    fontSize: 20,
+    marginBottom: 4,
   },
 });
