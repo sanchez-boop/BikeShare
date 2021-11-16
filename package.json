@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines":{
+    "node": "14.x"
+  },
   "scripts": {
-    "devStart": "nodemon server.js",
+    "start": "node server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build -- prefix frontend"
   },
   "author": "",
@@ -14,7 +17,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^6.0.12",
-    "node": "^17.1.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
