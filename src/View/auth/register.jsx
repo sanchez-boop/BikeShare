@@ -6,7 +6,36 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import logo from "../../Images/bikengold.png";
 
-import { Container } from "react-bootstrap";
+import { Container, FormControl } from "react-bootstrap";
+
+class ShowPassword extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      type: "password",
+    };
+    this.showHide = this.showHide.bind(this);
+  }
+
+  showHide(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({
+      type: this.state.type === "input" ? "password" : "input",
+    });
+  }
+
+  render() {
+    return (
+      <FloatingLabel controlId="floatingPassword" label="Re-enter Password">
+        <Form.Control type={this.state.type} placeholder="Re-enter Password" />
+        <span onClick={this.showHide}>
+          {this.state.type === "input" ? "Show" : "Hide"}
+        </span>
+      </FloatingLabel>
+    );
+  }
+}
 
 export default () => {
   function ForgetPasswordAlert() {
@@ -24,7 +53,7 @@ export default () => {
   return (
     <>
       <div id="center">
-        <div id="container">
+        <div id="container-register">
           <div id="left-side">
             <div className="title">Welcome to BikeN'Gold</div>
             <div className="input-field">
@@ -57,23 +86,15 @@ export default () => {
               >
                 <Form.Control type="password" placeholder="Password" />
               </FloatingLabel>
-              <FloatingLabel
-                controlId="floatingPassword"
-                label="Re-enter Password"
-              >
-                <Form.Control type="password" placeholder="Re-enter Password" />
-              </FloatingLabel>
-              <div id="forget-password">
-                <span onClick={ForgetPasswordAlert}>Forget your password?</span>
-              </div>
+              <ShowPassword />
             </div>
-            <button className="signin" onClick={signinAlert}>
+            <Link to="/homeScreen" className="signup">
               Sign up
-            </button>
+            </Link>
           </div>
           <div id="right-side">
             <img className="logoBig" src={logo} alt="BikeN'Gold Logo" />
-            <div className="linkField">
+            <div className="linkField-register">
               <span>Have an account?</span>{" "}
               <span className="link">
                 <Link to="./">Sign in</Link>

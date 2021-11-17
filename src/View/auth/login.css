@@ -6,10 +6,10 @@
   margin: 0px;
 }
 
-#container {
+#container-login {
   display: flex;
   background-image: url("../../Images/ucfKnight.png");
-  background-size: 1000px;
+  background-size: auto;
   background-repeat: no-repeat;
   background-position-y: -100px;
   min-height: 557px;
@@ -39,7 +39,6 @@
 
 #forget-password {
   margin-top: 4px;
-  margin-bottom: 40px;
   text-decoration: underline;
   color: #888888;
 }
@@ -71,10 +70,12 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  margin-top: 40px;
 }
 
 .signin:hover {
   background-color: #f7c500;
+  color: #000000;
 }
 
 .signin:active {
@@ -86,7 +87,7 @@
   width: 210px;
 }
 
-.linkField {
+.linkField-login {
   padding: 5px 14px;
   background-color: #eff5fc;
   border-radius: 20px;
@@ -115,7 +116,7 @@
     width: 130px;
   }
 
-  .linkField {
+  .linkField-login {
     padding: 5px 14px;
     background-color: #eff5fc;
     border-radius: 20px;
@@ -123,8 +124,9 @@
   }
 }
 
+/* Ensure the background is always within the container even when stretched */
 @media only screen and (min-width: 1402px) {
-  #container {
+  #container-login {
     background-size: cover;
   }
 }

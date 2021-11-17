@@ -6,15 +6,15 @@
   margin: 0px;
 }
 
-#container {
+#container-register {
   display: flex;
   background-image: url("../../Images/ucfKnight.png");
-  background-size: 1000px;
+  background-size: auto;
   background-repeat: no-repeat;
   background-position-y: -100px;
-  min-height: 557px;
+  min-height: 668px;
   min-width: 718px;
-  height: 80vh;
+  height: 84vh;
   width: 70vw;
   box-shadow: 18px 29px 64px -7px rgba(0, 0, 0, 0.25);
 }
@@ -37,25 +37,14 @@
   height: 100%;
 }
 
-#forget-password {
-  margin-top: 4px;
-  margin-bottom: 40px;
-  text-decoration: underline;
-  color: #888888;
-}
-
-#forget-password span:hover {
-  color: #555555;
-  cursor: pointer;
-}
-
 #name-container {
   display: flex;
+  flex: 1;
   justify-content: space-around;
 }
 
-#name-textfield:first-child {
-  margin-right: 40px;
+.name-textfield:first-child {
+  margin-right: 5px;
 }
 
 .title {
@@ -69,7 +58,7 @@
   width: 70%;
 }
 
-.signin {
+.signup {
   width: 214px;
   background-color: #ffcc00;
   border: none;
@@ -80,13 +69,15 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  margin-top: 40px;
 }
 
-.signin:hover {
+.signup:hover {
   background-color: #f7c500;
+  color: #000000;
 }
 
-.signin:active {
+.signup:active {
   background-color: #e9ba00;
 }
 
@@ -95,11 +86,11 @@
   width: 210px;
 }
 
-.linkField {
+.linkField-register {
   padding: 5px 14px;
   background-color: #eff5fc;
   border-radius: 20px;
-  margin-top: 236.4px;
+  margin-top: 346.5px;
 }
 
 .link {
@@ -124,16 +115,25 @@
     width: 130px;
   }
 
-  .linkField {
+  .linkField-register {
     padding: 5px 14px;
     background-color: #eff5fc;
     border-radius: 20px;
-    margin-top: 350px;
+    margin-top: 460px;
   }
 }
 
-@media only screen and (min-width: 1402px) {
-  #container {
+/* Ensure the background is always within the container even when stretched */
+@media only screen and (min-width: 1461px) {
+  #container-register {
     background-size: cover;
   }
+}
+
+.password {
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+  width: 100%;
 }

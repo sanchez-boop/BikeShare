@@ -24,7 +24,7 @@ export default () => {
   return (
     <>
       <div id="center">
-        <div id="container">
+        <div id="container-login">
           <div id="left-side">
             <div className="title">Sign in to BikeN'Gold</div>
             <div className="input-field">
@@ -48,7 +48,7 @@ export default () => {
           </div>
           <div id="right-side">
             <img className="logoBig" src={logo} alt="BikeN'Gold Logo" />
-            <div className="linkField">
+            <div className="linkField-login">
               <span>New to BikeN'Gold?</span>{" "}
               <span className="link">
                 <Link to="/register">Create an account</Link>
