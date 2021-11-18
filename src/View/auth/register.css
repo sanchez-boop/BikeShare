@@ -58,6 +58,11 @@
   width: 70%;
 }
 
+.eye {
+  background-color: #eff5fc;
+  border-radius: 2px;
+}
+
 .signup {
   width: 214px;
   background-color: #ffcc00;
@@ -128,12 +133,4 @@
   #container-register {
     background-size: cover;
   }
-}
-
-.password {
-  display: block;
-  position: relative;
-  text-transform: uppercase;
-  font-weight: 700;
-  width: 100%;
 }
