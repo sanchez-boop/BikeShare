@@ -1,14 +1,58 @@
 import React, { useState } from "react";
 import "./login.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { Link } from "react-router-dom";
+import { Link ,useHistory} from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import logo from "../../Images/bikengold.png";
-
-import { Container } from "react-bootstrap";
+import { postLogin } from "../../Controller/postLogin";
 
 export default () => {
+  const history = useHistory();
+  const [formInput,setFormInput] = useState({
+      /*set initial credentials to ""*/
+      email : "",
+      password : ""
+  })
+
+  function inputNameChanged(e){
+      /*change the state of the credentials to the name you typed*/
+      setFormInput({
+          ...formInput,
+          'email' : e.target.value
+      });
+  }
+
+  function inputPasswordChanged(e){
+    /*change the state of the credentials to the password you typed*/
+    setFormInput({
+        ...formInput,
+        'password' : e.target.value
+    });
+}
+
+  function logIn(){
+    async function asyncDispatch(){
+      /*Await the API response. The API returns an 
+      array of a single object with user info, such
+      as an email. if arr>0, log the user in.
+      else, return login failed*/
+      const account = await postLogin(formInput);
+
+      if(account.length>0)
+      {
+        /*On successful login, push the home screen
+        and update the redux state with account info*/
+        history.push('/homeScreen');
+      }
+      else
+      {
+        alert('login failed, try again');
+      }
+    }
+
+    asyncDispatch();
+  }
   function ForgetPasswordAlert() {
     alert("Forget Password clicked");
   }
@@ -21,6 +65,8 @@ export default () => {
     alert("Sign in clicked");
   }
 
+  
+
   return (
     <>
       <div id="center">
@@ -31,20 +77,19 @@ export default () => {
               <FloatingLabel
                 controlId="floatingInput"
                 label="Knights Email"
-                className="mb-3"
-              >
-                <Form.Control type="email" placeholder="name@example.com" />
+                className="mb-3">
+                <Form.Control type="email" placeholder="name@example.com" onChange={inputNameChanged}/>
               </FloatingLabel>
               <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control type="password" placeholder="Password" onChange={inputPasswordChanged}/>
               </FloatingLabel>
               <div id="forget-password">
                 <span onClick={ForgetPasswordAlert}>Forget your password?</span>
               </div>
             </div>
-            <Link to="/homeScreen" className="signin">
+            <button className="signin" onClick={logIn}>
               Sign in
-            </Link>
+            </button>
           </div>
           <div id="right-side">
             <img className="logoBig" src={logo} alt="BikeN'Gold Logo" />
