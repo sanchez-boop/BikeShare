@@ -15,11 +15,15 @@ export default () => {
 
   return (
     <>
-      <div className="logoBackground">
-        <img className="logo" src={logo} alt="image error" />
-        BikeN'Gold
+      <div id="tab-background">
+        <div className="logoBackground">
+          <div id="logo-title-container">
+            <img className="logo" src={logo} alt="image error" />
+            <text id="title">BikeN'Gold</text>
+          </div>
+        </div>
+        <TabNav />
       </div>
-      <TabNav />
     </>
   );
 };
