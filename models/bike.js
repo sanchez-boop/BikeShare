@@ -24,6 +24,10 @@ const bikeSchema = new mongoose.Schema({
     customerID: {
         type: String,
         required: true
+    },
+    availability: {
+        type:Boolean,
+        required: true
     }
 })
 
