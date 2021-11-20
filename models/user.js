@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     waiver: {
         type: Boolean,
         required: true
+    },
+    bikeNumber: {
+        type: String,
+        required: true
     }
 })
 
