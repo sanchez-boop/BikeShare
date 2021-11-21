@@ -24,22 +24,29 @@
   justify-content: space-between;
   margin: auto;
   border: 1px solid #dfdfdf;
+  width: 50%;
 }
 
 .input-field {
   display: flex;
-  width: auto;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .input-field-active {
   display: flex;
-  width: auto;
+  justify-content: space-between;
+  width: 100%;
   outline: 1px solid #ffd119;
 }
 
 .search-bar {
+  padding-left: 7px;
   border: 0;
   outline: none;
+  height: 26px;
+  font-size: 12px;
+  width: 100%;
 }
 
 .search-button {

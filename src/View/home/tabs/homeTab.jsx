@@ -56,7 +56,7 @@ export default () => {
               >
                 <input
                   type="text"
-                  placeholder="Search.."
+                  placeholder="Search bikes that are due"
                   className="search-bar"
                 />
                 <div className="search-button" tabindex="0">
@@ -99,7 +99,7 @@ export default () => {
               >
                 <input
                   type="text"
-                  placeholder="Search.."
+                  placeholder="Search current repairs"
                   className="search-bar"
                 />
                 <div className="search-button" tabindex="0">
