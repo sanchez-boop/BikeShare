@@ -16,7 +16,7 @@ export default () => {
   return (
     <>
       <div className="tab-background">
-        <Tabs defaultActiveKey="home" className="mb-3 tab-section">
+        <Tabs defaultActiveKey="home" className="mb-4 tab-section">
           <Tab eventKey="home" title="Home" tabClassName="tab">
             <HomeTab />
           </Tab>
