@@ -9,3 +9,5 @@ Large Project COP4331
 - expo install @expo-google-fonts/hind-vadodara expo-font
 - expo install @expo/vector-icons
 - expo install @expo-google-fonts/inter
+- npm install react-native-paper
+- npm install --save react-native-vector-icons
