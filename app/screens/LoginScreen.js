@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
+import { TextInput } from 'react-native-paper';
 import {
   StyleSheet,
   Text,
@@ -7,12 +8,12 @@ import {
   TouchableOpacity,
   LogBox,
   Image,
-  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import logo from "../assets/Shop-Logo.png";
 import oldlogo from "../assets/Shop-Logo-Old.png";
 import eye from "../assets/icons8-eye-30.png";
@@ -37,6 +38,13 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <DismissKeyboard>
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.testView}
+        showsVerticalScrollIndicator={false}
+        enableOnAndroid={true}
+        scrollEnabled={false}
+      >
       <View style={styles.mainView}>
         <View style={styles.topRectangle} />
         <Image source={logo} style={styles.logo} />
@@ -47,15 +55,21 @@ export default function LoginScreen({ navigation }) {
             style={styles.emailInput}
             onChangeText={changeEmailInput}
             value={emailInput}
-            placeholder="Knights Email"
+            mode='outlined'
+            label="Knight's Email"
+            outlineColor='#b1b1b1'
+            activeOutlineColor='#000000'
           />
           <View>
             <TextInput
               style={styles.passwordinput}
               secureTextEntry={isSecureEntry}
+              mode='outlined'
               onChangeText={changePasswordInput}
               value={passwordInput}
-              placeholder="Password"
+              label="Password"
+              outlineColor='#b1b1b1'
+              activeOutlineColor='#000000'
             />
 
             <TouchableOpacity
@@ -67,7 +81,6 @@ export default function LoginScreen({ navigation }) {
               <Image
                 source={eye}
                 style={{
-                  right: 24,
                   height: 22,
                   width: 22,
                   marginLeft: 1,
@@ -119,12 +132,20 @@ export default function LoginScreen({ navigation }) {
         </View>
         <StatusBar style="auto" />
       </View>
+      </KeyboardAwareScrollView>
     </DismissKeyboard>
   );
 }
 //}
 
 const styles = StyleSheet.create({
+  testView: {
+    height: "100%",
+    width: "100%",
+    flex: 1,
+    backgroundColor: "#fff",
+    marginBottom: -150,
+  },
   mainView: {
     height: "100%",
     width: "100%",
@@ -134,7 +155,7 @@ const styles = StyleSheet.create({
   },
   topRectangle: {
     width: "100%",
-    height: "10%",
+    height: "8.55%",
     backgroundColor: colors.primary,
   },
   logo: {
@@ -145,7 +166,6 @@ const styles = StyleSheet.create({
   },
   content: {
     width: "90%",
-    height: "53%",
     backgroundColor: "#ffeda6",
     borderRadius: 10,
     borderWidth: 0.7,
@@ -164,31 +184,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   emailInput: {
-    width: 271.15,
+    width: 280,
     height: 55,
     margin: 40,
-    padding: 10,
-    borderRadius: 8.5,
-    borderWidth: 0.85,
-    borderColor: "#B5B5B5",
     backgroundColor: "#F4FEFF",
   },
   passwordinput: {
-    width: 271.15,
+    width: 280,
     height: 55,
     margin: 40,
-    padding: 10,
     marginTop: -16,
-
-    borderRadius: 8.5,
-    borderWidth: 0.85,
-    borderColor: "#B5B5B5",
     backgroundColor: "#F4FEFF",
   },
   passwordView: {
     height: 25,
     width: 25,
-    marginLeft: 295,
+    marginLeft: 329,
     marginTop: -80,
     marginBottom: 50,
   },
@@ -215,5 +226,6 @@ const styles = StyleSheet.create({
     marginTop: 28,
     borderRadius: 20,
     justifyContent: "center",
+    marginBottom: 40,
   },
 });

@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
+import { TextInput } from 'react-native-paper';
 import {
   StyleSheet,
   Text,
@@ -7,7 +8,6 @@ import {
   TouchableOpacity,
   LogBox,
   Image,
-  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
@@ -36,6 +36,7 @@ const DismissKeyboard = ({ children }) => (
 export default function RegisterScreen({ navigation }) {
   const [emailInput, changeEmailInput] = React.useState(null);
   const [passwordInput, changePasswordInput] = React.useState(null);
+  const [rePasswordInput, changeRePasswordInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
   const [firstNameInput, changeFirstNameInput] = React.useState(null);
   const [lastNameInput, changeLastNameInput] = React.useState(null);
@@ -55,13 +56,16 @@ export default function RegisterScreen({ navigation }) {
           <View style={styles.content}>
             <Text style={styles.title}>BikeN'Gold</Text>
 
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row"}}>
               <View style={{ flex: 1 }}>
                 <TextInput
                   style={styles.firstNameInput}
                   onChangeText={changeFirstNameInput}
                   value={firstNameInput}
-                  placeholder="First Name"
+                  mode='outlined'
+                  label="First Name"
+                  outlineColor='#b1b1b1'
+                  activeOutlineColor='#000000'
                 />
               </View>
               <View style={{ flex: 1 }}>
@@ -69,7 +73,10 @@ export default function RegisterScreen({ navigation }) {
                   style={styles.lastNameInput}
                   onChangeText={changeLastNameInput}
                   value={lastNameInput}
-                  placeholder="Last Name"
+                  mode='outlined'
+                  label="Last Name"
+                  outlineColor='#b1b1b1'
+                  activeOutlineColor='#000000'
                 />
               </View>
             </View>
@@ -78,14 +85,20 @@ export default function RegisterScreen({ navigation }) {
               style={styles.phoneNumber}
               onChangeText={changeEmailInput}
               value={emailInput}
-              placeholder="Phone Number"
+              mode='outlined'
+              label="Phone Number"
+              outlineColor='#b1b1b1'
+              activeOutlineColor='#000000'
             />
 
             <TextInput
               style={styles.emailInput}
               onChangeText={changeEmailInput}
               value={emailInput}
-              placeholder="Knights Email"
+              mode='outlined'
+              label="Knight's Email"
+              outlineColor='#b1b1b1'
+              activeOutlineColor='#000000'
             />
 
             <TextInput
@@ -93,7 +106,10 @@ export default function RegisterScreen({ navigation }) {
               secureTextEntry={isSecureEntry}
               onChangeText={changePasswordInput}
               value={passwordInput}
-              placeholder="Password"
+              mode='outlined'
+              label="Password"
+              outlineColor='#b1b1b1'
+              activeOutlineColor='#000000'
             />
 
             <TouchableOpacity
@@ -111,9 +127,12 @@ export default function RegisterScreen({ navigation }) {
             <TextInput
               style={styles.passwordinput}
               secureTextEntry={isSecureEntry}
-              onChangeText={changePasswordInput}
-              value={passwordInput}
-              placeholder="Re-enter Password"
+              onChangeText={changeRePasswordInput}
+              value={rePasswordInput}
+              mode='outlined'
+              label="Re-enter Password"
+              outlineColor='#b1b1b1'
+              activeOutlineColor='#000000'
             />
 
             <TouchableOpacity
@@ -214,23 +233,15 @@ const styles = StyleSheet.create({
   firstNameInput: {
     height: 55,
     width: 150,
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 40,
-    padding: 10,
-    borderRadius: 8.5,
-    borderWidth: 0.85,
-    borderColor: "#B5B5B5",
     backgroundColor: "#F4FEFF",
   },
   lastNameInput: {
     height: 55,
     width: 150,
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 40,
-    padding: 10,
-    borderRadius: 8.5,
-    borderWidth: 0.85,
-    borderColor: "#B5B5B5",
     backgroundColor: "#F4FEFF",
   },
   phoneNumber: {
@@ -240,10 +251,6 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: -20,
     marginTop: -20,
-    padding: 10,
-    borderRadius: 8.5,
-    borderWidth: 0.85,
-    borderColor: "#B5B5B5",
     backgroundColor: "#F4FEFF",
   },
   emailInput: {
@@ -252,10 +259,6 @@ const styles = StyleSheet.create({
     margin: 40,
     marginLeft: 30,
     marginBottom: 36,
-    padding: 10,
-    borderRadius: 8.5,
-    borderWidth: 0.85,
-    borderColor: "#B5B5B5",
     backgroundColor: "#F4FEFF",
   },
   passwordinput: {
@@ -263,23 +266,20 @@ const styles = StyleSheet.create({
     width: 310,
     margin: 40,
     marginLeft: 30,
-    padding: 10,
     marginTop: -16,
-    borderRadius: 8.5,
-    borderWidth: 0.85,
-    borderColor: "#B5B5B5",
     backgroundColor: "#F4FEFF",
   },
   passwordView: {
     height: 25,
     width: 25,
-    marginLeft: 295,
+    marginLeft: 335,
     marginTop: -80,
     marginBottom: 50,
   },
   signUpButton: {
     height: 45,
     width: 220,
+    marginTop: -10,
     backgroundColor: "#000000",
     borderRadius: 5,
     shadowColor: "#000",
@@ -294,6 +294,7 @@ const styles = StyleSheet.create({
     width: 210,
     backgroundColor: "#F4FEFF",
     padding: 1,
+    marginBottom: 20,
     justifyContent: "center",
     margin: 28,
     borderRadius: 20,
