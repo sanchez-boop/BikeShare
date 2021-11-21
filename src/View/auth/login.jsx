@@ -53,7 +53,7 @@ export default () => {
 
     asyncDispatch();
   }
-  
+
   function ForgetPasswordAlert() {
     alert("Forget Password clicked");
   }

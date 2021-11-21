@@ -5,8 +5,10 @@ import Tab from "react-bootstrap/Tab";
 import HomeTab from "./tabs/homeTab";
 import RentOutTab from "./tabs/rentOutTab";
 import RenewTab from "./tabs/renewTab";
+import RepairTab from "./tabs/repairTab";
 import BlacklistTab from "./tabs/blacklistTab";
 import AssignRolesTab from "./tabs/assignRolesTab";
+import BikesTab from "./tabs/bikesTab"
 import "./tabNav.css";
 
 export default () => {
@@ -26,6 +28,9 @@ export default () => {
           <Tab eventKey="renew/return" title="Renew/Return" tabClassName="tab">
             <RenewTab />
           </Tab>
+          <Tab eventKey="repair" title="Repair" tabClassName="tab">
+            <RepairTab />
+          </Tab>
           <Tab eventKey="blacklist" title="Blacklist" tabClassName="tab">
             <BlacklistTab />
           </Tab>
@@ -36,6 +41,15 @@ export default () => {
               tabClassName="tab"
             >
               <AssignRolesTab />
+            </Tab>
+          )}
+          {acc.role == "admin" && (
+            <Tab
+              eventKey="bikes"
+              title="Bikes"
+              tabClassName="tab"
+            >
+              <BikesTab />
             </Tab>
           )}
         </Tabs>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import './renewTab.css'
+import './bikesTab.css'
 
 export default ()=>{
     //create state of false arrays. toggle them to show return renew
@@ -13,17 +13,10 @@ export default ()=>{
         setUserClicked([...userClicked]);
     }
 
-    function confirmRenew(){
-        if (window.confirm("Are you sure you want to renew?")) {
-            //post renew
-            alert('Renewed');
-        }          
-    }
-
-    function confirmReturn(){
-        if (window.confirm("Are you sure you want to return?")) {
+    function confirmDelete(){
+        if (window.confirm("Are you sure you want to delete?")) {
             //post return
-            alert('Returned');
+            alert('Deleted');
         }          
     }
 
@@ -56,8 +49,7 @@ export default ()=>{
                                 {user[5]}
                                 {userClicked[key] && 
                                     <>
-                                        <button className="return" onClick={confirmReturn}>Return</button>
-                                        <button className="renew" onClick={confirmRenew}>Renew</button>
+                                        <button className="return" onClick={confirmDelete}>Delete</button>
                                     </>
                                 }
                             </td>

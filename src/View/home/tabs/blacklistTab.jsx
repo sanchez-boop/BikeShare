@@ -36,6 +36,7 @@ export default ()=>{
     return(
         <>
             <input type="text" placeholder="Search.."/>
+            {/*these tables searches users, but organize them by blacklist */}
             <Table striped bordered hover>
                 <thead>
                     <tr>

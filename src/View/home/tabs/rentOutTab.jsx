@@ -13,6 +13,7 @@ export default ()=>{
                 RENT TO
             </div>
             <input type="text" placeholder="Search.."/>
+          {/*this table searches users */}
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -41,6 +42,7 @@ export default ()=>{
                 BIKES AVAILABLE
             </div>
             <input type="text" placeholder="Search.."/>
+            {/*this table searches bikes */}
             <Table striped bordered hover>
                 <thead>
                     <tr>

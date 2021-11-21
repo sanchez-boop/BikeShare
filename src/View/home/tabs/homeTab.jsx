@@ -65,6 +65,7 @@ export default () => {
               </div>
             </div>
           </div>
+          {/*this table searches bikes */}
           <Table hover borderless className="table">
             <thead className="table-header">
               <tr>
@@ -108,6 +109,7 @@ export default () => {
               </div>
             </div>
           </div>
+          {/*this table searches repairs */}
           <Table hover borderless className="table">
             <thead className="table-header">
               <tr>
