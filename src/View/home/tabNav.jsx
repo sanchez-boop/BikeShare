@@ -32,7 +32,7 @@ export default () => {
           {acc.role == "admin" && (
             <Tab
               eventKey="assign-roles"
-              title="Assign Roles"
+              title="Users/Assign Roles"
               tabClassName="tab"
             >
               <AssignRolesTab />

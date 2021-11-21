@@ -1,0 +1,95 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-search-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.table-title {
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  font-size: 21px;
+  /*justify-self: flex-start;*/
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  border: 1px solid #dfdfdf;
+}
+
+.input-field {
+  display: flex;
+  width: auto;
+}
+
+.input-field-active {
+  display: flex;
+  width: auto;
+  outline: 1px solid #ffd119;
+}
+
+.search-bar {
+  border: 0;
+  outline: none;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: #fff;
+  background-color: #ffcc00;
+  outline: none;
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome, Edge, Opera and Firefox */
+}
+
+.search-button:hover {
+  background-color: #fac800;
+}
+
+.search-button:active {
+  background-color: #ffd119;
+}
+
+.search-button svg {
+  width: 13px;
+}
+
+.table-content {
+  width: 83%;
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+.table-header {
+  background-color: #f2f2f2;
+  border: 1px solid #dfdfdf;
+  font-size: 14px;
+}
+
+.table-body {
+  border: 1px solid #dfdfdf;
+  font-size: 14px;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { AiOutlineSearch } from "react-icons/ai";
 import Login from "./View/auth/login";
 import Register from "./View/auth/register";
 import HomeScreen from "./View/home/homeScreen";

@@ -1,14 +1,23 @@
 .tab-background {
   background-color: #fff;
+  /* Enable 'overflow-x: hidden' to disable the horizontal scrollbar.
+     Though this could be problematic when content actually needs to be scrolled
+     horizontally. 
+  */
+  /*overflow-x: hidden;*/
 }
 
 .tab-section {
   padding-left: 40px;
   background-color: #ededed;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  overflow-x: auto;
 }
 
 /* When tabs are not active */
 .tab {
+  white-space: nowrap;
   color: #b5b5b5;
   background-color: #f9f9f9 !important;
   border-color: #dee2e6 #dee2e6 #fff !important;

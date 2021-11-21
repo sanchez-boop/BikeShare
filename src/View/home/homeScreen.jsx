@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import TabNav from "./tabNav";
 import "./homeScreen.css";
 import logo from "../../Images/bikengold.png";
