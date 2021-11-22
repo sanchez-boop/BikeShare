@@ -5,10 +5,26 @@ const slice = createSlice({
     initialState : {},
     reducers : {
         addRepair : (state,action)=>{
-            const {id,name,email,phone,role} = action.payload;
-        },
-        deleteRepair : (state)=>{
+            const {_id,name,email,phone,bikeModel,notes,status} = action.payload;
+            //add customer to statehashmap
+            const customer = {
+                name : name,
+                email : email,
+                phone : phone,
+                bikeModel : bikeModel,
+                notes : notes,
+                status : status
+            };
 
+            state[_id]=customer;
+        },
+        deleteRepair : (state,action)=>{
+            const {_id} = action.payload;
+            delete state[_id];
+        },
+        editStatus : (state,action)=>{
+            const{_id,status} = action.payload;
+            state[_id].status = status;
         }
     }
 })
