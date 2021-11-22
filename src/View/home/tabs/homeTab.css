@@ -27,13 +27,13 @@
   width: 50%;
 }
 
-.input-field {
+.search-field {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.input-field-active {
+.search-field-active {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -81,6 +81,7 @@
 
 .table-content {
   width: 83%;
+  margin-bottom: 20px;
 }
 
 .table {
@@ -99,4 +100,8 @@
 .table-body {
   border: 1px solid #dfdfdf;
   font-size: 14px;
+}
+
+.gray-highlight:hover {
+  background-color: #e4e4e4;
 }

@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import { Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
-
 import "./homeTab.css";
 
 export default () => {
@@ -25,19 +24,16 @@ export default () => {
       setActive1(!isActive1);
     }
   };
-
   /* Untoggle the outline for the first search bar */
   const unToggleClass1 = () => {
     setActive1(!isActive1);
   };
-
   /* Toggle the outline for the second search bar */
   const toggleClass2 = () => {
     if (!isActive2) {
       setActive2(!isActive2);
     }
   };
-
   /* Untoggle the outline for the second search bar */
   const unToggleClass2 = () => {
     setActive2(!isActive2);
@@ -50,7 +46,7 @@ export default () => {
             <div className="table-title">DUE</div>
             <div className="search-bar-container">
               <div
-                className={isActive1 ? "input-field-active" : "input-field"}
+                className={isActive1 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass1}
                 onBlur={unToggleClass1}
               >
@@ -67,6 +63,7 @@ export default () => {
           </div>
           {/*this table searches bikes */}
           <Table hover borderless className="table">
+          <Table borderless className="table">
             <thead className="table-header">
               <tr>
                 <th>BIKE NUMBER</th>
@@ -75,10 +72,10 @@ export default () => {
                 <th>DATE CHECKED OUT</th>
               </tr>
             </thead>
-            <tbody className="table-body">
+            <tbody>
               {arr.map((user, key) => {
                 return (
-                  <tr className="table-body">
+                  <tr className="table-body gray-highlight">
                     <td>{user[0]}</td>
                     <td>{user[1]}</td>
                     <td>{user[2]}</td>
@@ -94,7 +91,7 @@ export default () => {
             <div className="table-title">REPAIRS</div>
             <div className="search-bar-container">
               <div
-                className={isActive2 ? "input-field-active" : "input-field"}
+                className={isActive2 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass2}
                 onBlur={unToggleClass2}
               >
@@ -109,8 +106,12 @@ export default () => {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           {/*this table searches repairs */}
           <Table hover borderless className="table">
+=======
+          <Table borderless className="table">
+>>>>>>> d73e8326cb7ae9fc9eb0d5946e7512d441fddea4
             <thead className="table-header">
               <tr>
                 <th>BIKE NUMBER</th>
@@ -119,10 +120,10 @@ export default () => {
                 <th>DATE CHECKED OUT</th>
               </tr>
             </thead>
-            <tbody className="table-body">
+            <tbody>
               {arr.map((user, key) => {
                 return (
-                  <tr className="table-body">
+                  <tr className="table-body gray-highlight">
                     <td>{user[0]}</td>
                     <td>{user[1]}</td>
                     <td>{user[2]}</td>
