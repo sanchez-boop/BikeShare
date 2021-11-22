@@ -13,7 +13,8 @@ const slice = createSlice({
                 phone : phone,
                 bikeModel : bikeModel,
                 notes : notes,
-                status : status
+                status : status,
+                dropdown : false
             };
 
             state[_id]=customer;
@@ -23,11 +24,21 @@ const slice = createSlice({
             delete state[_id];
         },
         editStatus : (state,action)=>{
+            /*change status to desired status and
+              toggle the dropdown. if prev dropdown 
+              was false, there should be no status
+              change */
             const{_id,status} = action.payload;
-            state[_id].status = status;
+            
+            if(state[_id].dropdown==true)
+            {
+                state[_id].status = status;
+            }
+
+            state[_id].dropdown = !state[_id].dropdown;
         }
     }
 })
 
 export default slice.reducer;
-export const {addRepair,deleteRepair} = slice.actions;
+export const {addRepair,deleteRepair,editStatus} = slice.actions;

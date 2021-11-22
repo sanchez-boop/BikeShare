@@ -3,13 +3,35 @@ import { Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./homeTab.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { editStatus , addRepair } from "../../../Model/repairsSlice";
+import { getRepairs } from "../../../Controller/getRepairs"
 
 export default () => {
   const {bikes,repairs} = useSelector(state=>state);
+  const dispatch = useDispatch();
 
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
+
+  function dropdownClicked(_id,status){
+      /*toggle dropdown box on redux then edit
+        status to back end. first edit the redux 
+        status. then make an API call to edit status on
+        back end. finally, get the API changes to sync
+        back end and front end */
+      async function asyncDispatch(){
+        dispatch(editStatus({
+          _id : _id,
+          status : status
+        }));
+
+        /*now edit status on back end & pull changes*/
+        
+      }
+
+      asyncDispatch()      
+  }
 
   /* Toggle the outline for the first search bar */
   const toggleClass1 = () => {
@@ -111,18 +133,43 @@ export default () => {
               </tr>
             </thead>
             <tbody>
-              {Object.values(repairs).map((repair, key) => {
+              {Object.keys(repairs).map((repairKey, key) => {
                 return (
                   <tr className="table-body gray-highlight">
-                    <td>{repair['name']}</td>
-                    <td>{repair['phone']}</td>
-                    <td>{repair['email']}</td>
-                    <td>{repair['bikeModel']}</td>
+                    <td>{repairs[repairKey]['name']}</td>
+                    <td>{repairs[repairKey]['phone']}</td>
+                    <td>{repairs[repairKey]['email']}</td>
+                    <td>{repairs[repairKey]['bikeModel']}</td>
                     <td>
-                      {repair['notes']}
+                      {repairs[repairKey]['notes']}
                     </td>
                     <td>
-                      <button className="repair-status" >{repair['status']}</button>
+                      {
+                        /*the dropdown will be done on redux since
+                          state management will be cleaner. The 
+                          dropdown menu will show curr status first, 
+                          then rest of statuses that arent curr status
+                          */
+                        repairs[repairKey]['dropdown']
+                        ?
+                        <>
+                          <button className="repair-status" onClick={()=>dropdownClicked(repairKey,repairs[repairKey]['status'])}>{repairs[repairKey]['status']}</button>
+                          {
+                            repairs[repairKey]['status']!='in shop' &&
+                            <button className="repair-status" onClick={()=>dropdownClicked(repairKey,'in shop')}>{'in shop'}</button>
+                          }
+                          {
+                            repairs[repairKey]['status']!='CUSTOMER NOTIFIED' &&
+                            <button className="repair-status" onClick={()=>dropdownClicked(repairKey,'CUSTOMER NOTIFIED')}>{'CUSTOMER NOTIFIED'}</button>
+                          }
+                          {
+                            repairs[repairKey]['status']!='PICKED UP' &&
+                            <button className="repair-status" onClick={()=>dropdownClicked(repairKey,'PICKED UP')}>{'PICKED UP'}</button>
+                          }
+                        </>
+                        :
+                        <button className="repair-status" onClick={()=>dropdownClicked(repairKey,repairs[repairKey]['status'])}>{repairs[repairKey]['status']}</button>
+                      }
                     </td>
                   </tr>
                 );

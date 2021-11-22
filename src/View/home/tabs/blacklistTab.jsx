@@ -6,17 +6,17 @@ import './blacklistTab.css'
 export default ()=>{
     const arr = [[1,'mark','111-111-1111','today'],[2,'murk','111-111-1111','today'],[2,'merk','111-111-1111','today'],[4,'m0rk','111-111-1111','today']]
     const arr2 = [[1,'mark','111-111-1111','today'],[2,'murk','111-111-1111','today'],[2,'merk','111-111-1111','today'],[4,'m0rk','111-111-1111','today']]
-    const [userBlacklisted,setUserBlacklisted] = useState(arr.map(()=>{return false}));
-    const [userUnblacklisted,setUserUnblacklisted] = useState(arr2.map(()=>{return false}));
+    const [blacklistButton,setBlacklistButton] = useState(arr.map(()=>{return false}));
+    const [unblacklistButton,setUnblacklistButton] = useState(arr2.map(()=>{return false}));
 
     function toggleBlacklist(idx){
-        userBlacklisted[idx]= !userBlacklisted[idx];
-        setUserBlacklisted([...userBlacklisted]);
+        blacklistButton[idx]= !blacklistButton[idx];
+        setBlacklistButton([...blacklistButton]);
     }
     
     function toggleUnblacklist(idx){
-        userUnblacklisted[idx]= !userUnblacklisted[idx];
-        setUserUnblacklisted([...userUnblacklisted]);
+        unblacklistButton[idx]= !unblacklistButton[idx];
+        setUnblacklistButton([...unblacklistButton]);
     }
 
     function confirmBlacklist(){
@@ -55,7 +55,7 @@ export default ()=>{
                                 <td>{user[2]}</td>
                                 <td>
                                     {user[3]}
-                                    {userBlacklisted[key] && 
+                                    {blacklistButton[key] && 
                                         <>
                                             <button className="blacklist" onClick={confirmBlacklist}>Blacklist</button>
                                         </>
@@ -88,7 +88,7 @@ export default ()=>{
                                 <td>{user[2]}</td>
                                 <td>
                                     {user[3]}
-                                    {userUnblacklisted[key] && 
+                                    {unblacklistButton[key] && 
                                         <>
                                             <button className="unblacklist" onClick={confirmUnblacklist}>Unblacklist</button>
                                         </>
