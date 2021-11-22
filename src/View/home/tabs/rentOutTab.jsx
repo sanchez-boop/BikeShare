@@ -72,64 +72,6 @@ export default () => {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-            <input type="text" placeholder="Search.."/>
-          {/*this table searches users */}
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>PHONE</th>
-                        <th>EMAIL</th>
-                        <th>WAIVER</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                    arr.map((user,key)=>{
-                        return(
-                            <tr>
-                                <td>{user[0]}</td>
-                                <td>{user[1]}</td>
-                                <td>{user[2]}</td>
-                                <td>{user[3]}</td>
-                                <td>{user[4]}</td>
-                            </tr>
-                    )})
-                }
-                </tbody>
-            </Table>
-            <div>
-                BIKES AVAILABLE
-            </div>
-            <input type="text" placeholder="Search.."/>
-            {/*this table searches bikes */}
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>BIKE NUMBER</th>
-                        <th>STYLE OF BIKE</th>
-                        <th>SERIAL NUMBER</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                    ar.map((user,key)=>{
-                        return(
-                            <tr>
-                                <td>{user[0]}</td>
-                                <td>{user[1]}</td>
-                                <td>{user[2]}</td>
-                            </tr>
-                    )})
-                }
-                </tbody>
-            </Table> 
-            <Button variant="success">Rent out bike</Button>
-        </>
-    )
-}
-=======
           </div>
           <Table borderless className="table">
             <thead className="table-header">
@@ -208,4 +150,3 @@ export default () => {
     </>
   );
 };
->>>>>>> d73e8326cb7ae9fc9eb0d5946e7512d441fddea4
