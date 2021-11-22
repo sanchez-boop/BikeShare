@@ -59,6 +59,17 @@ router.delete('/', async (req, res) => {
         res.status(400).json({message: err.message })
     }
 })
-
+//searching repairs 
+router.post('/search', async (req, res, next) =>
+{
+try{
+    const searchedRepairs = await Repair.find({$or:[{name:{$regex: req.body.key, $options: 'i'}},
+                                                    {bikeModel:{$regex: req.body.key, $options: 'i'}},
+                                                    {phone:{$regex: req.body.key, $options: 'i'}}]})
+    res.json(searchedRepairs)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
 
 module.exports = router
