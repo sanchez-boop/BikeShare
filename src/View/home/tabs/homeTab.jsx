@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./homeTab.css";
+import { useSelector } from "react-redux";
 
 export default () => {
   //due table, search the due table, repair table, search repair table
@@ -14,6 +15,8 @@ export default () => {
     [2, "merk", "111-111-1111", "today"],
     [4, "m0rk", "111-111-1111", "today"],
   ];
+
+  const {bikes,repairs} = useSelector(state=>state);
 
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
@@ -109,20 +112,22 @@ export default () => {
           <Table borderless className="table">
             <thead className="table-header">
               <tr>
-                <th>BIKE NUMBER</th>
                 <th>NAME</th>
                 <th>PHONE NUMBER</th>
-                <th>DATE CHECKED OUT</th>
+                <th>EMAIL</th>
+                <th>BIKE MODEL</th>
+                <th>NOTES</th>
               </tr>
             </thead>
             <tbody>
-              {arr.map((user, key) => {
+              {Object.values(repairs).map((repair, key) => {
                 return (
                   <tr className="table-body gray-highlight">
-                    <td>{user[0]}</td>
-                    <td>{user[1]}</td>
-                    <td>{user[2]}</td>
-                    <td>{user[3]}</td>
+                    <td>{repair['name']}</td>
+                    <td>{repair['phone']}</td>
+                    <td>{repair['email']}</td>
+                    <td>{repair['bikeModel']}</td>
+                    <td>{repair['notes']}</td>
                   </tr>
                 );
               })}
