@@ -18,12 +18,19 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        {
-          acc.loggedIn==true &&
-          <Route path="/homeScreen">
-            <HomeScreen />
-          </Route>
-        }
+        <>
+          {
+            acc.loggedIn==true 
+            ?
+            <Route path="/homeScreen">
+              <HomeScreen />
+            </Route>
+            :
+            <>
+              you're logged out
+            </>
+          }
+        </>
       </Switch>
     </Router>
   );
