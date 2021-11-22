@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 router.patch('/', async (req, res) => {
     try{
         const updatedUser = await User.updateOne(
-            {_id: req.body._id},
+            {id: req.body.id},
             { $set: {   blacklist: req.body.blacklist,
                         email: req.body.email,
                         firstName: req.body.firstName,
