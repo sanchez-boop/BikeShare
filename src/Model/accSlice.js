@@ -4,12 +4,12 @@ const slice = createSlice({
     name : 'acc',
     initialState : {
         /*convert string to bool using equality*/
-        loggedIn : false,
+        loggedIn : true, //for testing
         id : -1,
         name : '',
         email : '',
         phone : '',
-        role : ''
+        role : 'Admin' //for testing
     },
     reducers : {
         signIn : (state,action)=>{

@@ -2,7 +2,11 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const slice = createSlice({
     name : 'bikes',
-    initialState : [],
+    initialState : {
+        due : [],
+        rented : [],
+        available : []
+    },
     reducers : {
         addBike : (state,action)=>{
             const {id,name,email,phone,role} = action.payload;
