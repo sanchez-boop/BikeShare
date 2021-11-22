@@ -122,7 +122,7 @@ export default () => {
                       {repair['notes']}
                     </td>
                     <td>
-                      {<button className="repair-status" >{repair['status']}</button>}
+                      <button className="repair-status" >{repair['status']}</button>
                     </td>
                   </tr>
                 );
