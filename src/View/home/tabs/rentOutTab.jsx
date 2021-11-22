@@ -73,6 +73,7 @@ export default () => {
               </div>
             </div>
           </div>
+          {/*this table searches users */}
           <Table borderless className="table">
             <thead className="table-header">
               <tr>
@@ -116,6 +117,7 @@ export default () => {
               </div>
             </div>
           </div>
+          {/*this table searches bikes */}
           <Table borderless className="table">
             <thead className="table-header">
               <tr>
