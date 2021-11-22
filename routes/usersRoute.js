@@ -23,7 +23,8 @@ router.post('/', async (req, res) => {
         password: req.body.password,
         phone: req.body.phone,
         role: req.body.role,
-        waiver : req.body.waiver
+        waiver : req.body.waiver,
+        bikeNumber: req.body.bikeNumber
     })
     try {
         const newUser = await user.save()
@@ -36,7 +37,7 @@ router.post('/', async (req, res) => {
 router.patch('/', async (req, res) => {
     try{
         const updatedUser = await User.updateOne(
-            {id: req.body.id},
+            {_id: req.body._id},
             { $set: {   blacklist: req.body.blacklist,
                         email: req.body.email,
                         firstName: req.body.firstName,
@@ -44,7 +45,8 @@ router.patch('/', async (req, res) => {
                         password: req.body.password,
                         phone: req.body.phone,
                         role: req.body.role,
-                        waiver : req.body.waiver } }
+                        waiver : req.body.waiver,
+                        bikeNumber: req.body.bikeNumber } }
             )
             res.json(updatedUser)
     }catch(err){
