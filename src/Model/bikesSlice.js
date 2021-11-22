@@ -20,11 +20,12 @@ const slice = createSlice({
                 email : email,
                 phone : phone
             };
+
             state.due[_id]=bike;
         },
         addBikeToRented : (state,action)=>{
             const {_id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
-            //add bike to state.due hashmap
+            //add bike to state.rented hashmap
             const bike = {
                 serialNumber : serialNumber,
                 model : model,
@@ -39,7 +40,7 @@ const slice = createSlice({
         },
         addBikeToAvailable : (state,action)=>{
             const {_id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
-            //add bike to state.due hashmap
+            //add bike to state.available hashmap
             const bike = {
                 serialNumber : serialNumber,
                 model : model,
@@ -51,6 +52,18 @@ const slice = createSlice({
             };
 
             state.available[_id]=bike;
+        },
+        deleteFromDue : (state,action)=>{
+            const {_id} = action.payload;
+            delete state.due[_id];
+        },
+        deleteFromRented : (state,action)=>{
+            const {_id} = action.payload;
+            delete state.due[_id];
+        },
+        deleteFromAvailable : (state,action)=>{
+            const {_id} = action.payload;
+            delete state.due[_id];
         },
         deleteBike : (state,action)=>{
             const {_id} = action.payload;
@@ -68,4 +81,4 @@ const slice = createSlice({
 })
 
 export default slice.reducer;
-export const {addBikeToDue,addBikeToRented,addBikeToAvailable,deleteBike} = slice.actions;
+export const {addBikeToDue,addBikeToRented,addBikeToAvailable,deleteFromDue,deleteFromAvailable,deleteFromRented,deleteBike} = slice.actions;

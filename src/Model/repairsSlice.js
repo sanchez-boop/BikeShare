@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const slice = createSlice({
     name : 'repairs',
-    initialState : [],
+    initialState : {},
     reducers : {
         addRepair : (state,action)=>{
             const {id,name,email,phone,role} = action.payload;
