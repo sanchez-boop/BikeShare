@@ -17,31 +17,7 @@ export default () => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    const bike = {
-      _id : 10,
-      serialNumber : 'serialNumber',
-      model : 'model',
-      dateRented : 'ateRented',
-      notes : 'notes',
-      name : 'name',
-      email : 'email',
-      phone : 1
-    };
-
-    dispatch(addBikeToDue(bike));
-    const bike2 = {
-      _id : 110,
-      serialNumber : 'serialNumber',
-      model : 'model',
-      dateRented : 'ateRented',
-      notes : 'notes',
-      name : 'name',
-      email : 'email',
-      phone : 1
-    };
-    dispatch(addBikeToDue(bike2));
-    dispatch(deleteBike({_id : 110}))
-
+    
   },[]);
 
   return (
