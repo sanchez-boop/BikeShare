@@ -6,16 +6,6 @@ import "./homeTab.css";
 import { useSelector } from "react-redux";
 
 export default () => {
-  //due table, search the due table, repair table, search repair table
-  //use css classes to style tables
-  //the following arr is an example
-  const arr = [
-    [1, "mark", "111-111-1111", "today"],
-    [2, "murk", "111-111-1111", "today"],
-    [2, "merk", "111-111-1111", "today"],
-    [4, "m0rk", "111-111-1111", "today"],
-  ];
-
   const {bikes,repairs} = useSelector(state=>state);
 
   const [isActive1, setActive1] = useState(false);
@@ -75,13 +65,13 @@ export default () => {
               </tr>
             </thead>
             <tbody>
-              {arr.map((user, key) => {
+              {Object.values(bikes.due).map((bike, key) => {
                 return (
                   <tr className="table-body gray-highlight">
-                    <td>{user[0]}</td>
-                    <td>{user[1]}</td>
-                    <td>{user[2]}</td>
-                    <td>{user[3]}</td>
+                    <td>{bike['serialNumber']}</td>
+                    <td>{'fix api'}</td>
+                    <td>{'fix api'}</td>
+                    <td>{bike['dateRented']}</td>
                   </tr>
                 );
               })}
