@@ -59,11 +59,11 @@ const slice = createSlice({
         },
         deleteFromRented : (state,action)=>{
             const {_id} = action.payload;
-            delete state.due[_id];
+            delete state.rented[_id];
         },
         deleteFromAvailable : (state,action)=>{
             const {_id} = action.payload;
-            delete state.due[_id];
+            delete state.available[_id];
         },
         deleteBike : (state,action)=>{
             const {_id} = action.payload;
