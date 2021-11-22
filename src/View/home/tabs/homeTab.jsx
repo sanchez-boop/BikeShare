@@ -28,9 +28,51 @@ export default () => {
 
         /*now edit status on back end & pull changes*/
         
+        /*change this code when we get a better api */
+        const credentials = {
+          id : 4545,
+          status : status
+        }
+
+        const curl = 'https://bikengold.herokuapp.com/repairs';
+        const options = {
+            method : 'PATCH',
+            headers : {
+                'Content-Type': 'application/json;charset=utf-8',
+                },
+            body : JSON.stringify(credentials)
+        };
+
+        const response = await fetch(curl,options)
+        .then(response=>{return response.json()})
+        .catch(error=>{alert(error)});
+
+        if(response.modifiedCount==1)
+        {
+          //here is where you would sync front end and back end
+          const aux = await getRepairs();
+          aux.map(repair=>{
+            dispatch(addRepair(repair))
+          })
+        }
+        else
+        {
+          alert('Upload failed. Server might not be up to date')
+        }
+        /*change above code when we get a better api */
       }
 
-      asyncDispatch()      
+      /*ONLY change status if dropdown option is true*/
+      if(repairs[_id].dropdown==true){
+        asyncDispatch()
+      }
+      else
+      {
+        dispatch(editStatus({
+          _id : _id,
+          status : status
+        }));
+      }
   }
 
   /* Toggle the outline for the first search bar */
@@ -133,15 +175,15 @@ export default () => {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(repairs).map((repairKey, key) => {
+              {Object.keys(repairs).map((_id, key) => {
                 return (
                   <tr className="table-body gray-highlight">
-                    <td>{repairs[repairKey]['name']}</td>
-                    <td>{repairs[repairKey]['phone']}</td>
-                    <td>{repairs[repairKey]['email']}</td>
-                    <td>{repairs[repairKey]['bikeModel']}</td>
+                    <td>{repairs[_id]['name']}</td>
+                    <td>{repairs[_id]['phone']}</td>
+                    <td>{repairs[_id]['email']}</td>
+                    <td>{repairs[_id]['bikeModel']}</td>
                     <td>
-                      {repairs[repairKey]['notes']}
+                      {repairs[_id]['notes']}
                     </td>
                     <td>
                       {
@@ -150,25 +192,25 @@ export default () => {
                           dropdown menu will show curr status first, 
                           then rest of statuses that arent curr status
                           */
-                        repairs[repairKey]['dropdown']
+                        repairs[_id]['dropdown']
                         ?
                         <>
-                          <button className="repair-status" onClick={()=>dropdownClicked(repairKey,repairs[repairKey]['status'])}>{repairs[repairKey]['status']}</button>
+                          <button className="repair-status" onClick={()=>dropdownClicked(_id,repairs[_id]['status'])}>{repairs[_id]['status']}</button>
                           {
-                            repairs[repairKey]['status']!='in shop' &&
-                            <button className="repair-status" onClick={()=>dropdownClicked(repairKey,'in shop')}>{'in shop'}</button>
+                            repairs[_id]['status']!='IN-SHOP' &&
+                            <button className="repair-status" onClick={()=>dropdownClicked(_id,'IN-SHOP')}>{'IN-SHOP'}</button>
                           }
                           {
-                            repairs[repairKey]['status']!='CUSTOMER NOTIFIED' &&
-                            <button className="repair-status" onClick={()=>dropdownClicked(repairKey,'CUSTOMER NOTIFIED')}>{'CUSTOMER NOTIFIED'}</button>
+                            repairs[_id]['status']!='CUSTOMER NOTIFIED' &&
+                            <button className="repair-status" onClick={()=>dropdownClicked(_id,'CUSTOMER NOTIFIED')}>{'CUSTOMER NOTIFIED'}</button>
                           }
                           {
-                            repairs[repairKey]['status']!='PICKED UP' &&
-                            <button className="repair-status" onClick={()=>dropdownClicked(repairKey,'PICKED UP')}>{'PICKED UP'}</button>
+                            repairs[_id]['status']!='PICKED UP' &&
+                            <button className="repair-status" onClick={()=>dropdownClicked(_id,'PICKED UP')}>{'PICKED UP'}</button>
                           }
                         </>
                         :
-                        <button className="repair-status" onClick={()=>dropdownClicked(repairKey,repairs[repairKey]['status'])}>{repairs[repairKey]['status']}</button>
+                        <button className="repair-status" onClick={()=>dropdownClicked(_id,repairs[_id]['status'])}>{repairs[_id]['status']}</button>
                       }
                     </td>
                   </tr>
