@@ -107,6 +107,7 @@ export default () => {
                 <th>EMAIL</th>
                 <th>BIKE MODEL</th>
                 <th>NOTES</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -117,7 +118,12 @@ export default () => {
                     <td>{repair['phone']}</td>
                     <td>{repair['email']}</td>
                     <td>{repair['bikeModel']}</td>
-                    <td>{repair['notes']}</td>
+                    <td>
+                      {repair['notes']}
+                    </td>
+                    <td>
+                      {<button className="repair-status" >{repair['status']}</button>}
+                    </td>
                   </tr>
                 );
               })}

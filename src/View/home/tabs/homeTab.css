@@ -105,3 +105,16 @@
 .gray-highlight:hover {
   background-color: #e4e4e4;
 }
+
+.repair-status{
+  background-color: #22C16B; 
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: left;
+}
