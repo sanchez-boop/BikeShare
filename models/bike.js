@@ -28,6 +28,18 @@ const bikeSchema = new mongoose.Schema({
     availability: {
         type:Boolean,
         required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
     }
 })
 
