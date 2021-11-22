@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { TextInput } from 'react-native-paper';
+import { TextInput } from "react-native-paper";
 import {
   StyleSheet,
   Text,
@@ -25,26 +25,20 @@ import colors from "../config/colors";
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
 */
 
-const DismissKeyboard = ({ children }) => (
-  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-    {children}
-  </TouchableWithoutFeedback>
-);
-
 export default function LoginScreen({ navigation }) {
   const [emailInput, changeEmailInput] = React.useState(null);
   const [passwordInput, changePasswordInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
 
   return (
-    <DismissKeyboard>
-      <KeyboardAwareScrollView
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={styles.testView}
-        showsVerticalScrollIndicator={false}
-        enableOnAndroid={true}
-        scrollEnabled={false}
-      >
+    <KeyboardAwareScrollView
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.testView}
+      showsVerticalScrollIndicator={false}
+      enableOnAndroid={true}
+      scrollEnabled={false}
+      keyboardShouldPersistTaps="handled"
+    >
       <View style={styles.mainView}>
         <View style={styles.topRectangle} />
         <Image source={logo} style={styles.logo} />
@@ -55,46 +49,38 @@ export default function LoginScreen({ navigation }) {
             style={styles.emailInput}
             onChangeText={changeEmailInput}
             value={emailInput}
-            mode='outlined'
+            mode="outlined"
             label="Knight's Email"
-            outlineColor='#b1b1b1'
-            activeOutlineColor='#000000'
+            activeOutlineColor="#000000"
           />
           <View>
-            <TextInput
-              style={styles.passwordinput}
-              secureTextEntry={isSecureEntry}
-              mode='outlined'
-              onChangeText={changePasswordInput}
-              value={passwordInput}
-              label="Password"
-              outlineColor='#b1b1b1'
-              activeOutlineColor='#000000'
-            />
-
-            <TouchableOpacity
-              onPress={() => {
-                changeIsSecureEntry((prev) => !prev);
-              }}
-              style={styles.passwordView}
-            >
-              <Image
-                source={eye}
-                style={{
-                  height: 22,
-                  width: 22,
-                  marginLeft: 1,
-                  marginTop: 1,
-                }}
+            <View style={styles.textAndEyeContainer}>
+              <TextInput
+                style={styles.passwordinput}
+                secureTextEntry={isSecureEntry}
+                mode="outlined"
+                onChangeText={changePasswordInput}
+                value={passwordInput}
+                label="Password"
+                outlineColor="#b1b1b1"
+                activeOutlineColor="#000000"
               />
+              <TouchableOpacity
+                onPress={() => {
+                  changeIsSecureEntry((prev) => !prev);
+                }}
+                style={styles.eyeContainer}
+              >
+                <Image source={eye} style={styles.eye} />
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              onPress={() => alert("Continue to password forget here!")}
+              style={{ alignSelf: "flex-start", marginTop: 8 }}
+            >
+              <Text style={styles.forgotPassword}>Forget your password?</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => alert("Continue to password forget here!")}
-            style={{ alignSelf: "flex-start", left: 46, top: -29 }}
-          >
-            <Text style={styles.forgotPassword}>Forget your password?</Text>
-          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("Main")}
             style={styles.signInButton}
@@ -132,8 +118,7 @@ export default function LoginScreen({ navigation }) {
         </View>
         <StatusBar style="auto" />
       </View>
-      </KeyboardAwareScrollView>
-    </DismissKeyboard>
+    </KeyboardAwareScrollView>
   );
 }
 //}
@@ -182,26 +167,38 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     top: 20,
     marginTop: 10,
+    marginBottom: 40,
   },
   emailInput: {
     width: 280,
     height: 55,
-    margin: 40,
     backgroundColor: "#F4FEFF",
+    lineHeight: 40,
+    marginBottom: 15,
+  },
+  textAndEyeContainer: {
+    alignItems: "center",
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    position: "relative",
   },
   passwordinput: {
     width: 280,
     height: 55,
-    margin: 40,
-    marginTop: -16,
+    backgroundColor: "#F4FEFF",
+    lineHeight: 40,
+  },
+  eyeContainer: {
+    position: "absolute",
+    height: "60%",
+    width: "12%",
+    top: 23,
+    right: 4,
     backgroundColor: "#F4FEFF",
   },
-  passwordView: {
-    height: 25,
-    width: 25,
-    marginLeft: 329,
-    marginTop: -80,
-    marginBottom: 50,
+  eye: {
+    height: 22,
+    width: 22,
   },
   forgotPassword: {
     fontSize: 13.3,
@@ -218,6 +215,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 3,
     justifyContent: "center",
+    marginTop: 20,
   },
   signInUpRedirect: {
     height: 30,
