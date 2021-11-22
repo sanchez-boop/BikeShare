@@ -9,15 +9,16 @@ const slice = createSlice({
         name : '',
         email : '',
         phone : '',
-        role : 'admin' //for testing
+        role : ''
     },
     reducers : {
         signIn : (state,action)=>{
             /*save the name and password from the state payload passed in. Pass in
             state, name, password into authenticator*/
-            const {id,name,email,phone,role} = action.payload;
+            const {_id,name,email,phone,role} = action.payload;
+            console.log(_id,name,email,phone,role)
             state.loggedIn = true;
-            state.id = id;
+            state.id = _id;
             state.name = name;
             state.email = email;
             state.phone = phone;

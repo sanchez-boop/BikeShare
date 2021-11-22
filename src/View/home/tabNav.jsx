@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
@@ -12,7 +12,6 @@ import BikesTab from "./tabs/bikesTab"
 import "./tabNav.css";
 
 export default () => {
-  //const [currTab, setCurrTab] = useState(<HomeTab />);
   const { acc } = useSelector((state) => state);
 
   return (
@@ -34,7 +33,7 @@ export default () => {
           <Tab eventKey="blacklist" title="Blacklist" tabClassName="tab">
             <BlacklistTab />
           </Tab>
-          {acc.role == "admin" && (
+          {acc.role == "Admin" && (
             <Tab
               eventKey="assign-roles"
               title="Users/Assign Roles"
@@ -43,7 +42,7 @@ export default () => {
               <AssignRolesTab />
             </Tab>
           )}
-          {acc.role == "admin" && (
+          {acc.role == "Admin" && (
             <Tab
               eventKey="bikes"
               title="Bikes"

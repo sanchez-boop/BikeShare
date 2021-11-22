@@ -6,9 +6,13 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import logo from "../../Images/bikengold.png";
 import { postLogin } from "../../Controller/postLogin";
+import { signIn } from "../../Model/accSlice";
+import { useDispatch } from "react-redux";
 
 export default () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const [formInput, setFormInput] = useState({
     /*set initial credentials to ""*/
     email: "",
@@ -39,9 +43,11 @@ export default () => {
       else, return login failed*/
       const account = await postLogin(formInput);
 
+      console.log(account)
       if (account.length > 0) {
-        /*On successful login, push the home screen
-        and update the redux state with account info*/
+        /*On successful login, update the redux state 
+        with account info and push the home screen*/
+        dispatch(signIn(account[0]))
         history.push("/homeScreen");
       } else {
         alert("login failed, try again");
