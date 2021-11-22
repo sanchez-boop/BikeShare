@@ -19,7 +19,11 @@ router.post('/', async (req, res) => {
         model: req.body.model,
         notes: req.body.notes,
         serialNumber: req.body.serialNumber,
-        customerID: req.body.customerID
+        customerID: req.body.customerID,
+        availability: req.body.availability,
+        email: req.body.email,
+        name: req.body.name,
+        phone: req.body.phone
     })
     try {
         const newBike = await bike.save()
@@ -38,7 +42,11 @@ router.patch('/', async (req, res) => {
                             model: req.body.model,
                             notes: req.body.notes,
                             serialNumber: req.body.serialNumber,
-                            customerID: req.body.customerID } }
+                            customerID: req.body.customerID,
+                            availability: req.body.availability,
+                            email: req.body.email,
+                            name: req.body.name,
+                            phone: req.body.phone } }
             )
             res.json(updatedBike)
     }catch(err){
