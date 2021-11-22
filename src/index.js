@@ -7,11 +7,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 //reducers
-import accReducer from './Model/accSlice'
+import accReducer from './Model/accSlice';
+import bikesReducer from './Model/bikesSlice';
+import customersSlice from './Model/customersSlice';
+import repairsSlice from './Model/repairsSlice';
 
 //Redux configuration
 const reducer = combineReducers({
-  acc : accReducer
+  acc : accReducer,
+  bikes : bikesReducer,
+  customers : customersSlice,
+  repairs : repairsSlice
 });
 
 const store = configureStore({

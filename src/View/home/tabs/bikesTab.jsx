@@ -49,7 +49,7 @@ export default ()=>{
                                 {user[5]}
                                 {userClicked[key] && 
                                     <>
-                                        <button className="return" onClick={confirmDelete}>Delete</button>
+                                        <button className="return" onClick={()=>confirmDelete()}>Delete</button>
                                     </>
                                 }
                             </td>
