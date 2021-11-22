@@ -95,7 +95,12 @@ router.post('/login', async (req, res, next) =>
 router.post('/search', async (req, res, next) =>
 {
 try{
-    const searchedUsers = await User.find({$or:[{firstName:{$regex: req.body.key, $options: 'i'}},{lastName:{$regex: req.body.key, $options: 'i'}}]})
+    const searchedUsers = await User.find({$or:[
+    {firstName:{$regex: req.body.key, $options: 'i'}},
+    {lastName:{$regex: req.body.key, $options: 'i'}},
+    {phone:{$regex: req.body.key, $options: 'i'}},
+    {email:{$regex: req.body.key, $options: 'i'}}
+    ]})
     res.json(searchedUsers)
 }catch(err){
     res.status(400).json({message: err.message })
