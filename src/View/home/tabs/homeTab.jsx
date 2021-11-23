@@ -6,6 +6,7 @@ import "./homeTab.css";
 import { useDispatch, useSelector } from "react-redux";
 import { editStatus , addRepair } from "../../../Model/repairsSlice";
 import { getRepairs } from "../../../Controller/getRepairs"
+import { patchStatus } from "../../../Controller/patchStatus";
 
 export default () => {
   const {bikes,repairs} = useSelector(state=>state);
@@ -27,39 +28,24 @@ export default () => {
         }));
 
         /*now edit status on back end & pull changes*/
-        
-        /*change this code when we get a better api */
         const credentials = {
-          id : 4545,
+          _id : _id,
           status : status
         }
 
-        const curl = 'https://bikengold.herokuapp.com/repairs';
-        const options = {
-            method : 'PATCH',
-            headers : {
-                'Content-Type': 'application/json;charset=utf-8',
-                },
-            body : JSON.stringify(credentials)
-        };
-
-        const response = await fetch(curl,options)
-        .then(response=>{return response.json()})
-        .catch(error=>{alert(error)});
-
-        if(response.acknowledged==true)
+        const response = await patchStatus(credentials);
+        if(response!=null)
         {
           //here is where you would sync front end and back end
-          const aux = await getRepairs();
-          aux.map(repair=>{
-            dispatch(addRepair(repair))
-          })
+          dispatch(editStatus({
+            _id : _id,
+            status : response.status
+          }));
         }
         else
         {
           alert('test: Upload failed. Server might not be up to date')
         }
-        /*change above code when we get a better api */
       }
 
       asyncDispatch()
