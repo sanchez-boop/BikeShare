@@ -45,7 +45,7 @@ router.patch('/', async (req, res) => {
                                 name: req.body.name,
                                 phone:req.body.phone } }
             )
-            res.json(req)
+            res.json(updatedRepair)
     }catch(err){
         res.status(400).json({message: err.message})
     }
