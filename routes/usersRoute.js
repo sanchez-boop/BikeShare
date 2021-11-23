@@ -48,7 +48,7 @@ router.patch('/', async (req, res) => {
                         waiver : req.body.waiver,
                         bikeNumber: req.body.bikeNumber } }
             )
-            res.json(updatedUser)
+            res.json(req)
     }catch(err){
         res.status(400).json({message: err.message})
     }
