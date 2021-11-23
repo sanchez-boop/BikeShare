@@ -57,7 +57,7 @@ export default () => {
         }
         else
         {
-          alert('Upload failed. Server might not be up to date')
+          alert('test: Upload failed. Server might not be up to date')
         }
         /*change above code when we get a better api */
       }
