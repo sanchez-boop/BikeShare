@@ -13,12 +13,7 @@ import "./tabNav.css";
 import { addBikeToDue, deleteBike } from "../../Model/bikesSlice";
 
 export default () => {
-  const { acc,bikes } = useSelector((state) => state);
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-    
-  },[]);
+  const { acc } = useSelector((state) => state);
 
   return (
     <>
