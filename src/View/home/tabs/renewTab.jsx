@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import { Table } from 'react-bootstrap';
+import { useDispatch, useSelector } from "react-redux";
+import { toggleRenew } from '../../../Model/bikesSlice';
 import 'bootstrap/dist/css/bootstrap.css';
 import './renewTab.css'
 
 export default ()=>{
-    //create state of false arrays. toggle them to show return renew
-    const arr = [[1,'mark','111-111-1111','today','bike','bike'],[1,'mdrk','111-111-1111','today','bike','bike'],[1,'mfrk','111-111-1111','today','bike','bike']];
-    const [userClicked,setUserClicked] = useState(arr.map(()=>{return false}));
+    const {bikes} = useSelector(state=>state);
+    const dispatch = useDispatch();
 
-    function toggleRow(idx){
-        userClicked[idx]= !userClicked[idx];
-        setUserClicked([...userClicked]);
+    function toggleRow(_id){
+        dispatch(toggleRenew({_id:_id}))
     }
 
     function confirmRenew(){
@@ -43,26 +43,45 @@ export default ()=>{
                 </thead>
                 <tbody>
                 {
-                    //map thru arr & toggle btn based on row idx (key)
-                    arr.map((user,key)=>{
-                        return(
-                        <tr onClick={()=>{toggleRow(key)}}>
-                            <td>{user[0]}</td>
-                            <td>{user[1]}</td>
-                            <td>{user[2]}</td>
-                            <td>{user[3]}</td>
-                            <td>{user[4]}</td>
-                            <td>
-                                {user[5]}
-                                {userClicked[key] && 
-                                    <>
-                                        <button className="return" onClick={confirmReturn}>Return</button>
-                                        <button className="renew" onClick={confirmRenew}>Renew</button>
-                                    </>
-                                }
-                            </td>
-                        </tr>
-                        )
+                    Object.keys(bikes.due).map((_id,key)=>{
+                        return (
+                            <tr className="table-body gray-highlight" onClick={()=>toggleRow(_id)}>
+                                <td>{bikes.due[_id]['name']}</td>
+                                <td>{bikes.due[_id]['phone']}</td>
+                                <td>{bikes.due[_id]['email']}</td>
+                                <td>{bikes.due[_id]['id']}</td>
+                                <td>
+                                    {bikes.due[_id]['serialNumber']}
+                                    {bikes.due[_id]['renewClicked'] && 
+                                        <>
+                                            <button className="return" onClick={()=>confirmReturn()}>Return</button>
+                                            <button className="renew" onClick={()=>confirmRenew()}>Renew</button>
+                                        </>
+                                    }
+                                </td>
+                            </tr>
+                        );
+                    })
+                }
+                {
+                    Object.keys(bikes.rented).map((_id,key)=>{
+                        return (
+                            <tr className="table-body gray-highlight" onClick={()=>toggleRow(_id)}>
+                                <td>{bikes.rented[_id]['name']}</td>
+                                <td>{bikes.rented[_id]['phone']}</td>
+                                <td>{bikes.rented[_id]['email']}</td>
+                                <td>{bikes.rented[_id]['id']}</td>
+                                <td>
+                                    {bikes.rented[_id]['serialNumber']}
+                                    {bikes.rented[_id]['renewClicked'] && 
+                                        <>
+                                            <button className="return" onClick={()=>confirmReturn()}>Return</button>
+                                            <button className="renew" onClick={()=>confirmRenew()}>Renew</button>
+                                        </>
+                                    }
+                                </td>
+                            </tr>
+                        );
                     })
                 }
                 </tbody>

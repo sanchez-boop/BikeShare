@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDelete } from '../../../Model/bikesSlice';
@@ -6,14 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './bikesTab.css'
 
 export default ()=>{
-    const {bikes,repairs} = useSelector(state=>state);
+    const {bikes} = useSelector(state=>state);
     const dispatch = useDispatch();
-
-    //create state of false arrays. toggle them to show return renew
-    const arr = [[1,'mark','111-111-1111','today','bike','bike'],[1,'mdrk','111-111-1111','today','bike','bike'],[1,'mfrk','111-111-1111','today','bike','bike']];
-    const [userClicked,setUserClicked] = useState([]);
-
-
 
     function toggleRow(_id){
         dispatch(toggleDelete({_id:_id}));
