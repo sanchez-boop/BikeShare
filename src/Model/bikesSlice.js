@@ -9,9 +9,10 @@ const slice = createSlice({
     },
     reducers : {
         addBikeToDue : (state,action)=>{
-            const {_id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
+            const {_id,id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
             //add bike to state.due hashmap
             const bike = {
+                id : id,
                 serialNumber : serialNumber,
                 model : model,
                 dateRented : dateRented,

@@ -14,7 +14,6 @@ const slice = createSlice({
                 bikeModel : bikeModel,
                 notes : notes,
                 status : status,
-                dropdown : false
             };
 
             state[_id]=customer;
@@ -29,13 +28,7 @@ const slice = createSlice({
               was false, there should be no status
               change */
             const{_id,status} = action.payload;
-            
-            if(state[_id].dropdown==true)
-            {
-                state[_id].status = status;
-            }
-
-            state[_id].dropdown = !state[_id].dropdown;
+            state[_id].status = status;
         }
     }
 })

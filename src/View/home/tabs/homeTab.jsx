@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Table, DropdownButton, Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./homeTab.css";
@@ -62,17 +62,7 @@ export default () => {
         /*change above code when we get a better api */
       }
 
-      /*ONLY change status if dropdown option is true*/
-      if(repairs[_id].dropdown==true){
-        asyncDispatch()
-      }
-      else
-      {
-        dispatch(editStatus({
-          _id : _id,
-          status : status
-        }));
-      }
+      asyncDispatch()
   }
 
   /* Toggle the outline for the first search bar */
@@ -124,7 +114,9 @@ export default () => {
               <tr>
                 <th>BIKE NUMBER</th>
                 <th>NAME</th>
+                <th>EMAIL</th>
                 <th>PHONE NUMBER</th>
+                <th>NOTES</th>
                 <th>DATE CHECKED OUT</th>
               </tr>
             </thead>
@@ -132,9 +124,11 @@ export default () => {
               {Object.values(bikes.due).map((bike, key) => {
                 return (
                   <tr className="table-body gray-highlight">
-                    <td>{bike['serialNumber']}</td>
-                    <td>{'fix api'}</td>
-                    <td>{'fix api'}</td>
+                    <td>{bike['id']}</td>
+                    <td>{bike['name']}</td>
+                    <td>{bike['email']}</td>
+                    <td>{bike['phone']}</td>
+                    <td>{bike['notes']}</td>
                     <td>{bike['dateRented']}</td>
                   </tr>
                 );
@@ -186,32 +180,11 @@ export default () => {
                       {repairs[_id]['notes']}
                     </td>
                     <td>
-                      {
-                        /*the dropdown will be done on redux since
-                          state management will be cleaner. The 
-                          dropdown menu will show curr status first, 
-                          then rest of statuses that arent curr status
-                          */
-                        repairs[_id]['dropdown']
-                        ?
-                        <>
-                          <button className="repair-status" onClick={()=>dropdownClicked(_id,repairs[_id]['status'])}>{repairs[_id]['status']}</button>
-                          {
-                            repairs[_id]['status']!='IN-SHOP' &&
-                            <button className="repair-status" onClick={()=>dropdownClicked(_id,'IN-SHOP')}>{'IN-SHOP'}</button>
-                          }
-                          {
-                            repairs[_id]['status']!='CUSTOMER NOTIFIED' &&
-                            <button className="repair-status" onClick={()=>dropdownClicked(_id,'CUSTOMER NOTIFIED')}>{'CUSTOMER NOTIFIED'}</button>
-                          }
-                          {
-                            repairs[_id]['status']!='PICKED UP' &&
-                            <button className="repair-status" onClick={()=>dropdownClicked(_id,'PICKED UP')}>{'PICKED UP'}</button>
-                          }
-                        </>
-                        :
-                        <button className="repair-status" onClick={()=>dropdownClicked(_id,repairs[_id]['status'])}>{repairs[_id]['status']}</button>
-                      }
+                      <DropdownButton id="dropdown-basic-button" title={repairs[_id]['status']}>
+                        <Dropdown.Item href="#/action-1" onClick={()=>dropdownClicked(_id,'IN-SHOP')}>IN-SHOP</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" onClick={()=>dropdownClicked(_id,'CUSTOMER NOTIFIED')}>CUSTOMER NOTIFIED</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3" onClick={()=>dropdownClicked(_id,'PICKED UP')}>PICKED UP</Dropdown.Item>
+                      </DropdownButton>
                     </td>
                   </tr>
                 );
