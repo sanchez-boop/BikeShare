@@ -25,9 +25,10 @@ const slice = createSlice({
             state.due[_id]=bike;
         },
         addBikeToRented : (state,action)=>{
-            const {_id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
+            const {_id,id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
             //add bike to state.rented hashmap
             const bike = {
+                id : id,
                 serialNumber : serialNumber,
                 model : model,
                 dateRented : dateRented,
@@ -40,9 +41,10 @@ const slice = createSlice({
             state.rented[_id]=bike;
         },
         addBikeToAvailable : (state,action)=>{
-            const {_id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
+            const {_id,id,serialNumber,model,dateRented,notes,name,email,phone} = action.payload;
             //add bike to state.available hashmap
             const bike = {
+                id : id,
                 serialNumber : serialNumber,
                 model : model,
                 dateRented : dateRented,

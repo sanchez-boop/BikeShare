@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./rentOutTab.css";
 
@@ -15,6 +16,9 @@ export default () => {
     [2, "Cruiser", "8641311791"],
     [45, "Cruiser", "6478731351"],
   ];
+
+  const {customers,bikes} = useSelector(state=>state);
+  const dispatch = useDispatch();
 
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
@@ -127,23 +131,15 @@ export default () => {
               </tr>
             </thead>
             <tbody>
-              {ar.map((user, key) => {
-                return (
-                  <tr
-                    className={
-                      isActive4
-                        ? "table-body yellow-highlight-active"
-                        : "table-body gray-highlight yellow-highlight"
-                    }
-                    onClick={toggleClass4}
-                    onClick={unToggleClass4}
-                  >
-                    <td>{user[0]}</td>
-                    <td>{user[1]}</td>
-                    <td>{user[2]}</td>
-                  </tr>
-                );
-              })}
+              {Object.values(bikes.available).map((bike, key) => {
+                  return (
+                    <tr className="table-body gray-highlight">
+                      <td>{bike['id']}</td>
+                      <td>{bike['model']}</td>
+                      <td>{bike['serialNumber']}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </Table>
         </div>
