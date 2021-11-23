@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 router.patch('/', async (req, res) => {
     try{
         const updatedUser = await User.updateOne(
-            {id: req.body.id},
+            {_id: req.body._id},
             { $set: {   blacklist: req.body.blacklist,
                         email: req.body.email,
                         firstName: req.body.firstName,
@@ -48,7 +48,8 @@ router.patch('/', async (req, res) => {
                         waiver : req.body.waiver,
                         bikeNumber: req.body.bikeNumber } }
             )
-            res.json(req)
+            const retVal = await User.findOne({_id:req.body._id})
+            res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
     }
