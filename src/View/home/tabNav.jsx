@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import HomeTab from "./tabs/homeTab";
@@ -10,7 +10,6 @@ import BlacklistTab from "./tabs/blacklistTab";
 import AssignRolesTab from "./tabs/assignRolesTab";
 import BikesTab from "./tabs/bikesTab"
 import "./tabNav.css";
-import { addBikeToDue, deleteBike } from "../../Model/bikesSlice";
 
 export default () => {
   const { acc } = useSelector((state) => state);
