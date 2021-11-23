@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
 router.patch('/', async (req, res) => {
     try{
         const updatedRepair = await Repair.updateOne(
-            {id: req.body.id},
+            {_id: req.body._id},
             { $set: {           bikeModel: req.body.bikeModel,
                                 customerID: req.body.customerID,
                                 id: req.body.id,
@@ -45,7 +45,7 @@ router.patch('/', async (req, res) => {
                                 name: req.body.name,
                                 phone:req.body.phone } }
             )
-            const retVal = await Repair.findOne({id:req.body.id})
+            const retVal = await Repair.findOne({_id:req.body._id})
             res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
