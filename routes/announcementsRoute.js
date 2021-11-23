@@ -36,7 +36,8 @@ router.patch('/', async (req, res) => {
                             date: req.body.date,
                             note: req.body.note } }
             )
-            res.json(updatedAnnouncement)
+            const retVal = await Announcement.findOne({id:req.body.id})
+            res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
     }
