@@ -114,8 +114,8 @@ export default () => {
               <tr>
                 <th>BIKE NUMBER</th>
                 <th>NAME</th>
-                <th>EMAIL</th>
                 <th>PHONE NUMBER</th>
+                <th>EMAIL</th>    
                 <th>NOTES</th>
                 <th>DATE CHECKED OUT</th>
               </tr>
@@ -126,8 +126,8 @@ export default () => {
                   <tr className="table-body gray-highlight">
                     <td>{bike['id']}</td>
                     <td>{bike['name']}</td>
-                    <td>{bike['email']}</td>
                     <td>{bike['phone']}</td>
+                    <td>{bike['email']}</td>               
                     <td>{bike['notes']}</td>
                     <td>{bike['dateRented']}</td>
                   </tr>
