@@ -48,7 +48,8 @@ router.patch('/', async (req, res) => {
                             name: req.body.name,
                             phone: req.body.phone } }
             )
-            res.json(req)
+            const retVal = await Bike.findOne({id:req.body.id})
+            res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
     }
