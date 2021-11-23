@@ -5,7 +5,7 @@ const User = require('../models/user')
 //getting all users
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find()
+        const users = await User.find().limit(50)
         res.json(users)
     } catch (err){
         res.satus(500).json({ message : err.message })
@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
         blacklist: req.body.blacklist,
         email: req.body.email,
         firstName: req.body.firstName,
-        id: req.body.id,
         lastName: req.body.lastName,
         password: req.body.password,
         phone: req.body.phone,
@@ -57,7 +56,7 @@ router.patch('/', async (req, res) => {
 //deleteing a user
 router.delete('/', async (req, res) => {
     try{
-    const deletedUser = await User.deleteOne({id: req.body.id})
+    const deletedUser = await User.deleteOne({_id: req.body._id})
     res.json(deletedUser)
     }catch(err){
         res.status(400).json({message: err.message })
@@ -84,12 +83,12 @@ router.post('/login', async (req, res, next) =>
     
       if( results.length > 0 )
       {
-        id = results[0].id;
+        _id = results[0]._id;
         fn = results[0].firstName;
         ln = results[0].lastName;
       }
     
-      var ret = { id:id, firstName:fn, lastName:ln, error:''};
+      var ret = { _id: _id, firstName:fn, lastName:ln, error:''};
       res.status(200).json(results);
     });
 //searching users 
