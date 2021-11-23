@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
+import { toggleDelete } from '../../../Model/bikesSlice';
 import 'bootstrap/dist/css/bootstrap.css';
 import './bikesTab.css'
 
@@ -10,16 +11,17 @@ export default ()=>{
 
     //create state of false arrays. toggle them to show return renew
     const arr = [[1,'mark','111-111-1111','today','bike','bike'],[1,'mdrk','111-111-1111','today','bike','bike'],[1,'mfrk','111-111-1111','today','bike','bike']];
-    const [userClicked,setUserClicked] = useState(arr.map(()=>{return false}));
+    const [userClicked,setUserClicked] = useState([]);
 
-    function toggleRow(idx){
-        userClicked[idx]= !userClicked[idx];
-        setUserClicked([...userClicked]);
+
+
+    function toggleRow(_id){
+        dispatch(toggleDelete({_id:_id}));
     }
 
     function confirmDelete(){
         if (window.confirm("Are you sure you want to delete?")) {
-            //post return
+            //post delete
             alert('Deleted');
         }          
     }
@@ -31,48 +33,32 @@ export default ()=>{
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>NAME</th>
-                        <th>PHONE</th>
-                        <th>EMAIL</th>
                         <th>BIKE NUMBER</th>
+                        <th>STYLE OF BIKE</th>
                         <th>SERIAL NUMBER</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
-                    //map thru arr & toggle btn based on row idx (key)
-                    // arr.map((user,key)=>{
-                    //     return(
-                    //     <tr onClick={()=>{toggleRow(key)}}>
-                    //         <td>{user[0]}</td>
-                    //         <td>{user[1]}</td>
-                    //         <td>{user[2]}</td>
-                    //         <td>{user[3]}</td>
-                    //         <td>{user[4]}</td>
-                    //         <td>
-                    //             {user[5]}
-                    //             {userClicked[key] && 
-                    //                 <>
-                    //                     <button className="return" onClick={()=>confirmDelete()}>Delete</button>
-                    //                 </>
-                    //             }
-                    //         </td>
-                    //     </tr>
-                    //     )
-                    // })
-                    // Object.values(bikes).map((bikeObjects, key) => {
-                    //     Object.values(bikeObjects).map(())
-                    //     // return (
-                    //     //   <tr className="table-body gray-highlight">
-                    //     //     <td>{bike['id']}</td>
-                    //     //     <td>{bike['name']}</td>
-                    //     //     <td>{bike['phone']}</td>
-                    //     //     <td>{bike['email']}</td>               
-                    //     //     <td>{bike['notes']}</td>
-                    //     //     <td>{bike['dateRented']}</td>
-                    //     //   </tr>
-                    //     // );
-                    //   })
+                    /*return due, rented and available bikes */
+                    Object.values(bikes).map((bikeObjects, key) => {
+                        return Object.keys(bikeObjects).map((_id,key)=>{
+                            return (
+                                <tr className="table-body gray-highlight" onClick={()=>toggleRow(_id)}>
+                                    <td>{bikeObjects[_id]['id']}</td>
+                                    <td>{bikeObjects[_id]['model']}</td>
+                                    <td>
+                                        {bikeObjects[_id]['serialNumber']}
+                                        {bikeObjects[_id]['deleteClicked'] && 
+                                            <>
+                                                <button className="return" onClick={()=>confirmDelete()}>Delete</button>
+                                            </>
+                                        }
+                                    </td>
+                                </tr>
+                            );
+                        })
+                    })
                 }
                 </tbody>
             </Table> 

@@ -19,7 +19,9 @@ const slice = createSlice({
                 notes : notes,
                 name : name,
                 email : email,
-                phone : phone
+                phone : phone,
+                renewClicked : false,
+                deleteClicked : false
             };
 
             state.due[_id]=bike;
@@ -35,7 +37,9 @@ const slice = createSlice({
                 notes : notes,
                 name : name,
                 email : email,
-                phone : phone
+                phone : phone,
+                renewClicked : false,
+                deleteClicked : false
             };
 
             state.rented[_id]=bike;
@@ -51,7 +55,9 @@ const slice = createSlice({
                 notes : notes,
                 name : name,
                 email : email,
-                phone : phone
+                phone : phone,
+                renewClicked : false,
+                deleteClicked : false
             };
 
             state.available[_id]=bike;
@@ -70,12 +76,36 @@ const slice = createSlice({
         },
         deleteBike : (state,action)=>{
             const {_id} = action.payload;
-            /* search through entire bike state and 
-               delete when id is found*/
+            /* search through the three bike states 
+               and delete when id is found*/
             
             Object.keys(state).map(bikeState=>{
                 if(_id in state[bikeState]){
                     delete state[bikeState][_id];
+                    return;
+                }
+            });
+        },
+        toggleRenew : (state,action)=>{
+            const {_id} = action.payload
+            /* search through the three bike states 
+               and toggle when id is found*/
+
+            Object.keys(state).map(bikeState=>{
+                if(_id in state[bikeState]){
+                    state[bikeState][_id].renewClicked=!state[bikeState][_id].renewClicked;
+                    return;
+                }
+            });
+        },
+        toggleDelete : (state,action)=>{
+            const {_id} = action.payload
+            /* search through the three bike states 
+               and toggle when id is found*/
+
+               Object.keys(state).map(bikeState=>{
+                if(_id in state[bikeState]){
+                    state[bikeState][_id].deleteClicked=!state[bikeState][_id].deleteClicked;
                     return;
                 }
             });
@@ -84,4 +114,4 @@ const slice = createSlice({
 })
 
 export default slice.reducer;
-export const {addBikeToDue,addBikeToRented,addBikeToAvailable,deleteFromDue,deleteFromAvailable,deleteFromRented,deleteBike} = slice.actions;
+export const {addBikeToDue,addBikeToRented,addBikeToAvailable,deleteFromDue,deleteFromAvailable,deleteFromRented,deleteBike,toggleRenew,toggleDelete} = slice.actions;
