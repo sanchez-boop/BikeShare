@@ -47,7 +47,7 @@ export default () => {
         .then(response=>{return response.json()})
         .catch(error=>{alert(error)});
 
-        if(response.modifiedCount==1)
+        if(response.acknowledged==true)
         {
           //here is where you would sync front end and back end
           const aux = await getRepairs();
