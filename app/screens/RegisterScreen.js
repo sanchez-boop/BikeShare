@@ -139,7 +139,7 @@ export default function RegisterScreen({ navigation }) {
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
-              Sign Up
+              Sign up
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Sign-In")}>
@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
     width: "10%",
     top: 23,
     right: 4,
+    zIndex: 300,
     backgroundColor: "#F4FEFF",
   },
   eye: {

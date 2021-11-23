@@ -17,73 +17,61 @@ export default function BikeAvailability(props) {
     {
       id: 2,
       style: "Single-Speed",
-      serial: "wvb80720617",
       available: true,
     },
     {
       id: 3,
       style: "Single-Speed",
-      serial: "dkgr20211",
       available: true,
     },
     {
       id: 6,
       style: "Single-Speed",
-      serial: "jkt20617",
       available: true,
     },
     {
       id: 24,
       style: "Single-Speed",
-      serial: "gkjs20617",
       available: true,
     },
     {
       id: 32,
       style: "Single-Speed",
-      serial: "fsd20617",
       available: true,
     },
     {
       id: 33,
-      style: "Single-Speed",
-      serial: "hge0720617",
+      style: "Cruiser",
       available: true,
     },
     {
       id: 1,
-      style: "Single-Speed",
-      serial: "gjd20617",
+      style: "Cruiser",
       available: false,
     },
     {
       id: 4,
       style: "Single-Speed",
-      serial: "hge0720617",
       available: false,
     },
     {
       id: 7,
       style: "Single-Speed",
-      serial: "hge0720617",
       available: false,
     },
     {
       id: 10,
       style: "Single-Speed",
-      serial: "hge0720617",
       available: false,
     },
     {
       id: 21,
-      style: "Single-Speed",
-      serial: "hge0720617",
+      style: "Cruiser",
       available: false,
     },
     {
       id: 23,
       style: "Single-Speed",
-      serial: "hge0720617",
       available: false,
     },
   ];
@@ -99,20 +87,16 @@ export default function BikeAvailability(props) {
         textColor={{ color }}
         id={item.id}
         style={item.style}
-        serial={item.serial}
       />
     );
   };
 
-  const Item = ({ id, style, serial, backgroundColor, textColor }) => (
+  const Item = ({ id, style, backgroundColor, textColor }) => (
     <View style={[styles.item, backgroundColor]}>
       <View style={styles.itemContainer}>
         <Text style={[textColor, styles.id, styles.itemText]}>{id}</Text>
         <Text style={[textColor, styles.styleOfBike, styles.itemText]}>
           {style}
-        </Text>
-        <Text style={[textColor, styles.serialNumber, styles.itemText]}>
-          {serial}
         </Text>
       </View>
     </View>
@@ -141,7 +125,6 @@ export default function BikeAvailability(props) {
             <Text style={[styles.itemHeaderText, styles.headerStyleOfBike]}>
               STYLE OF BIKE
             </Text>
-            <Text style={styles.itemHeaderText}>SERIAL NUMBER</Text>
           </View>
         </View>
         <View
@@ -223,15 +206,12 @@ const styles = StyleSheet.create({
   },
   headerTextStyle: {
     color: "#000000",
-    paddingLeft: 14,
-    paddingRight: 14,
+    paddingLeft: 60,
+    paddingRight: 60,
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  headerStyleOfBike: {
-    position: "absolute",
-    left: "36.2%",
-  },
+  headerStyleOfBike: {},
   itemHeaderText: {
     fontFamily: "Inter_600SemiBold",
     fontSize: 13,
@@ -248,6 +228,8 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingLeft: 50,
+    paddingRight: 50,
   },
   itemText: {
     fontSize: 12.5,
@@ -255,8 +237,6 @@ const styles = StyleSheet.create({
   id: { fontFamily: "Inter_500Medium" },
   styleOfBike: {
     fontFamily: "Inter_500Medium",
-    position: "absolute",
-    left: "26.7%",
   },
   serialNumber: { fontFamily: "Inter_500Medium" },
 });

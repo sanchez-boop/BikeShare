@@ -51,6 +51,7 @@ export default function LoginScreen({ navigation }) {
             value={emailInput}
             mode="outlined"
             label="Knight's Email"
+            outlineColor="#b1b1b1"
             activeOutlineColor="#000000"
           />
           <View>
@@ -92,7 +93,7 @@ export default function LoginScreen({ navigation }) {
                 textAlign: "center",
               }}
             >
-              Sign In
+              Sign in
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Sign-Up")}>
@@ -195,6 +196,7 @@ const styles = StyleSheet.create({
     top: 23,
     right: 4,
     backgroundColor: "#F4FEFF",
+    zIndex: 300,
   },
   eye: {
     height: 22,
