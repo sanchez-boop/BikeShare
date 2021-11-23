@@ -11,11 +11,6 @@ export default () => {
     ["mdrk", "111-111-1111", "mdrk@gmail.com", "Yes"],
     ["madd", "111-111-1111", "youmadd@mail.com", "No"],
   ];
-  const ar = [
-    [1, "Single-Speed", "1111111111"],
-    [2, "Cruiser", "8641311791"],
-    [45, "Cruiser", "6478731351"],
-  ];
 
   const {customers,bikes} = useSelector(state=>state);
   const dispatch = useDispatch();
