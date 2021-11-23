@@ -176,9 +176,7 @@ export default () => {
                     <td>{repairs[_id]['phone']}</td>
                     <td>{repairs[_id]['email']}</td>
                     <td>{repairs[_id]['bikeModel']}</td>
-                    <td>
-                      {repairs[_id]['notes']}
-                    </td>
+                    <td>{repairs[_id]['notes']}</td>
                     <td>
                       <DropdownButton id="dropdown-basic-button" title={repairs[_id]['status']}>
                         <Dropdown.Item href="#/action-1" onClick={()=>dropdownClicked(_id,'IN-SHOP')}>IN-SHOP</Dropdown.Item>
