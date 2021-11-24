@@ -9,6 +9,9 @@ import "./rentOutTab.css";
 export default () => {
   const {customers,bikes} = useSelector(state=>state);
   const [searchResults,setSearchResults] = useState([]);
+  const [isActive1, setActive1] = useState(false);
+  const [isActive2, setActive2] = useState(false);
+  const [isActive4, setActive4] = useState(false);
 
   function searchCustomers(e){
     /*search only if query not empty*/
@@ -25,10 +28,6 @@ export default () => {
       setSearchResults(searchResults=>{return []});
     }
   }
-
-  const [isActive1, setActive1] = useState(false);
-  const [isActive2, setActive2] = useState(false);
-  const [isActive4, setActive4] = useState(false);
 
   /* Toggle the outline for the first search bar */
   const toggleClass1 = () => {
