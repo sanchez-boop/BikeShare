@@ -18,8 +18,8 @@ export default ()=>{
         if (window.confirm("Are you sure you want to blacklist?")) {
             /*First, swap from unblack to black on 
               front end, then patch changes to back end. 
-              sync the app by checking if object on 
-              front end is same as object on back end */
+              sync the app by adding returned object to 
+              blacklisted */
               async function asyncDispatch(){
                 dispatch(swapToBlacklisted({_id:_id}));
                 

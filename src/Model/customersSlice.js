@@ -18,6 +18,7 @@ const slice = createSlice({
                 waiver : waiver,
                 role : role,
                 repairClicked : false,
+                assignClicked : false,
                 blackTabClicked : false
             };
 
@@ -28,15 +29,20 @@ const slice = createSlice({
             //add customer to state.blacklisted hashmap
             const customer = {
                 name : name,
-                email : email,
                 phone : phone,
+                email : email,
                 waiver : waiver,
                 role : role,
                 repairClicked : false,
+                assignClicked : false,
                 blackTabClicked : false
             };
 
             state.blacklisted[_id]=customer;
+        },
+        editRole : (state,action)=>{
+            const {_id,role} = action.payload;
+            state.unblacklisted[_id].role = role;
         },
         swapToBlacklisted : (state,action)=>{
             const {_id} = action.payload;
@@ -51,7 +57,7 @@ const slice = createSlice({
         toggleRepair : (state,action)=>{
             const {_id} = action.payload;
             /* search through black/unblack and
-               and toggle when id is found*/
+               and toggle when _id is found*/
             
             Object.keys(state).map(option=>{
                 if(_id in state[option]){
@@ -60,10 +66,22 @@ const slice = createSlice({
                 }
             });
         },
+        toggleAssign : (state,action)=>{
+            const {_id} = action.payload;
+            /* search through black/unblack and
+               and toggle when _id is found*/
+            
+            Object.keys(state).map(option=>{
+                if(_id in state[option]){
+                    state[option][_id]['assignClicked']=!state[option][_id]['assignClicked'];
+                    return;
+                }
+            });
+        },
         toggleBlackTab : (state,action)=>{
             const {_id} = action.payload;
             /* search through black/unblack and
-               and toggle when id is found*/
+               and toggle when _id is found*/
             
             Object.keys(state).map(option=>{
                 if(_id in state[option]){
@@ -76,4 +94,4 @@ const slice = createSlice({
 })
 
 export default slice.reducer;
-export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,swapToBlacklisted,swapToUnblacklisted,toggleRepair,toggleBlackTab} = slice.actions;
+export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,editRole,swapToBlacklisted,swapToUnblacklisted,toggleRepair,toggleAssign,toggleBlackTab} = slice.actions;
