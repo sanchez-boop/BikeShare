@@ -9,7 +9,7 @@ const slice = createSlice({
         name : '',
         email : '',
         phone : '',
-        role : 'Admin' //for testing
+        role : 'admin' //for testing
     },
     reducers : {
         signIn : (state,action)=>{

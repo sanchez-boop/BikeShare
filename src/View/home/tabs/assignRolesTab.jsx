@@ -6,7 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleAssign,editRole,addCustomerToUnblacklisted } from '../../../Model/customersSlice';
 import { patchRole } from '../../../Controller/patchRole';
-import { postUserSearch } from '../../../Controller/postUserSearch';
+import { postCustomerSearch } from '../../../Controller/postCustomerSearch';
 
 export default ()=>{
     const {customers} = useSelector(state=>state);
@@ -21,7 +21,7 @@ export default ()=>{
         if(e.target.value!='')
         {
           async function asyncSearch(){
-            let results = await postUserSearch({key:e.target.value});
+            let results = await postCustomerSearch({key:e.target.value});
             setSearchResults(searchResults=>{return results});
           }
           asyncSearch();

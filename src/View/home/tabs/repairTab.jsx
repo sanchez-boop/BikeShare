@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './repairTab.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleRepair } from '../../../Model/customersSlice';
-import { postUserSearch } from '../../../Controller/postUserSearch';
+import { postCustomerSearch } from '../../../Controller/postCustomerSearch';
 
 export default ()=>{
     const {customers} = useSelector(state=>state);
@@ -22,7 +22,7 @@ export default ()=>{
           async function asyncSearch(){
             /*since we need to toggle to show buttons,
               add a boolean to results */
-            let results = await postUserSearch({key:e.target.value});
+            let results = await postCustomerSearch({key:e.target.value});
             
             results.map(customer=>{
                 customer['repairClicked']=false

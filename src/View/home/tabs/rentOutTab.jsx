@@ -3,7 +3,7 @@ import { Table, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
-import { postUserSearch } from "../../../Controller/postUserSearch";
+import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
 import "./rentOutTab.css";
 
 export default () => {
@@ -18,7 +18,7 @@ export default () => {
     if(e.target.value!='')
     {
       async function asyncSearch(){
-        let results = await postUserSearch({key:e.target.value});
+        let results = await postCustomerSearch({key:e.target.value});
         setSearchResults(searchResults=>{return results});
       }
       asyncSearch();

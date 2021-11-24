@@ -33,7 +33,7 @@ export default () => {
           <Tab eventKey="blacklist" title="Blacklist" tabClassName="tab">
             <BlacklistTab />
           </Tab>
-          {acc.role == "Admin" && (
+          {acc.role == "admin" && (
             <Tab
               eventKey="assign-roles"
               title="Users/Assign Roles"
@@ -42,7 +42,7 @@ export default () => {
               <AssignRolesTab />
             </Tab>
           )}
-          {acc.role == "Admin" && (
+          {acc.role == "admin" && (
             <Tab
               eventKey="bikes"
               title="Bikes"

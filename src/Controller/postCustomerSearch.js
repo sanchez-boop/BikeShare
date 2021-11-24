@@ -1,4 +1,4 @@
-export function postUserSearch(credentials){
+export function postCustomerSearch(credentials){
     /*To search, send the body as a stringified JSON*/
     const curl = 'https://bikengold.herokuapp.com/users/search';
     const options = {
