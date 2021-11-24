@@ -3,33 +3,76 @@ import { Table , Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './blacklistTab.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleBlackTab } from '../../../Model/customersSlice';
+import { toggleBlackTab, addCustomerToBlacklisted, addCustomerToUnblacklisted, swapToUnblacklisted, swapToBlacklisted } from '../../../Model/customersSlice';
+import { patchBlacklist } from '../../../Controller/patchBlacklist';
 
 export default ()=>{
-    const arr = [[1,'mark','111-111-1111','today'],[2,'murk','111-111-1111','today'],[2,'merk','111-111-1111','today'],[4,'m0rk','111-111-1111','today']]
-    const arr2 = [[1,'mark','111-111-1111','today'],[2,'murk','111-111-1111','today'],[2,'merk','111-111-1111','today'],[4,'m0rk','111-111-1111','today']]
-    const [blacklistButton,setBlacklistButton] = useState(arr.map(()=>{return false}));
-    const [unblacklistButton,setUnblacklistButton] = useState(arr2.map(()=>{return false}));
-
     const {customers} = useSelector(state=>state);
     const dispatch = useDispatch();
 
     function toggleBlacklist(_id){
-        console.log(_id)
         dispatch(toggleBlackTab({_id:_id}))
     }
 
-    function confirmBlacklist(){
+    function confirmBlacklist(_id){
         if (window.confirm("Are you sure you want to blacklist?")) {
-            //post renew
-            alert('Blacklisted');
+            /*First, swap from unblack to black on 
+              front end, then patch changes to back end. 
+              sync the app by checking if object on 
+              front end is same as object on back end */
+              async function asyncDispatch(){
+                dispatch(swapToBlacklisted({_id:_id}));
+                
+                /*now edit blacklist on back end & sync changes*/
+                const credentials = {
+                  _id : _id,
+                  blacklist : true
+                }
+        
+                const customer = await patchBlacklist(credentials);
+                if(customer!=null)
+                {
+                    dispatch(addCustomerToBlacklisted(customer))
+                    alert('Blacklisted');
+                }
+                else
+                {
+                    alert('Server might be out of sync with recent changes')
+                }
+            }
+        
+            asyncDispatch();
         }          
     }
 
-    function confirmUnblacklist(){
+    function confirmUnblacklist(_id){
         if (window.confirm("Are you sure you want to unblacklist?")) {
-            //post renew
-            alert('Unblacklisted');
+            /*First, swap from unblack to black on 
+              front end, then patch changes to back end. 
+              sync the app by checking if object on 
+              front end is same as object on back end */
+              async function asyncDispatch(){
+                dispatch(swapToUnblacklisted({_id:_id}));
+                
+                /*now edit blacklist on back end & sync changes*/
+                const credentials = {
+                  _id : _id,
+                  blacklist : false
+                }
+        
+                const customer = await patchBlacklist(credentials);
+                if(customer!=null)
+                {
+                    dispatch(addCustomerToUnblacklisted(customer))
+                    alert('Unblacklisted');
+                }
+                else
+                {
+                    alert('Server might be out of sync with recent changes')
+                }
+            }
+        
+            asyncDispatch();
         }          
     }
 
@@ -56,7 +99,7 @@ export default ()=>{
                                     {customers.unblacklisted[_id]['email']}
                                     {customers.unblacklisted[_id]['blackTabClicked'] && 
                                         <>
-                                            <button className="blacklist" onClick={confirmBlacklist}>Blacklist</button>
+                                            <button className="blacklist" onClick={()=>confirmBlacklist(_id)}>Blacklist</button>
                                         </>
                                     }
                                 </td>
@@ -88,7 +131,7 @@ export default ()=>{
                                     {customers.blacklisted[_id]['email']}
                                     {customers.blacklisted[_id]['blackTabClicked'] && 
                                         <>
-                                            <button className="unblacklist" onClick={confirmUnblacklist}>Unblacklist</button>
+                                            <button className="unblacklist" onClick={()=>confirmUnblacklist(_id)}>Unblacklist</button>
                                         </>
                                     }
                                 </td>

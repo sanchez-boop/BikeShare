@@ -43,7 +43,7 @@ export default () => {
         }
         else
         {
-          alert('test: Upload failed. Server might not be up to date')
+          alert('Server might be out of sync with recent changes')
         }
       }
 

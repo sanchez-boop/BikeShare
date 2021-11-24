@@ -38,18 +38,20 @@ const slice = createSlice({
 
             state.blacklisted[_id]=customer;
         },
-        deleteFromUnblacklisted : (state,action)=>{
+        swapToBlacklisted : (state,action)=>{
             const {_id} = action.payload;
+            state.blacklisted[_id] = state.unblacklisted[_id];
             delete state.unblacklisted[_id];
         },
-        deleteFromBlacklisted : (state,action)=>{
+        swapToUnblacklisted : (state,action)=>{
             const {_id} = action.payload;
+            state.unblacklisted[_id] = state.blacklisted[_id];
             delete state.blacklisted[_id];
         },
         toggleBlackTab : (state,action)=>{
             const {_id} = action.payload;
             /* search through black/unblack and
-               and delete when id is found*/
+               and toggle when id is found*/
             
             Object.keys(state).map(option=>{
                 if(_id in state[option]){
@@ -62,4 +64,4 @@ const slice = createSlice({
 })
 
 export default slice.reducer;
-export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,deleteFromUnblacklisted,deleteFromBlacklisted,toggleBlackTab} = slice.actions;
+export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,swapToBlacklisted,swapToUnblacklisted,toggleBlackTab} = slice.actions;
