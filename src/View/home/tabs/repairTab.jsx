@@ -36,7 +36,7 @@ export default ()=>{
         {
           setSearchResults(searchResults=>{return []});
         }
-      }
+    }
 
     function toggle(_id){
         dispatch(toggleRepair({_id:_id}))
@@ -58,7 +58,7 @@ export default ()=>{
     /* Untoggle the outline for the first search bar */
     const unToggleClass1 = () => {
         setActive1(false);
-        
+
     };
 
     function confirmRepair(_id,customer){
