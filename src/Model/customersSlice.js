@@ -48,6 +48,18 @@ const slice = createSlice({
             state.unblacklisted[_id] = state.blacklisted[_id];
             delete state.blacklisted[_id];
         },
+        toggleRepair : (state,action)=>{
+            const {_id} = action.payload;
+            /* search through black/unblack and
+               and toggle when id is found*/
+            
+            Object.keys(state).map(option=>{
+                if(_id in state[option]){
+                    state[option][_id]['repairClicked']=!state[option][_id]['repairClicked'];
+                    return;
+                }
+            });
+        },
         toggleBlackTab : (state,action)=>{
             const {_id} = action.payload;
             /* search through black/unblack and
@@ -64,4 +76,4 @@ const slice = createSlice({
 })
 
 export default slice.reducer;
-export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,swapToBlacklisted,swapToUnblacklisted,toggleBlackTab} = slice.actions;
+export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,swapToBlacklisted,swapToUnblacklisted,toggleRepair,toggleBlackTab} = slice.actions;
