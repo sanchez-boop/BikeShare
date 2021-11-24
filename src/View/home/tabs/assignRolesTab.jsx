@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table , Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './assignRolesTab.css'
+import { AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleAssign,editRole,addCustomerToUnblacklisted } from '../../../Model/customersSlice';
 import { patchRole } from '../../../Controller/patchRole';
@@ -77,7 +78,26 @@ export default ()=>{
 
     return(
         <>
-            <input type="text" placeholder="Search.."/>
+            <div
+                className={isActive1 ? "search-field-active" : "search-field"}
+                onFocus={toggleClass1}
+              >
+                {
+                    isActive1 && 
+                    <button onClick={unToggleClass1}>
+                        cancel
+                    </button>
+                }
+                <input
+                  type="text"
+                  placeholder="Search customers"
+                  className="search-bar"
+                  onChange={searchCustomers}
+                />
+                <div className="search-button" tabindex="0">
+                  <AiOutlineSearch />
+                </div>
+            </div>
             {/*this table searches users */}
             <Table striped bordered hover>
                 <thead>
@@ -90,6 +110,36 @@ export default ()=>{
                 </thead>
                 <tbody>
                 {
+                    /*if the search bar is active, display 
+                      search results. else, display initial
+                      table*/
+                    isActive1
+                    ?
+                    searchResults.map((customer,key)=>{
+                        return(
+                        <tr>
+                            <td>{customer['name']}</td>
+                            <td>{customer['phone']}</td>
+                            <td>{customer['email']}</td>
+                            <td>
+                                {customer['waiver']?'true':'false'}
+                                <>
+                                    {/*Make sure the button shown isn't the worker's current role*/}
+                                    {customer['role']!='admin' &&
+                                        <button className="renew" onClick={()=>confirmAssign(customer['_id'],customer['name'],'admin')}>ADMIN</button>
+                                    }
+                                    {customer['role']!='worker' &&
+                                        <button className="renew" onClick={()=>confirmAssign(customer['_id'],customer['name'],'worker')}>WORKER</button>
+                                    }
+                                    {customer['role']!='customer' &&
+                                        <button className="renew" onClick={()=>confirmAssign(customer['_id'],customer['name'],'customer')}>CUSTOMER</button>
+                                    }
+                                </>
+                            </td>
+
+                        </tr>
+                    )})
+                    :
                     Object.keys(customers.unblacklisted).map((_id,key)=>{
                         return(
                             <tr onClick={()=>toggle(_id)}>
