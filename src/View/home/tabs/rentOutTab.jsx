@@ -35,9 +35,10 @@ export default () => {
       setActive1(!isActive1);
     }
   };
-  /* Untoggle the outline for the first search bar */
+  /*Untoggle the outline for the first search bar 
+    and clear search results*/
   const unToggleClass1 = () => {
-    setActive1(!isActive1);
+    setActive1(false);
   };
   /* Toggle the outline for the second search bar */
   const toggleClass2 = () => {
@@ -59,6 +60,7 @@ export default () => {
   const unToggleClass4 = () => {
     setActive4(!isActive4);
   };
+  
   return (
     <>
       <div className="content">
@@ -69,8 +71,13 @@ export default () => {
               <div
                 className={isActive1 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass1}
-                onBlur={unToggleClass1}
               >
+                {
+                    isActive1 && 
+                    <button onClick={unToggleClass1}>
+                        cancel
+                    </button>
+                }
                 <input
                   type="text"
                   placeholder="Search customers"

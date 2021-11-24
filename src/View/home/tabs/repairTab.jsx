@@ -20,7 +20,14 @@ export default ()=>{
         if(e.target.value!='')
         {
           async function asyncSearch(){
+            /*since we need to toggle to show buttons,
+              add a boolean to results */
             let results = await postUserSearch({key:e.target.value});
+            
+            results.map(customer=>{
+                customer['repairClicked']=false
+            ;})
+            
             setSearchResults(searchResults=>{return results});
           }
           asyncSearch();
@@ -35,6 +42,13 @@ export default ()=>{
         dispatch(toggleRepair({_id:_id}))
     }
 
+    function toggleSearchResults(key){
+        //keep searchbar active and toggle repairClicked
+        
+        searchResults[key]['repairClicked']=!searchResults[key]['repairClicked']
+        setSearchResults(searchResults=>{return searchResults});
+    }
+
     /* Toggle the outline for the first search bar */
     const toggleClass1 = () => {
         if (!isActive1) {
@@ -43,7 +57,8 @@ export default ()=>{
     };
     /* Untoggle the outline for the first search bar */
     const unToggleClass1 = () => {
-        setActive1(!isActive1);
+        setActive1(false);
+        
     };
 
     function confirmRepair(_id,customer){
@@ -68,8 +83,13 @@ export default ()=>{
             <div
                 className={isActive1 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass1}
-                onBlur={unToggleClass1}
               >
+                {
+                    isActive1 && 
+                    <button onClick={unToggleClass1}>
+                        cancel
+                    </button>
+                }
                 <input
                   type="text"
                   placeholder="Search customers"
@@ -97,13 +117,19 @@ export default ()=>{
                       table*/
                     isActive1
                     ?
-                    searchResults.map(customer=>{
+                    searchResults.map((customer,key)=>{
                         return(
-                        <tr>
+                        <tr onClick={()=>toggleSearchResults(key)}>
                             <td>{customer['name']}</td>
                             <td>{customer['phone']}</td>
                             <td>{customer['email']}</td>
-                            <td>{customer['waiver']?'true':'false'}</td>
+                            <td>
+                                {customer['waiver']?'true':'false'}
+                                <>
+                                    <button className="renew" onClick={()=>confirmRepair(customer['_id'],customer)}>REPAIR</button>
+                                </>  
+                            </td>
+
                         </tr>
                     )})
                     :

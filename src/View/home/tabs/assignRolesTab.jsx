@@ -1,14 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table , Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './assignRolesTab.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleAssign,editRole,addCustomerToUnblacklisted } from '../../../Model/customersSlice';
 import { patchRole } from '../../../Controller/patchRole';
+import { postUserSearch } from '../../../Controller/postUserSearch';
 
 export default ()=>{
     const {customers} = useSelector(state=>state);
     const dispatch = useDispatch();
+    const [searchResults,setSearchResults] = useState([]);
+    const [isActive1, setActive1] = useState(false);
+    const [isActive2, setActive2] = useState(false);
+    const [isActive4, setActive4] = useState(false);
+
+    function searchCustomers(e){
+        /*search only if query not empty*/
+        if(e.target.value!='')
+        {
+          async function asyncSearch(){
+            let results = await postUserSearch({key:e.target.value});
+            setSearchResults(searchResults=>{return results});
+          }
+          asyncSearch();
+        }
+        else
+        {
+          setSearchResults(searchResults=>{return []});
+        }
+      }
+
+    /* Toggle the outline for the first search bar */
+    const toggleClass1 = () => {
+        if (!isActive1) {
+        setActive1(!isActive1);
+        }
+    };
+    /* Untoggle the outline for the first search bar */
+    const unToggleClass1 = () => {
+        setActive1(!isActive1);
+    };
 
     function toggle(_id){
         dispatch(toggleAssign({_id:_id}))
