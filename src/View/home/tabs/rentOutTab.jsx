@@ -3,10 +3,28 @@ import { Table, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
+import { postUserSearch } from "../../../Controller/postUserSearch";
 import "./rentOutTab.css";
 
 export default () => {
   const {customers,bikes} = useSelector(state=>state);
+  const [searchResults,setSearchResults] = useState([]);
+
+  function searchCustomers(e){
+    /*search only if query not empty*/
+    if(e.target.value!='')
+    {
+      async function asyncSearch(){
+        let results = await postUserSearch({key:e.target.value});
+        setSearchResults(searchResults=>{return results});
+      }
+      asyncSearch();
+    }
+    else
+    {
+      setSearchResults(searchResults=>{return []});
+    }
+  }
 
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
@@ -58,6 +76,7 @@ export default () => {
                   type="text"
                   placeholder="Search customers"
                   className="search-bar"
+                  onChange={searchCustomers}
                 />
                 <div className="search-button" tabindex="0">
                   <AiOutlineSearch />
@@ -77,14 +96,29 @@ export default () => {
             </thead>
             <tbody>
             {
+              /*if the search bar is active, display 
+                search results. else, display initial
+                table*/
+              isActive1
+              ?
+              searchResults.map(customer=>{
+                return(
+                  <tr>
+                      <td>{customer['name']}</td>
+                      <td>{customer['phone']}</td>
+                      <td>{customer['email']}</td>
+                      <td>{customer['waiver']?'true':'false'}</td>
+                  </tr>
+              )})
+              :
               Object.keys(customers.unblacklisted).map((_id,key)=>{
-                  return(
-                      <tr>
-                          <td>{customers.unblacklisted[_id]['name']}</td>
-                          <td>{customers.unblacklisted[_id]['phone']}</td>
-                          <td>{customers.unblacklisted[_id]['email']}</td>
-                          <td>{customers.unblacklisted[_id]['waiver']?'true':'false'}</td>
-                      </tr>
+                return(
+                    <tr>
+                        <td>{customers.unblacklisted[_id]['name']}</td>
+                        <td>{customers.unblacklisted[_id]['phone']}</td>
+                        <td>{customers.unblacklisted[_id]['email']}</td>
+                        <td>{customers.unblacklisted[_id]['waiver']?'true':'false'}</td>
+                    </tr>
               )})
             }
             </tbody>
