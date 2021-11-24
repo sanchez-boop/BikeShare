@@ -4,11 +4,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
 import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
+import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import "./rentOutTab.css";
 
 export default () => {
   const {customers,bikes} = useSelector(state=>state);
   const [searchResults,setSearchResults] = useState([]);
+  const [searchResults2,setSearchResults2] = useState([]);
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
   const [isActive4, setActive4] = useState(false);
@@ -26,6 +28,24 @@ export default () => {
     else
     {
       setSearchResults(searchResults=>{return []});
+    }
+  }
+
+  function searchBikes(e){
+    /*search only if query not empty*/
+    if(e.target.value!='')
+    {
+      async function asyncSearch(){
+        /*since we need to toggle to show buttons,
+          add a boolean to results */
+        let results = await postBikeSearch({key:e.target.value});
+        setSearchResults2(searchResults2=>{return results});
+      }
+      asyncSearch();
+    }
+    else
+    {
+      setSearchResults2(searchResults2=>{return []});
     }
   }
 
@@ -137,12 +157,18 @@ export default () => {
               <div
                 className={isActive2 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass2}
-                onBlur={unToggleClass2}
               >
+                {
+                    isActive2 && 
+                    <button onClick={unToggleClass2}>
+                        cancel
+                    </button>
+                }
                 <input
                   type="text"
                   placeholder="Search available bikes"
                   className="search-bar"
+                  onChange={searchBikes}
                 />
                 <div className="search-button" tabindex="0">
                   <AiOutlineSearch />
@@ -160,15 +186,31 @@ export default () => {
               </tr>
             </thead>
             <tbody>
-              {Object.values(bikes.available).map((bike, key) => {
-                  return (
+              {
+                /*if the search bar is active, display 
+                search results. else, display initial
+                table*/
+                isActive2
+                ?
+                searchResults2.map((bike,key)=>{
+                  return(
                     <tr className="table-body gray-highlight">
-                      <td>{bike['id']}</td>
-                      <td>{bike['model']}</td>
-                      <td>{bike['serialNumber']}</td>
-                    </tr>
-                  );
-                })}
+                        <td>{bike['id']}</td>
+                        <td>{bike['model']}</td>
+                        <td>{bike['serialNumber']}</td>
+                      </tr>
+                )})
+                :
+                Object.values(bikes.available).map((bike, key) => {
+                    return (
+                      <tr className="table-body gray-highlight">
+                        <td>{bike['id']}</td>
+                        <td>{bike['model']}</td>
+                        <td>{bike['serialNumber']}</td>
+                      </tr>
+                    );
+                  })
+              }
             </tbody>
           </Table>
         </div>
