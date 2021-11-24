@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import TabNav from "./tabNav";
 import { getBikes } from "../../Controller/getBikes";
 import { getRepairs } from "../../Controller/getRepairs"
+import { getCustomers } from "../../Controller/getCustomers"
 import "./homeScreen.css";
 import logo from "../../Images/bikengold.png";
 import { addRepair } from "../../Model/repairsSlice";
 import { addBikeToAvailable, addBikeToDue, addBikeToRented } from "../../Model/bikesSlice";
+import { addCustomerToUnblacklisted, addCustomerToBlacklisted } from "../../Model/customersSlice";
 
 export default () => {
   const dispatch = useDispatch();
@@ -46,7 +48,20 @@ export default () => {
 
       repairs.map(repair=>{
         dispatch(addRepair(repair))
-      })
+      });
+
+      /*now request users to complete all tables*/
+      const customers = await getCustomers();
+      customers.map(customer=>{
+        if(customer.blacklist==false)
+        {
+          dispatch(addCustomerToUnblacklisted(customer))
+        }
+        else
+        {
+            dispatch(addCustomerToBlacklisted(customer))
+        }
+      });
     }
 
     asyncDispatch()

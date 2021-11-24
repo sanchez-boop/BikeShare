@@ -6,14 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import "./rentOutTab.css";
 
 export default () => {
-  const arr = [
-    ["mark", "111-111-1111", "mark@yahoo.com", "No"],
-    ["mdrk", "111-111-1111", "mdrk@gmail.com", "Yes"],
-    ["madd", "111-111-1111", "youmadd@mail.com", "No"],
-  ];
-
   const {customers,bikes} = useSelector(state=>state);
-  const dispatch = useDispatch();
 
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
@@ -83,16 +76,17 @@ export default () => {
               </tr>
             </thead>
             <tbody>
-              {arr.map((user, key) => {
-                return (
-                  <tr className=" table-body gray-highlight">
-                    <td>{user[0]}</td>
-                    <td>{user[1]}</td>
-                    <td>{user[2]}</td>
-                    <td>{user[3]}</td>
-                  </tr>
-                );
-              })}
+            {
+              Object.keys(customers.unblacklisted).map((_id,key)=>{
+                  return(
+                      <tr>
+                          <td>{customers.unblacklisted[_id]['name']}</td>
+                          <td>{customers.unblacklisted[_id]['phone']}</td>
+                          <td>{customers.unblacklisted[_id]['email']}</td>
+                          <td>{customers.unblacklisted[_id]['waiver']?'true':'false'}</td>
+                      </tr>
+              )})
+            }
             </tbody>
           </Table>
         </div>

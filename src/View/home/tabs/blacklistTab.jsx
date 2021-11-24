@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { Table , Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './blacklistTab.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleBlackTab } from '../../../Model/customersSlice';
 
 export default ()=>{
     const arr = [[1,'mark','111-111-1111','today'],[2,'murk','111-111-1111','today'],[2,'merk','111-111-1111','today'],[4,'m0rk','111-111-1111','today']]
@@ -9,14 +11,12 @@ export default ()=>{
     const [blacklistButton,setBlacklistButton] = useState(arr.map(()=>{return false}));
     const [unblacklistButton,setUnblacklistButton] = useState(arr2.map(()=>{return false}));
 
-    function toggleBlacklist(idx){
-        blacklistButton[idx]= !blacklistButton[idx];
-        setBlacklistButton([...blacklistButton]);
-    }
-    
-    function toggleUnblacklist(idx){
-        unblacklistButton[idx]= !unblacklistButton[idx];
-        setUnblacklistButton([...unblacklistButton]);
+    const {customers} = useSelector(state=>state);
+    const dispatch = useDispatch();
+
+    function toggleBlacklist(_id){
+        console.log(_id)
+        dispatch(toggleBlackTab({_id:_id}))
     }
 
     function confirmBlacklist(){
@@ -47,15 +47,14 @@ export default ()=>{
                 </thead>
                 <tbody>
                 {
-                    arr.map((user,key)=>{
+                    Object.keys(customers.unblacklisted).map((_id,key)=>{
                         return(
-                            <tr onClick={()=>{toggleBlacklist(key)}}>
-                                <td>{user[0]}</td>
-                                <td>{user[1]}</td>
-                                <td>{user[2]}</td>
+                            <tr onClick={()=>{toggleBlacklist(_id)}}>
+                                <td>{customers.unblacklisted[_id]['name']}</td>
+                                <td>{customers.unblacklisted[_id]['phone']}</td>
                                 <td>
-                                    {user[3]}
-                                    {blacklistButton[key] && 
+                                    {customers.unblacklisted[_id]['email']}
+                                    {customers.unblacklisted[_id]['blackTabClicked'] && 
                                         <>
                                             <button className="blacklist" onClick={confirmBlacklist}>Blacklist</button>
                                         </>
@@ -80,15 +79,14 @@ export default ()=>{
                 </thead>
                 <tbody>
                 {
-                    arr2.map((user,key)=>{
+                    Object.keys(customers.blacklisted).map((_id,key)=>{
                         return(
-                            <tr onClick={()=>{toggleUnblacklist(key)}}>
-                                <td>{user[0]}</td>
-                                <td>{user[1]}</td>
-                                <td>{user[2]}</td>
+                            <tr onClick={()=>{toggleBlacklist(_id)}}>
+                                <td>{customers.blacklisted[_id]['name']}</td>
+                                <td>{customers.blacklisted[_id]['phone']}</td>
                                 <td>
-                                    {user[3]}
-                                    {unblacklistButton[key] && 
+                                    {customers.blacklisted[_id]['email']}
+                                    {customers.blacklisted[_id]['blackTabClicked'] && 
                                         <>
                                             <button className="unblacklist" onClick={confirmUnblacklist}>Unblacklist</button>
                                         </>

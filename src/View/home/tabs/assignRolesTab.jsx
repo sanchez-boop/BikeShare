@@ -2,9 +2,10 @@ import React from 'react';
 import { Table , Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './assignRolesTab.css'
+import { useSelector } from 'react-redux';
 
 export default ()=>{
-    const arr = [['mark','111-111-1111','today','Yes'],[1,'mdrk','111-111-1111','today','No'],[1,'madd','111-111-1111','today','No']]
+    const {customers} = useSelector(state=>state);
 
     return(
         <>
@@ -21,14 +22,13 @@ export default ()=>{
                 </thead>
                 <tbody>
                 {
-                    arr.map((user,key)=>{
+                    Object.keys(customers.unblacklisted).map((_id,key)=>{
                         return(
                             <tr>
-                                <td>{user[0]}</td>
-                                <td>{user[1]}</td>
-                                <td>{user[2]}</td>
-                                <td>{user[3]}</td>
-                                <td>{user[4]}</td>
+                                <td>{customers.unblacklisted[_id]['name']}</td>
+                                <td>{customers.unblacklisted[_id]['phone']}</td>
+                                <td>{customers.unblacklisted[_id]['email']}</td>
+                                <td>{customers.unblacklisted[_id]['waiver']?'true':'false'}</td>
                             </tr>
                     )})
                 }

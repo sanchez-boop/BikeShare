@@ -4,8 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./homeTab.css";
 import { useDispatch, useSelector } from "react-redux";
-import { editStatus , addRepair } from "../../../Model/repairsSlice";
-import { getRepairs } from "../../../Controller/getRepairs"
+import { editStatus } from "../../../Model/repairsSlice";
 import { patchStatus } from "../../../Controller/patchStatus";
 
 export default () => {
