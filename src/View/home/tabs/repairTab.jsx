@@ -44,7 +44,6 @@ export default ()=>{
 
     function toggleSearchResults(key){
         //keep searchbar active and toggle repairClicked
-        
         searchResults[key]['repairClicked']=!searchResults[key]['repairClicked']
         setSearchResults(searchResults=>{return searchResults});
     }

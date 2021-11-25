@@ -53,40 +53,36 @@ export default () => {
     }
   }
 
-  function dropdownClicked(_id,status){
+  async function dropdownClicked(_id,status){
       /*toggle dropdown box on redux then edit
         status to back end. first edit the redux 
         status. then make an API call to edit status on
         back end. finally, get the API changes to sync
         back end and front end */
-      async function asyncDispatch(){
-        dispatch(editStatus({
-          _id : _id,
-          status : status
-        }));
+      dispatch(editStatus({
+        _id : _id,
+        status : status
+      }));
 
-        /*now edit status on back end & pull changes*/
-        const credentials = {
-          _id : _id,
-          status : status
-        }
-
-        const response = await patchStatus(credentials);
-        if(response!=null)
-        {
-          //here is where you would sync front end and back end
-          dispatch(editStatus({
-            _id : _id,
-            status : response.status
-          }));
-        }
-        else
-        {
-          alert('Server might be out of sync with recent changes')
-        }
+      /*now edit status on back end & pull changes*/
+      const credentials = {
+        _id : _id,
+        status : status
       }
 
-      asyncDispatch()
+      const response = await patchStatus(credentials);
+      if(response!=null)
+      {
+        //here is where you would sync front end and back end
+        dispatch(editStatus({
+          _id : _id,
+          status : response.status
+        }));
+      }
+      else
+      {
+        alert('Server might be out of sync with recent changes')
+      }
   }
 
   function searchDropdownClicked(key,_id,status){
