@@ -2,12 +2,45 @@ import React, {useState} from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDelete } from '../../../Model/bikesSlice';
+import { postBikeSearch } from '../../../Controller/postBikeSearch';
+import { AiOutlineSearch } from "react-icons/ai";
 import 'bootstrap/dist/css/bootstrap.css';
 import './bikesTab.css'
 
 export default ()=>{
     const {bikes} = useSelector(state=>state);
     const dispatch = useDispatch();
+    const [searchResults,setSearchResults] = useState([]);
+    const [isActive1, setActive1] = useState(false);
+
+    function searchBikes(e){
+        /*search only if query not empty*/
+        if(e.target.value!='')
+        {
+          async function asyncSearch(){
+            /*since we need to toggle to show buttons,
+              add a boolean to results */
+            let results = await postBikeSearch({key:e.target.value});
+            setSearchResults(searchResults=>{return results});
+          }
+          asyncSearch();
+        }
+        else
+        {
+          setSearchResults(searchResults=>{return []});
+        }
+      }
+
+    /* Toggle the outline for the first search bar */
+    const toggleClass1 = () => {
+        if (!isActive1) {
+        setActive1(!isActive1);
+        }
+    };
+    /* Untoggle the outline for the first search bar */
+    const unToggleClass1 = () => {
+        setActive1(!isActive1);
+    };
 
     function toggleRow(_id){
         dispatch(toggleDelete({_id:_id}));
@@ -22,7 +55,26 @@ export default ()=>{
 
     return(
         <>
-            <input type="text" placeholder="Search.."/>
+            <div
+                className={isActive1 ? "search-field-active" : "search-field"}
+                onFocus={toggleClass1}
+              >
+                {
+                    isActive1 && 
+                    <button onClick={unToggleClass1}>
+                        cancel
+                    </button>
+                }
+                <input
+                  type="text"
+                  placeholder="Search bikes that are due"
+                  className="search-bar"
+                  onChange={searchBikes}
+                />
+                <div className="search-button" tabindex="0">
+                  <AiOutlineSearch />
+                </div>
+            </div>
             {/*this table searches bikes */}
             <Table striped bordered hover>
                 <thead>
@@ -34,6 +86,25 @@ export default ()=>{
                 </thead>
                 <tbody>
                 {
+                    /*if the search bar is active, display 
+                    search results. else, display initial
+                    table*/
+                    isActive1
+                    ?
+                    searchResults.map((bike,key)=>{
+                        return(
+                            <tr className="table-body gray-highlight">
+                                <td>{bike['id']}</td>
+                                <td>{bike['model']}</td>
+                                <td>
+                                    {bike['serialNumber']}                   
+                                    <>
+                                        <button className="return" onClick={()=>confirmDelete()}>Delete</button>
+                                    </>       
+                                </td>
+                            </tr>
+                    )})
+                    :
                     /*return due, rented and available bikes */
                     Object.values(bikes).map((bikeObjects, key) => {
                         return Object.keys(bikeObjects).map((_id,key)=>{
