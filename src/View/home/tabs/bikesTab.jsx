@@ -67,7 +67,7 @@ export default ()=>{
                 }
                 <input
                   type="text"
-                  placeholder="Search bikes that are due"
+                  placeholder="Search bike"
                   className="search-bar"
                   onChange={searchBikes}
                 />
