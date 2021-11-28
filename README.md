@@ -13,3 +13,4 @@ Large Project COP4331
 - npm install --save react-native-vector-icons
 - npm install react-redux
 - npm install @reduxjs/toolkit
+- npm install react-native-elements
