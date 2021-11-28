@@ -1,0 +1,209 @@
+import { StatusBar } from "expo-status-bar";
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Button, Image, } from "react-native";
+import { TextInput } from "react-native-paper";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import eye from "../assets/icons8-eye-30.png";
+import colors from "../config/colors";
+
+export default function ProfilePasswordChange({ navigation }) {
+  const [currentPasswordInput, changeCurrentPasswordInput] = React.useState(null);
+  const [newPasswordInput, changeNewPasswordInput] = React.useState(null);
+  const [ReenterPasswordInput, changeReenterPasswordInput] = React.useState(null);
+  const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
+    return (
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.testView}
+        showsVerticalScrollIndicator={false}
+        enableOnAndroid={true}
+        scrollEnabled={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.mainView}>
+            <View style={styles.topRectangle}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('ProfileHome')}
+                style={styles.backButton}
+                >
+                    <Text style={{ fontSize: 20, color: "#000000", textAlign: "right" }}>
+                        Back
+                    </Text>
+                </TouchableOpacity>
+                <Text style={styles.headerText}>Password</Text>
+            </View>
+          <View style={styles.content}>
+
+          <View style={styles.textAndEyeContainer}>
+            <TextInput
+              style={styles.textInput}
+              secureTextEntry={isSecureEntry}
+              mode="outlined"
+              onChangeText={changeCurrentPasswordInput}
+              value={currentPasswordInput}
+              label="Current Password"
+              outlineColor="#b1b1b1"
+              activeOutlineColor="#000000"
+              numberOfLines={1}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                changeIsSecureEntry((prev) => !prev);
+              }}
+              style={styles.eyeContainer}
+            >
+              <Image source={eye} style={styles.eye} />
+            </TouchableOpacity>
+          </View> 
+
+          <View style={styles.textAndEyeContainer}>
+            <TextInput
+              style={styles.textInput}
+              secureTextEntry={isSecureEntry}
+              mode="outlined"
+              onChangeText={changeNewPasswordInput}
+              value={newPasswordInput}
+              label="New Password"
+              outlineColor="#b1b1b1"
+              activeOutlineColor="#000000"
+              numberOfLines={1}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                changeIsSecureEntry((prev) => !prev);
+              }}
+              style={styles.eyeContainer}
+            >
+              <Image source={eye} style={styles.eye} />
+            </TouchableOpacity>
+          </View> 
+
+          <View style={styles.textAndEyeContainer}>
+            <TextInput
+              style={styles.textInput}
+              secureTextEntry={isSecureEntry}
+              mode="outlined"
+              onChangeText={changeReenterPasswordInput}
+              value={ReenterPasswordInput}
+              label="Re-enter New Password"
+              outlineColor="#b1b1b1"
+              activeOutlineColor="#000000"
+              numberOfLines={1}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                changeIsSecureEntry((prev) => !prev);
+              }}
+              style={styles.eyeContainer}
+            >
+              <Image source={eye} style={styles.eye} />
+            </TouchableOpacity>
+          </View>  
+            <TouchableOpacity
+              onPress={() => Alert.alert("Skate fast and eat ass")}
+              style={styles.signUpButton}
+            >
+              <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
+                Save
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => alert("Continue to password forget here!")}
+              style={{ marginTop: 30 }}
+            >
+              <Text style={styles.forgotPassword}>Forget your password?</Text>
+            </TouchableOpacity>
+          </View>
+          <StatusBar style="auto" />
+        </View>
+      </KeyboardAwareScrollView>
+    );
+  }
+
+  const styles = StyleSheet.create({
+    testView: {
+      height: "100%",
+      width: "100%",
+      flex: 1,
+      backgroundColor: "#fff",
+      marginBottom: -150,
+    },
+    mainView: {
+      height: "100%",
+      width: "100%",
+      flex: 1,
+      alignItems: "center",
+      backgroundColor: "#fff",
+    },
+    topRectangle: {
+        width: "100%",
+        height: "10%",
+        backgroundColor: colors.primary,
+        alignItems: "center",
+        justifyContent: "flex-end",
+        marginBottom: '5%',
+    },
+    backButton: {
+      
+    },
+    headerText: {
+        fontFamily: "HindVadodara_600SemiBold",
+        fontSize: 20,
+        marginBottom: 4,
+    },
+    content: {
+      width: "90%",
+      alignItems: "center",
+      marginTop: '5%',
+    },
+    title: {
+      marginTop: 20,
+      fontSize: 48,
+      fontWeight: "bold",
+    },
+    textInput: {
+      width: 280,
+      height: 55,
+      backgroundColor: "#F4FEFF",
+      lineHeight: 40,
+      marginBottom: 15,
+    },
+    textAndEyeContainer: {
+      alignItems: "center",
+      justifyContent: "flex-end",
+      flexDirection: "row",
+      position: "relative",
+    },
+    eyeContainer: {
+      position: "absolute",
+      height: "40%",
+      width: "10%",
+      top: 23,
+      right: 4,
+      zIndex: 300,
+      backgroundColor: "#F4FEFF",
+    },
+    eye: {
+      height: 22,
+      width: 22,
+    },
+    signUpButton: {
+      height: 45,
+      width: 220,
+      marginTop: -10,
+      backgroundColor: "#000000",
+      borderRadius: 5,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+      elevation: 3,
+      justifyContent: "center",
+      marginTop: 15,
+    },
+    forgotPassword: {
+        fontSize: 13.3,
+        color: "#555555",
+      },
+  });
+  

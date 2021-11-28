@@ -1,14 +1,39 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Button, Image, TextInput } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   MaterialIcons,
   MaterialCommunityIcons,
   Entypo,
 } from "@expo/vector-icons";
+import logo from "../assets/Shop-Logo.png";
+import eye from "../assets/icons8-eye-30.png";
 import colors from "../config/colors";
+import ProfileNameChange from "./ProfileNameChange";
+import ProfileEmailChange from "./ProfileEmailChange";
+import ProfilePasswordChange from "./ProfilePasswordChange";
+import ProfileNotificationChange from "./ProfileNotificationChange";
+
+const Stack = createNativeStackNavigator();
 
 export default function Profile(props) {
+  return (
+    <NavigationContainer independent={true}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="ProfileHome" component={mainProfile} />
+          <Stack.Screen name="NameChange" component={ProfileNameChange} />
+          <Stack.Screen name="EmailChange" component={ProfileEmailChange} />
+          <Stack.Screen name="PasswordChange" component={ProfilePasswordChange} />
+          <Stack.Screen name="NotificationChange" component={ProfileNotificationChange} />
+        </Stack.Navigator>
+      </NavigationContainer>
+  );
+}
+
+function mainProfile({ navigation }) {
   return (
     <View style={styles.mainView}>
       <View style={styles.topRectangle}>
@@ -26,7 +51,7 @@ export default function Profile(props) {
         </View>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => Alert.alert("Hi")}
+          onPress={() => navigation.navigate('NameChange')}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
@@ -38,7 +63,7 @@ export default function Profile(props) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => Alert.alert("Hi")}
+          onPress={() => navigation.navigate('EmailChange')}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
@@ -50,7 +75,7 @@ export default function Profile(props) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => Alert.alert("Hi")}
+          onPress={() => navigation.navigate('PasswordChange')}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
@@ -62,7 +87,7 @@ export default function Profile(props) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => Alert.alert("Hi")}
+          onPress={() => navigation.navigate('NotificationChange')}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
