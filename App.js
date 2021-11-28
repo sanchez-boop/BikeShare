@@ -26,12 +26,35 @@ import Waiver from "./app/screens/Waiver";
 import Profile from "./app/screens/Profile";
 import ShopInfo from "./app/screens/ShopInfo";
 import colors from "./app/config/colors";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+
+//reducers
+import accReducer from "./app/model/accSlice";
+
+//Redux configuration
+const reducer = combineReducers({
+  acc: accReducer,
+});
+
+const store = configureStore({
+  reducer,
+});
 
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+// Might need to use this if the below implementation doesn't work
+export default AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+};
+
+function App() {
   let [fontsLoaded] = useFonts({
     HindVadodara_600SemiBold,
     Inter_500Medium,
@@ -43,6 +66,7 @@ export default function App() {
     return <AppLoading />;
   } else {
     return (
+      //<Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Sign-In" component={LoginScreen} />
@@ -54,6 +78,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      //</Provider>
     );
   }
 }

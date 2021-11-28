@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { TextInput } from "react-native-paper";
 import {
   StyleSheet,
@@ -11,6 +11,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { postLogin } from "../controller/postLogin";
+import { signIn } from "../model/accSlice";
+import { useDispatch } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -26,10 +29,55 @@ import colors from "../config/colors";
 */
 
 export default function LoginScreen({ navigation }) {
+  /* We may not need the following three const's */
   const [emailInput, changeEmailInput] = React.useState(null);
   const [passwordInput, changePasswordInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
 
+  const dispatch = useDispatch();
+
+  const [formInput, setFormInput] = useState({
+    /*set initial credentials to ""*/
+    email: "",
+    password: "",
+  });
+
+  function inputNameChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      email: text,
+    });
+  }
+  function inputPasswordChanged(text) {
+    /*change the state of the credentials to the password you typed*/
+    setFormInput({
+      ...formInput,
+      password: text,
+    });
+  }
+
+  function logIn() {
+    async function asyncDispatch() {
+      /*Await the API response. The API returns an 
+      array of a single object with user info, such
+      as an email. if arr>0, log the user in.
+      else, return login failed*/
+      const account = await postLogin(formInput);
+
+      console.log("The account is" + account);
+      if (account.length > 0) {
+        /*On successful login, update the redux state 
+        with account info and push the home screen*/
+        dispatch(signIn(account[0]));
+        navigation.navigate("Main", { screen: "Bike Availability" });
+      } else {
+        alert("login failed, try again");
+      }
+    }
+
+    asyncDispatch();
+  }
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -47,8 +95,7 @@ export default function LoginScreen({ navigation }) {
 
           <TextInput
             style={styles.emailInput}
-            onChangeText={changeEmailInput}
-            value={emailInput}
+            onChangeText={(text) => inputNameChanged(text)}
             mode="outlined"
             label="Knight's Email"
             outlineColor="#b1b1b1"
@@ -60,8 +107,7 @@ export default function LoginScreen({ navigation }) {
                 style={styles.passwordinput}
                 secureTextEntry={isSecureEntry}
                 mode="outlined"
-                onChangeText={changePasswordInput}
-                value={passwordInput}
+                onChangeText={(text) => inputPasswordChanged(text)}
                 label="Password"
                 outlineColor="#b1b1b1"
                 activeOutlineColor="#000000"
@@ -82,10 +128,7 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.forgotPassword}>Forget your password?</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Main")}
-            style={styles.signInButton}
-          >
+          <TouchableOpacity onPress={logIn} style={styles.signInButton}>
             <Text
               style={{
                 fontSize: 20,
