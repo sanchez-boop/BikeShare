@@ -1,7 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, Button, Image, TextInput } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  Button,
+  Image,
+  TextInput,
+} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
@@ -22,14 +31,17 @@ const Stack = createNativeStackNavigator();
 export default function Profile(props) {
   return (
     <NavigationContainer independent={true}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="ProfileHome" component={mainProfile} />
-          <Stack.Screen name="NameChange" component={ProfileNameChange} />
-          <Stack.Screen name="EmailChange" component={ProfileEmailChange} />
-          <Stack.Screen name="PasswordChange" component={ProfilePasswordChange} />
-          <Stack.Screen name="NotificationChange" component={ProfileNotificationChange} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="ProfileHome" component={mainProfile} />
+        <Stack.Screen name="NameChange" component={ProfileNameChange} />
+        <Stack.Screen name="EmailChange" component={ProfileEmailChange} />
+        <Stack.Screen name="PasswordChange" component={ProfilePasswordChange} />
+        <Stack.Screen
+          name="NotificationChange"
+          component={ProfileNotificationChange}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -51,7 +63,7 @@ function mainProfile({ navigation }) {
         </View>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => navigation.navigate('NameChange')}
+          onPress={() => navigation.navigate("NameChange")}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
@@ -63,7 +75,7 @@ function mainProfile({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => navigation.navigate('EmailChange')}
+          onPress={() => navigation.navigate("EmailChange")}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
@@ -75,7 +87,7 @@ function mainProfile({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => navigation.navigate('PasswordChange')}
+          onPress={() => navigation.navigate("PasswordChange")}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
@@ -87,7 +99,7 @@ function mainProfile({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.optionsContent}
-          onPress={() => navigation.navigate('NotificationChange')}
+          onPress={() => navigation.navigate("NotificationChange")}
         >
           <View style={styles.nameContainer}>
             <View style={styles.iconContainer}>
