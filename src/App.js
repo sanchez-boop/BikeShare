@@ -8,7 +8,7 @@ import HomeScreen from "./View/home/homeScreen";
 
 function App() {
   const {acc} = useSelector(state=>state);
-
+//
   return (
     <Router>
       <Switch>
