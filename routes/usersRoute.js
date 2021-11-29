@@ -106,4 +106,13 @@ try{
     res.status(400).json({message: err.message })
 }
 });
+//blacklisted users 
+router.get('/blacklisted', async (req, res) => {
+    try {
+        const users = await User.find({blacklist:true})
+        res.json(users)
+    } catch (err){
+        res.satus(500).json({ message : err.message })
+    }
+})
 module.exports = router
