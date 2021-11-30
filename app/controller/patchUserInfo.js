@@ -1,4 +1,4 @@
-export function patchName(credentials) {
+export function patchUserInfo(credentials) {
   const curl = "https://bikengold.herokuapp.com/users";
   const options = {
     method: "PATCH",

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { editName } from "../model/accSlice";
-import { patchName } from "../controller/patchName";
+import { patchUserInfo } from "../controller/patchUserInfo";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -26,51 +26,28 @@ export default function ProfileNameChange({ navigation }) {
 
   const dispatch = useDispatch();
   const { acc } = useSelector((state) => state);
-  console.log("acc.name is here: " + acc.name);
   const [formInput, setFormInput] = useState({
     /*set initial credentials to ""*/
     name: "",
   });
 
-  console.log(acc.id);
   function inputNameChanged(text) {
     /*change the state of the credentials to the name you typed*/
     setFormInput({
       ...formInput,
       name: text,
     });
-    console.log("I changed text to: " + text);
-    console.log("formInput: " + formInput.name);
   }
 
   async function nameChangeSubmit() {
-    /*toggle dropdown box on redux then edit
-      status to back end. first edit the redux 
-      status. then make an API call to edit status on
-      back end. finally, get the API changes to sync
-      back end and front end */
-    /*
-    dispatch(
-      editName({
-        _id: _id,
-        name: name,
-      })
-    );
-      */
-    /*now edit status on back end & pull changes*/
-    /*
-    const credentials = {
-      _id: _id,
-      name: name,
-    };
-    */
     const credentials = {
       _id: acc.id,
       name: formInput.name,
     };
+
     dispatch(editName(credentials));
 
-    const response = await patchName(credentials);
+    const response = await patchUserInfo(credentials);
     //console.log("The formInput is: " + formInput.name);
     console.log("The response is " + response.name);
 

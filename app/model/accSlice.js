@@ -16,7 +16,6 @@ const slice = createSlice({
       /*save the name and password from the state payload passed in. Pass in
             state, name, password into authenticator*/
       const { _id, name, email, phone, role } = action.payload;
-      console.log("User's name that logged in: " + name);
       state.loggedIn = true;
       state.id = _id;
       state.name = name;
@@ -37,10 +36,14 @@ const slice = createSlice({
       /* change name to desired name */
       const { name } = action.payload;
       state.name = name;
-      console.log("state.name: " + state.name);
+    },
+    editEmail: (state, action) => {
+      /* change name to desired name */
+      const { email } = action.payload;
+      state.email = email;
     },
   },
 });
 
 export default slice.reducer;
-export const { signIn, signOut, editName } = slice.actions;
+export const { signIn, signOut, editName, editEmail } = slice.actions;

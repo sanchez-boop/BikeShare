@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,9 @@ import {
   Button,
   Image,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { editEmail } from "../model/accSlice";
+import { patchUserInfo } from "../controller/patchUserInfo";
 import { TextInput } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import eye from "../assets/icons8-eye-30.png";
@@ -19,6 +22,45 @@ export default function ProfileEmailChange({ navigation }) {
   const [passwordInput, changePasswordInput] = React.useState(null);
   const [emailInput, changeEmailInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
+
+  const dispatch = useDispatch();
+  const { acc } = useSelector((state) => state);
+  const [formInput, setFormInput] = useState({
+    /*set initial credentials to ""*/
+    email: "",
+  });
+
+  function inputEmailChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      email: text,
+    });
+  }
+
+  async function emailChangeSubmit() {
+    const credentials = {
+      _id: acc.id,
+      email: formInput.email,
+    };
+
+    dispatch(editEmail(credentials));
+
+    const response = await patchUserInfo(credentials);
+
+    if (response != null) {
+      //here is where you would sync front end and back end
+      dispatch(
+        editEmail({
+          _id: response._id,
+          email: response.email,
+        })
+      );
+    } else {
+      alert("Server might be out of sync with recent changes");
+    }
+  }
+
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -42,8 +84,7 @@ export default function ProfileEmailChange({ navigation }) {
         <View style={styles.content}>
           <TextInput
             style={styles.textInput}
-            onChangeText={changeEmailInput}
-            value={emailInput}
+            onChangeText={(text) => inputEmailChanged(text)}
             mode="outlined"
             label="Email"
             outlineColor="#b1b1b1"
@@ -71,7 +112,7 @@ export default function ProfileEmailChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={() => Alert.alert("Skate fast and eat ass")}
+            onPress={emailChangeSubmit}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
