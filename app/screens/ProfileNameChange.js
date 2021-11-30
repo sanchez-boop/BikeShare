@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,9 @@ import {
   Button,
   Image,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { editName } from "../model/accSlice";
+import { patchName } from "../controller/patchName";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -20,6 +23,70 @@ export default function ProfileNameChange({ navigation }) {
   const [firstNameInput, changeFirstNameInput] = React.useState(null);
   const [lastNameInput, changeLastNameInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
+
+  const dispatch = useDispatch();
+  const { acc } = useSelector((state) => state);
+  console.log("acc.name is here: " + acc.name);
+  const [formInput, setFormInput] = useState({
+    /*set initial credentials to ""*/
+    name: "",
+  });
+
+  console.log(acc.id);
+  function inputNameChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      name: text,
+    });
+    console.log("I changed text to: " + text);
+    console.log("formInput: " + formInput.name);
+  }
+
+  async function nameChangeSubmit() {
+    /*toggle dropdown box on redux then edit
+      status to back end. first edit the redux 
+      status. then make an API call to edit status on
+      back end. finally, get the API changes to sync
+      back end and front end */
+    /*
+    dispatch(
+      editName({
+        _id: _id,
+        name: name,
+      })
+    );
+      */
+    /*now edit status on back end & pull changes*/
+    /*
+    const credentials = {
+      _id: _id,
+      name: name,
+    };
+    */
+    const credentials = {
+      _id: acc.id,
+      name: formInput.name,
+    };
+    dispatch(editName(credentials));
+
+    const response = await patchName(credentials);
+    //console.log("The formInput is: " + formInput.name);
+    console.log("The response is " + response.name);
+
+    if (response != null) {
+      //here is where you would sync front end and back end
+      dispatch(
+        editName({
+          _id: response._id,
+          name: response.name,
+        })
+      );
+    } else {
+      alert("Server might be out of sync with recent changes");
+    }
+  }
+
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -43,8 +110,7 @@ export default function ProfileNameChange({ navigation }) {
         <View style={styles.content}>
           <TextInput
             style={styles.textInput}
-            onChangeText={changeFirstNameInput}
-            value={firstNameInput}
+            onChangeText={(text) => inputNameChanged(text)}
             mode="outlined"
             label="First Name"
             outlineColor="#b1b1b1"
@@ -82,7 +148,7 @@ export default function ProfileNameChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={() => Alert.alert("Skate fast and eat ass")}
+            onPress={nameChangeSubmit}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>

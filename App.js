@@ -15,6 +15,10 @@ import {
   Inter_600SemiBold,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
+import {
+  WorkSans_400Regular,
+  WorkSans_600SemiBold,
+} from "@expo-google-fonts/work-sans";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -31,10 +35,12 @@ import { Provider } from "react-redux";
 
 //reducers
 import accReducer from "./app/model/accSlice";
+import bikesReducer from "./app/model/bikesSlice";
 
 //Redux configuration
 const reducer = combineReducers({
   acc: accReducer,
+  bikes: bikesReducer,
 });
 
 const store = configureStore({
@@ -60,6 +66,8 @@ function App() {
     Inter_500Medium,
     Inter_600SemiBold,
     Inter_700Bold,
+    WorkSans_400Regular,
+    WorkSans_600SemiBold,
   });
 
   if (!fontsLoaded) {

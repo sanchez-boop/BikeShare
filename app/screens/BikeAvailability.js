@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,77 +8,36 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
+import { addBikeToAvailable } from "../model/bikesSlice";
+import { getBikes } from "../controller/getBikes";
+import { useSelector, useDispatch } from "react-redux";
 import colors from "../config/colors";
 
 export default function BikeAvailability(props) {
-  const [signInput, changeSignInput] = React.useState(null);
-  var numBikesAvailable = 6;
-  const DATA = [
-    {
-      id: 2,
-      style: "Single-Speed",
-      available: true,
-    },
-    {
-      id: 3,
-      style: "Single-Speed",
-      available: true,
-    },
-    {
-      id: 6,
-      style: "Single-Speed",
-      available: true,
-    },
-    {
-      id: 24,
-      style: "Single-Speed",
-      available: true,
-    },
-    {
-      id: 32,
-      style: "Single-Speed",
-      available: true,
-    },
-    {
-      id: 33,
-      style: "Cruiser",
-      available: true,
-    },
-    {
-      id: 1,
-      style: "Cruiser",
-      available: false,
-    },
-    {
-      id: 4,
-      style: "Single-Speed",
-      available: false,
-    },
-    {
-      id: 7,
-      style: "Single-Speed",
-      available: false,
-    },
-    {
-      id: 10,
-      style: "Single-Speed",
-      available: false,
-    },
-    {
-      id: 21,
-      style: "Cruiser",
-      available: false,
-    },
-    {
-      id: 23,
-      style: "Single-Speed",
-      available: false,
-    },
-  ];
+  const dispatch = useDispatch();
+
+  // useEffect will render once when given arg of []
+  useEffect(() => {
+    async function asyncDispatch() {
+      /* the API returns an arr of bike objects. 
+        await both APIs and map through arr*/
+      const response = await getBikes();
+
+      response.map((bike) => {
+        dispatch(addBikeToAvailable(bike));
+      });
+    }
+
+    asyncDispatch();
+  }, []);
+
+  const { bikes } = useSelector((state) => state);
+
+  var numBikesAvailable = Object.keys(bikes.available).length;
 
   const renderItem = ({ item }) => {
-    const backgroundColor = item.available ? "#fffff" : "#f4f4f4";
-    const color = item.available ? "#000000" : "#9c9c9c";
+    const backgroundColor = "#fff";
+    const color = "#000000";
 
     return (
       <Item
@@ -86,17 +45,25 @@ export default function BikeAvailability(props) {
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
         id={item.id}
-        style={item.style}
+        model={item.model}
       />
     );
   };
 
-  const Item = ({ id, style, backgroundColor, textColor }) => (
+  const Item = ({ id, model, backgroundColor, textColor }) => (
     <View style={[styles.item, backgroundColor]}>
       <View style={styles.itemContainer}>
-        <Text style={[textColor, styles.id, styles.itemText]}>{id}</Text>
+        <View
+          style={
+            {
+              //backgroundColor: "blue",
+            }
+          }
+        >
+          <Text style={[textColor, styles.id, styles.itemText]}>{id}</Text>
+        </View>
         <Text style={[textColor, styles.styleOfBike, styles.itemText]}>
-          {style}
+          {model}
         </Text>
       </View>
     </View>
@@ -151,17 +118,22 @@ export default function BikeAvailability(props) {
       </View>
       <SafeAreaView style={styles.listContent}>
         <FlatList
-          data={DATA}
+          data={Object.values(bikes.available)}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={ItemSeparatorView}
           ListHeaderComponent={ListHeader}
+          // Performance settings
+          removeClippedSubviews={true} // Unmount components when outside of window
+          initialNumToRender={1} // Reduce initial render amount
+          maxToRenderPerBatch={10} // Reduce number in each render batch
+          updateCellsBatchingPeriod={10} // Increase time between renders
+          windowSize={3} // Reduce the window size
         />
       </SafeAreaView>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   mainView: {
     height: "100%",
@@ -183,18 +155,21 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   numBikesView: {
-    height: "7.5%",
-    width: "90%",
+    backgroundColor: "#f9f9f9",
+    marginVertical: 9,
+    marginLeft: 12,
+    alignSelf: "flex-start",
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "#dfdfdf",
   },
   numberBikesAvailable: {
     fontSize: 18,
     padding: 10,
-    marginTop: 8,
+    paddingHorizontal: 12,
   },
   item: {
-    padding: 18,
-    paddingLeft: 49,
-    paddingRight: 23,
+    paddingVertical: 18,
   },
   listHeaderStyle: {
     borderTopRightRadius: 10,
@@ -206,10 +181,9 @@ const styles = StyleSheet.create({
   },
   headerTextStyle: {
     color: "#000000",
-    paddingLeft: 60,
-    paddingRight: 60,
+
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   headerStyleOfBike: {},
   itemHeaderText: {
@@ -228,8 +202,9 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 78,
+    paddingRight: 55,
+    //backgroundColor: "red",
   },
   itemText: {
     fontSize: 12.5,
@@ -238,5 +213,4 @@ const styles = StyleSheet.create({
   styleOfBike: {
     fontFamily: "Inter_500Medium",
   },
-  serialNumber: { fontFamily: "Inter_500Medium" },
 });

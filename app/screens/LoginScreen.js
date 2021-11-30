@@ -48,6 +48,7 @@ export default function LoginScreen({ navigation }) {
       ...formInput,
       email: text,
     });
+    //console.log("formInput: " + formInput.email);
   }
   function inputPasswordChanged(text) {
     /*change the state of the credentials to the password you typed*/
@@ -64,11 +65,14 @@ export default function LoginScreen({ navigation }) {
       as an email. if arr>0, log the user in.
       else, return login failed*/
       const account = await postLogin(formInput);
+      //console.log("The response is THIS NOW " + (await postLogin(formInput)));
 
-      console.log("The account is" + account);
+      //console.log("The account is " + account);
       if (account.length > 0) {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
+        //console.log(signIn(account[0]));
+
         dispatch(signIn(account[0]));
         navigation.navigate("Main", { screen: "Bike Availability" });
       } else {

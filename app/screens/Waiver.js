@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: "#f3f3f3",
+    borderColor: "#dfdfdf",
   },
   waiverNotifText: {
     fontSize: 18,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: "#f3f3f3",
+    borderColor: "#dfdfdf",
   },
   waiverFormTitle: {
     fontSize: 20,
