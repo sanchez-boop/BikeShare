@@ -17,8 +17,7 @@ router.post('/', async (req, res) => {
     const user = new User({
         blacklist: req.body.blacklist,
         email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+        name: req.body.name,
         password: req.body.password,
         phone: req.body.phone,
         role: req.body.role,
@@ -39,8 +38,7 @@ router.patch('/', async (req, res) => {
             {_id: req.body._id},
             { $set: {   blacklist: req.body.blacklist,
                         email: req.body.email,
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
+                        name: req.body.name,
                         password: req.body.password,
                         phone: req.body.phone,
                         role: req.body.role,
@@ -76,19 +74,6 @@ router.post('/login', async (req, res, next) =>
       //const db = client.db();
       //const results = await db.collection('Users').find({Email:email,Password:password}).toArray();
       const results =  await User.find({ email : Email, password : Password });
-    
-      var _id = -1;
-      var fn = '';
-      var ln = '';
-    
-      if( results.length > 0 )
-      {
-        _id = results[0]._id;
-        fn = results[0].firstName;
-        ln = results[0].lastName;
-      }
-    
-      var ret = { _id: _id, firstName:fn, lastName:ln, error:''};
       res.status(200).json(results);
     });
 //searching users 
@@ -96,8 +81,7 @@ router.post('/search', async (req, res, next) =>
 {
 try{
     const searchedUsers = await User.find({$or:[
-    {firstName:{$regex: req.body.key, $options: 'i'}},
-    {lastName:{$regex: req.body.key, $options: 'i'}},
+    {name:{$regex: req.body.key, $options: 'i'}},
     {phone:{$regex: req.body.key, $options: 'i'}},
     {email:{$regex: req.body.key, $options: 'i'}}
     ]})
