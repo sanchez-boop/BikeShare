@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,9 @@ import {
   Button,
   Image,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { editPassword } from "../model/accSlice";
+import { patchUserInfo } from "../controller/patchUserInfo";
 import { TextInput } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import eye from "../assets/icons8-eye-30.png";
@@ -22,6 +25,45 @@ export default function ProfilePasswordChange({ navigation }) {
   const [ReenterPasswordInput, changeReenterPasswordInput] =
     React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
+
+  const dispatch = useDispatch();
+  const { acc } = useSelector((state) => state);
+  const [formInput, setFormInput] = useState({
+    /*set initial credentials to ""*/
+    password: "",
+  });
+
+  function inputPasswordChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      password: text,
+    });
+  }
+
+  async function passwordChangeSubmit() {
+    const credentials = {
+      _id: acc.id,
+      password: formInput.password,
+    };
+
+    dispatch(editPassword(credentials));
+
+    const response = await patchUserInfo(credentials);
+
+    if (response != null) {
+      //here is where you would sync front end and back end
+      dispatch(
+        editPassword({
+          _id: response._id,
+          password: response.password,
+        })
+      );
+    } else {
+      alert("Server might be out of sync with recent changes");
+    }
+  }
+
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -70,8 +112,7 @@ export default function ProfilePasswordChange({ navigation }) {
               style={styles.textInput}
               secureTextEntry={isSecureEntry}
               mode="outlined"
-              onChangeText={changeNewPasswordInput}
-              value={newPasswordInput}
+              onChangeText={(text) => inputPasswordChanged(text)}
               label="New Password"
               outlineColor="#b1b1b1"
               activeOutlineColor="#000000"
@@ -109,7 +150,7 @@ export default function ProfilePasswordChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={() => Alert.alert("Skate fast and eat ass")}
+            onPress={passwordChangeSubmit}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>

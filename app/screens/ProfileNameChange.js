@@ -48,8 +48,6 @@ export default function ProfileNameChange({ navigation }) {
     dispatch(editName(credentials));
 
     const response = await patchUserInfo(credentials);
-    //console.log("The formInput is: " + formInput.name);
-    console.log("The response is " + response.name);
 
     if (response != null) {
       //here is where you would sync front end and back end

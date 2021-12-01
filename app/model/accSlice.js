@@ -42,8 +42,14 @@ const slice = createSlice({
       const { email } = action.payload;
       state.email = email;
     },
+    editPassword: (state, action) => {
+      /* change name to desired name */
+      const { password } = action.payload;
+      state.password = password;
+    },
   },
 });
 
 export default slice.reducer;
-export const { signIn, signOut, editName, editEmail } = slice.actions;
+export const { signIn, signOut, editName, editEmail, editPassword } =
+  slice.actions;
