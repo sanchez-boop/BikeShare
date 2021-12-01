@@ -39,6 +39,15 @@ export default function ProfileNameChange({ navigation }) {
     });
   }
 
+  function verifyPassword(enteredPassword) {
+    if (enteredPassword == acc.password) {
+      alert("Your name was changed!");
+      nameChangeSubmit();
+    } else {
+      alert("Incorrect password");
+    }
+  }
+
   async function nameChangeSubmit() {
     const credentials = {
       _id: acc.id,
@@ -87,17 +96,7 @@ export default function ProfileNameChange({ navigation }) {
             style={styles.textInput}
             onChangeText={(text) => inputNameChanged(text)}
             mode="outlined"
-            label="First Name"
-            outlineColor="#b1b1b1"
-            activeOutlineColor="#000000"
-          />
-
-          <TextInput
-            style={styles.textInput}
-            onChangeText={changeLastNameInput}
-            value={lastNameInput}
-            mode="outlined"
-            label="Last Name"
+            label="New Name"
             outlineColor="#b1b1b1"
             activeOutlineColor="#000000"
           />
@@ -123,7 +122,7 @@ export default function ProfileNameChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={nameChangeSubmit}
+            onPress={() => verifyPassword(passwordInput)}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>

@@ -38,6 +38,15 @@ export default function ProfileEmailChange({ navigation }) {
     });
   }
 
+  function verifyPassword(enteredPassword) {
+    if (enteredPassword == acc.password) {
+      alert("Your email was changed!");
+      emailChangeSubmit();
+    } else {
+      alert("Incorrect password");
+    }
+  }
+
   async function emailChangeSubmit() {
     const credentials = {
       _id: acc.id,
@@ -112,7 +121,7 @@ export default function ProfileEmailChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={emailChangeSubmit}
+            onPress={() => verifyPassword(passwordInput)}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>

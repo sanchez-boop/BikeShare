@@ -22,9 +22,11 @@ export default function ProfilePasswordChange({ navigation }) {
   const [currentPasswordInput, changeCurrentPasswordInput] =
     React.useState(null);
   const [newPasswordInput, changeNewPasswordInput] = React.useState(null);
-  const [ReenterPasswordInput, changeReenterPasswordInput] =
+  const [reEnterPasswordInput, changeReEnterPasswordInput] =
     React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
+  const [isSecureEntry2, changeIsSecureEntry2] = React.useState(true);
+  const [isSecureEntry3, changeIsSecureEntry3] = React.useState(true);
 
   const dispatch = useDispatch();
   const { acc } = useSelector((state) => state);
@@ -34,6 +36,7 @@ export default function ProfilePasswordChange({ navigation }) {
   });
 
   function inputPasswordChanged(text) {
+    console.log("Text is: " + text);
     /*change the state of the credentials to the name you typed*/
     setFormInput({
       ...formInput,
@@ -41,7 +44,21 @@ export default function ProfilePasswordChange({ navigation }) {
     });
   }
 
+  function verifyPassword(enteredPassword, confirmPassword) {
+    if (enteredPassword == acc.password) {
+      if (formInput.password == confirmPassword) {
+        alert("Passwords match, Your password was changed!");
+        passwordChangeSubmit();
+      } else {
+        alert("Current password is correct but new passwords don't match");
+      }
+    } else {
+      alert("Incorrect current password");
+    }
+  }
+
   async function passwordChangeSubmit() {
+    console.log(formInput.password);
     const credentials = {
       _id: acc.id,
       password: formInput.password,
@@ -110,7 +127,7 @@ export default function ProfilePasswordChange({ navigation }) {
           <View style={styles.textAndEyeContainer}>
             <TextInput
               style={styles.textInput}
-              secureTextEntry={isSecureEntry}
+              secureTextEntry={isSecureEntry2}
               mode="outlined"
               onChangeText={(text) => inputPasswordChanged(text)}
               label="New Password"
@@ -120,7 +137,7 @@ export default function ProfilePasswordChange({ navigation }) {
             />
             <TouchableOpacity
               onPress={() => {
-                changeIsSecureEntry((prev) => !prev);
+                changeIsSecureEntry2((prev) => !prev);
               }}
               style={styles.eyeContainer}
             >
@@ -131,10 +148,10 @@ export default function ProfilePasswordChange({ navigation }) {
           <View style={styles.textAndEyeContainer}>
             <TextInput
               style={styles.textInput}
-              secureTextEntry={isSecureEntry}
+              secureTextEntry={isSecureEntry3}
               mode="outlined"
-              onChangeText={changeReenterPasswordInput}
-              value={ReenterPasswordInput}
+              onChangeText={changeReEnterPasswordInput}
+              value={reEnterPasswordInput}
               label="Re-enter New Password"
               outlineColor="#b1b1b1"
               activeOutlineColor="#000000"
@@ -142,7 +159,7 @@ export default function ProfilePasswordChange({ navigation }) {
             />
             <TouchableOpacity
               onPress={() => {
-                changeIsSecureEntry((prev) => !prev);
+                changeIsSecureEntry3((prev) => !prev);
               }}
               style={styles.eyeContainer}
             >
@@ -150,7 +167,9 @@ export default function ProfilePasswordChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={passwordChangeSubmit}
+            onPress={() =>
+              verifyPassword(currentPasswordInput, reEnterPasswordInput)
+            }
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
