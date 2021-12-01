@@ -15,17 +15,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import logo from "../assets/Shop-Logo.png";
-import oldlogo from "../assets/Shop-Logo-Old.png";
+import { Ionicons } from "@expo/vector-icons";
 import eye from "../assets/icons8-eye-30.png";
 import colors from "../config/colors";
-
-/*function SignUp({ navigation }) {
-  const [emailInput, changeEmailInput] = React.useState(null);
-  const [passwordInput, changePasswordInput] = React.useState(null);
-  const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
-  const [firstNameInput, changeFirstNameInput] = React.useState(null);
-  const [lastNameInput, changeLastNameInput] = React.useState(null);
-*/
 
 export default function RegisterScreen({ navigation }) {
   const [emailInput, changeEmailInput] = React.useState(null);
@@ -36,6 +28,22 @@ export default function RegisterScreen({ navigation }) {
   const [lastNameInput, changeLastNameInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
   const [isSecureEntry2, changeIsSecureEntry2] = React.useState(true);
+
+  function eyeState() {
+    if (isSecureEntry == true) {
+      return <Ionicons name="eye" size={24} color="black" />;
+    } else if (isSecureEntry == false) {
+      return <Ionicons name="eye-off" size={24} color="black" />;
+    }
+  }
+
+  function eyeState2() {
+    if (isSecureEntry2 == true) {
+      return <Ionicons name="eye" size={24} color="black" />;
+    } else if (isSecureEntry2 == false) {
+      return <Ionicons name="eye-off" size={24} color="black" />;
+    }
+  }
 
   return (
     <KeyboardAwareScrollView
@@ -103,6 +111,7 @@ export default function RegisterScreen({ navigation }) {
               outlineColor="#b1b1b1"
               activeOutlineColor="#000000"
               numberOfLines={1}
+              textContentType={"oneTimeCode"}
             />
             <TouchableOpacity
               onPress={() => {
@@ -110,7 +119,7 @@ export default function RegisterScreen({ navigation }) {
               }}
               style={styles.eyeContainer}
             >
-              <Image source={eye} style={styles.eye} />
+              {eyeState()}
             </TouchableOpacity>
           </View>
           <View style={styles.textAndEyeContainer}>
@@ -131,7 +140,7 @@ export default function RegisterScreen({ navigation }) {
               }}
               style={styles.eyeContainer}
             >
-              <Image source={eye} style={styles.eye} />
+              {eyeState2()}
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -244,14 +253,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     height: "40%",
     width: "10%",
-    top: 23,
-    right: 4,
+    top: 22,
+    right: 6,
     zIndex: 300,
     backgroundColor: "#F4FEFF",
-  },
-  eye: {
-    height: 22,
-    width: 22,
   },
   signUpButton: {
     height: 45,

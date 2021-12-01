@@ -14,7 +14,7 @@ import { editEmail } from "../model/accSlice";
 import { patchUserInfo } from "../controller/patchUserInfo";
 import { TextInput } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import eye from "../assets/icons8-eye-30.png";
+import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -70,6 +70,14 @@ export default function ProfileEmailChange({ navigation }) {
     }
   }
 
+  function eyeState() {
+    if (isSecureEntry == true) {
+      return <Ionicons name="eye" size={24} color="black" />;
+    } else if (isSecureEntry == false) {
+      return <Ionicons name="eye-off" size={24} color="black" />;
+    }
+  }
+
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -117,7 +125,7 @@ export default function ProfileEmailChange({ navigation }) {
               }}
               style={styles.eyeContainer}
             >
-              <Image source={eye} style={styles.eye} />
+              {eyeState()}
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -207,14 +215,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     height: "40%",
     width: "10%",
-    top: 23,
-    right: 4,
+    top: 22,
+    right: 6,
     zIndex: 300,
     backgroundColor: "#F4FEFF",
-  },
-  eye: {
-    height: 22,
-    width: 22,
   },
   signUpButton: {
     height: 45,

@@ -18,8 +18,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import logo from "../assets/Shop-Logo.png";
-import oldlogo from "../assets/Shop-Logo-Old.png";
-import eye from "../assets/icons8-eye-30.png";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 
