@@ -20,13 +20,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import logo from "../assets/Shop-Logo.png";
 import oldlogo from "../assets/Shop-Logo-Old.png";
 import eye from "../assets/icons8-eye-30.png";
+import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
-
-/*function SignIn({ navigation }) {
-  const [emailInput, changeEmailInput] = React.useState(null);
-  const [passwordInput, changePasswordInput] = React.useState(null);
-  const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
-*/
 
 export default function LoginScreen({ navigation }) {
   /* We may not need the following three const's */
@@ -48,7 +43,6 @@ export default function LoginScreen({ navigation }) {
       ...formInput,
       email: text,
     });
-    //console.log("formInput: " + formInput.email);
   }
   function inputPasswordChanged(text) {
     /*change the state of the credentials to the password you typed*/
@@ -65,13 +59,10 @@ export default function LoginScreen({ navigation }) {
       as an email. if arr>0, log the user in.
       else, return login failed*/
       const account = await postLogin(formInput);
-      //console.log("The response is THIS NOW " + (await postLogin(formInput)));
 
-      //console.log("The account is " + account);
       if (account.length > 0) {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
-        //console.log(signIn(account[0]));
 
         dispatch(signIn(account[0]));
         navigation.navigate("Main", { screen: "Bike Availability" });
@@ -82,6 +73,15 @@ export default function LoginScreen({ navigation }) {
 
     asyncDispatch();
   }
+
+  function eyeState() {
+    if (isSecureEntry == true) {
+      return <Ionicons name="eye" size={24} color="black" />;
+    } else if (isSecureEntry == false) {
+      return <Ionicons name="eye-off" size={24} color="black" />;
+    }
+  }
+
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -122,7 +122,7 @@ export default function LoginScreen({ navigation }) {
                 }}
                 style={styles.eyeContainer}
               >
-                <Image source={eye} style={styles.eye} />
+                {eyeState()}
               </TouchableOpacity>
             </View>
             <TouchableOpacity
@@ -240,14 +240,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     height: "60%",
     width: "12%",
-    top: 23,
-    right: 4,
+    top: 22,
+    right: 6,
     backgroundColor: "#F4FEFF",
     zIndex: 300,
-  },
-  eye: {
-    height: 22,
-    width: 22,
   },
   forgotPassword: {
     fontSize: 13.3,
