@@ -1,24 +1,146 @@
-.renew{
-    background-color: #22C16B; 
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-    margin: 4px 2px;
-    cursor: pointer;
-    float: right;
+.renew {
+  background-color: #22c16b;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: right;
 }
-.return{
-    background-color: #FF4141;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-    margin: 4px 2px;
-    cursor: pointer;
-    float: right;
+.return {
+  background-color: #ff4141;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: right;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-search-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.table-title {
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  font-size: 21px;
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  border: 1px solid #dfdfdf;
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+.search-field {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.search-field-active {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  outline: 1px solid #ffd119;
+}
+
+.search-bar {
+  padding-left: 7px;
+  border: 0;
+  outline: none;
+  height: 26px;
+  font-size: 12px;
+  width: 100%;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: #fff;
+  background-color: #ffcc00;
+  outline: none;
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                            supported by Chrome, Edge, Opera and Firefox */
+}
+
+.search-button:hover {
+  background-color: #fac800;
+}
+
+.search-button:active {
+  background-color: #ffd119;
+}
+
+.search-button svg {
+  width: 13px;
+}
+
+.table-content {
+  width: 83%;
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+.table-header {
+  background-color: #f2f2f2;
+  border: 1px solid #dfdfdf;
+  font-size: 14px;
+}
+
+.table-body {
+  border: 1px solid #dfdfdf;
+  font-size: 14px;
+}
+
+.gray-highlight:hover {
+  background-color: #e4e4e4;
+}
+
+.yellow-highlight:active {
+  background-color: #ffcc0099;
+}
+
+.yellow-highlight-active {
+  background-color: #c00 !important;
+}
+
+/* Set search bar to margin-left to avoid getting squished by the table title */
+@media only screen and (max-width: 844px) {
+  .search-bar-container-adjust {
+    margin: 0;
+    margin-left: auto;
+  }
 }

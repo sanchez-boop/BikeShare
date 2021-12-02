@@ -8,44 +8,46 @@ import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import "./rentOutTab.css";
 
 export default () => {
-  const {customers,bikes} = useSelector(state=>state);
-  const [searchResults,setSearchResults] = useState([]);
-  const [searchResults2,setSearchResults2] = useState([]);
+  const { customers, bikes } = useSelector((state) => state);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults2, setSearchResults2] = useState([]);
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
   const [isActive4, setActive4] = useState(false);
 
-  function searchCustomers(e){
+  function searchCustomers(e) {
     /*search only if query not empty*/
-    if(e.target.value!='')
-    {
-      async function asyncSearch(){
-        let results = await postCustomerSearch({key:e.target.value});
-        setSearchResults(searchResults=>{return results});
+    if (e.target.value != "") {
+      async function asyncSearch() {
+        let results = await postCustomerSearch({ key: e.target.value });
+        setSearchResults((searchResults) => {
+          return results;
+        });
       }
       asyncSearch();
-    }
-    else
-    {
-      setSearchResults(searchResults=>{return []});
+    } else {
+      setSearchResults((searchResults) => {
+        return [];
+      });
     }
   }
 
-  function searchBikes(e){
+  function searchBikes(e) {
     /*search only if query not empty*/
-    if(e.target.value!='')
-    {
-      async function asyncSearch(){
+    if (e.target.value != "") {
+      async function asyncSearch() {
         /*since we need to toggle to show buttons,
           add a boolean to results */
-        let results = await postBikeSearch({key:e.target.value});
-        setSearchResults2(searchResults2=>{return results});
+        let results = await postBikeSearch({ key: e.target.value });
+        setSearchResults2((searchResults2) => {
+          return results;
+        });
       }
       asyncSearch();
-    }
-    else
-    {
-      setSearchResults2(searchResults2=>{return []});
+    } else {
+      setSearchResults2((searchResults2) => {
+        return [];
+      });
     }
   }
 
@@ -80,7 +82,7 @@ export default () => {
   const unToggleClass4 = () => {
     setActive4(!isActive4);
   };
-  
+
   return (
     <>
       <div className="content">
@@ -92,12 +94,7 @@ export default () => {
                 className={isActive1 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass1}
               >
-                {
-                    isActive1 && 
-                    <button onClick={unToggleClass1}>
-                        cancel
-                    </button>
-                }
+                {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
                 <input
                   type="text"
                   placeholder="Search customers"
@@ -121,32 +118,36 @@ export default () => {
               </tr>
             </thead>
             <tbody>
-            {
-              /*if the search bar is active, display 
+              {
+                /*if the search bar is active, display 
                 search results. else, display initial
                 table*/
-              isActive1
-              ?
-              searchResults.map(customer=>{
-                return(
-                  <tr>
-                      <td>{customer['name']}</td>
-                      <td>{customer['phone']}</td>
-                      <td>{customer['email']}</td>
-                      <td>{customer['waiver']?'true':'false'}</td>
-                  </tr>
-              )})
-              :
-              Object.keys(customers.unblacklisted).map((_id,key)=>{
-                return(
-                    <tr>
-                        <td>{customers.unblacklisted[_id]['name']}</td>
-                        <td>{customers.unblacklisted[_id]['phone']}</td>
-                        <td>{customers.unblacklisted[_id]['email']}</td>
-                        <td>{customers.unblacklisted[_id]['waiver']?'true':'false'}</td>
-                    </tr>
-              )})
-            }
+                isActive1
+                  ? searchResults.map((customer) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{customer["name"]}</td>
+                          <td>{customer["phone"]}</td>
+                          <td>{customer["email"]}</td>
+                          <td>{customer["waiver"] ? "true" : "false"}</td>
+                        </tr>
+                      );
+                    })
+                  : Object.keys(customers.unblacklisted).map((_id, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{customers.unblacklisted[_id]["name"]}</td>
+                          <td>{customers.unblacklisted[_id]["phone"]}</td>
+                          <td>{customers.unblacklisted[_id]["email"]}</td>
+                          <td>
+                            {customers.unblacklisted[_id]["waiver"]
+                              ? "true"
+                              : "false"}
+                          </td>
+                        </tr>
+                      );
+                    })
+              }
             </tbody>
           </Table>
         </div>
@@ -158,12 +159,7 @@ export default () => {
                 className={isActive2 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass2}
               >
-                {
-                    isActive2 && 
-                    <button onClick={unToggleClass2}>
-                        cancel
-                    </button>
-                }
+                {isActive2 && <button onClick={unToggleClass2}>cancel</button>}
                 <input
                   type="text"
                   placeholder="Search available bikes"
@@ -191,25 +187,24 @@ export default () => {
                 search results. else, display initial
                 table*/
                 isActive2
-                ?
-                searchResults2.map((bike,key)=>{
-                  return(
-                    <tr className="table-body gray-highlight">
-                        <td>{bike['id']}</td>
-                        <td>{bike['model']}</td>
-                        <td>{bike['serialNumber']}</td>
-                      </tr>
-                )})
-                :
-                Object.values(bikes.available).map((bike, key) => {
-                    return (
-                      <tr className="table-body gray-highlight">
-                        <td>{bike['id']}</td>
-                        <td>{bike['model']}</td>
-                        <td>{bike['serialNumber']}</td>
-                      </tr>
-                    );
-                  })
+                  ? searchResults2.map((bike, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{bike["id"]}</td>
+                          <td>{bike["model"]}</td>
+                          <td>{bike["serialNumber"]}</td>
+                        </tr>
+                      );
+                    })
+                  : Object.values(bikes.available).map((bike, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{bike["id"]}</td>
+                          <td>{bike["model"]}</td>
+                          <td>{bike["serialNumber"]}</td>
+                        </tr>
+                      );
+                    })
               }
             </tbody>
           </Table>

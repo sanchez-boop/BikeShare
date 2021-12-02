@@ -10,89 +10,96 @@ import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import { postRepairSearch } from "../../../Controller/postRepairSearch";
 
 export default () => {
-  const {bikes,repairs} = useSelector(state=>state);
+  const { bikes, repairs } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [searchResults,setSearchResults] = useState([]);
-  const [searchResults2,setSearchResults2] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults2, setSearchResults2] = useState([]);
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
 
-  function searchBikes(e){
+  function searchBikes(e) {
     /*search only if query not empty*/
-    if(e.target.value!='')
-    {
-      async function asyncSearch(){
+    if (e.target.value != "") {
+      async function asyncSearch() {
         /*since we need to toggle to show buttons,
           add a boolean to results */
-        let results = await postBikeSearch({key:e.target.value});
-        setSearchResults(searchResults=>{return results});
+        let results = await postBikeSearch({ key: e.target.value });
+        setSearchResults((searchResults) => {
+          return results;
+        });
       }
       asyncSearch();
-    }
-    else
-    {
-      setSearchResults(searchResults=>{return []});
+    } else {
+      setSearchResults((searchResults) => {
+        return [];
+      });
     }
   }
 
-  function searchRepairs(e){
+  function searchRepairs(e) {
     /*search only if query not empty*/
-    if(e.target.value!='')
-    {
-      async function asyncSearch(){
+    if (e.target.value != "") {
+      async function asyncSearch() {
         /*since we need to toggle to show buttons,
           add a boolean to results */
-        let results = await postRepairSearch({key:e.target.value});
-        setSearchResults2(searchResults2=>{return results});
+        let results = await postRepairSearch({ key: e.target.value });
+        setSearchResults2((searchResults2) => {
+          return results;
+        });
       }
       asyncSearch();
-    }
-    else
-    {
-      setSearchResults2(searchResults2=>{return []});
+    } else {
+      setSearchResults2((searchResults2) => {
+        return [];
+      });
     }
   }
 
-  async function dropdownClicked(_id,status){
-      /*toggle dropdown box on redux then edit
+  async function dropdownClicked(_id, status) {
+    /*toggle dropdown box on redux then edit
         status to back end. first edit the redux 
         status. then make an API call to edit status on
         back end. finally, get the API changes to sync
         back end and front end */
-      dispatch(editStatus({
-        _id : _id,
-        status : status
-      }));
+    dispatch(
+      editStatus({
+        _id: _id,
+        status: status,
+      })
+    );
 
-      /*now edit status on back end & pull changes*/
-      const credentials = {
-        _id : _id,
-        status : status
-      }
+    /*now edit status on back end & pull changes*/
+    const credentials = {
+      _id: _id,
+      status: status,
+    };
 
-      const response = await patchStatus(credentials);
-      if(response!=null)
-      {
-        //here is where you would sync front end and back end
-        dispatch(editStatus({
-          _id : _id,
-          status : response.status
-        }));
-      }
-      else
-      {
-        alert('Server might be out of sync with recent changes')
-      }
+    const response = await patchStatus(credentials);
+    console.log("The response is " + response);
+
+    if (response != null) {
+      //here is where you would sync front end and back end
+      dispatch(
+        editStatus({
+          _id: _id,
+          status: response.status,
+        })
+      );
+    } else {
+      alert("Server might be out of sync with recent changes");
+    }
   }
 
-  function searchDropdownClicked(key,_id,status){
+  function searchDropdownClicked(key, _id, status) {
     /*when you change dropdown from the search bar,
       you need to update the search results, the redux
       state and the back end. do the state update here 
       and redux/backend there*/
-      searchResults2[key]['status']=status
-      setSearchResults2(prevState=>{return searchResults2});
-      dropdownClicked(_id,status);
+    searchResults2[key]["status"] = status;
+    setSearchResults2((prevState) => {
+      return searchResults2;
+    });
+    dropdownClicked(_id, status);
   }
 
   /* Toggle the outline for the first search bar */
@@ -126,12 +133,7 @@ export default () => {
                 className={isActive1 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass1}
               >
-                {
-                    isActive1 && 
-                    <button onClick={unToggleClass1}>
-                        cancel
-                    </button>
-                }
+                {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
                 <input
                   type="text"
                   placeholder="Search bikes that are due"
@@ -151,7 +153,7 @@ export default () => {
                 <th>BIKE NUMBER</th>
                 <th>NAME</th>
                 <th>PHONE NUMBER</th>
-                <th>EMAIL</th>    
+                <th>EMAIL</th>
                 <th>NOTES</th>
                 <th>DATE CHECKED OUT</th>
               </tr>
@@ -162,31 +164,30 @@ export default () => {
                   search results. else, display initial
                   table*/
                 isActive1
-                ?
-                searchResults.map((bike,key)=>{
-                    return(
-                      <tr className="table-body gray-highlight">
-                        <td>{bike['id']}</td>
-                        <td>{bike['name']}</td>
-                        <td>{bike['phone']}</td>
-                        <td>{bike['email']}</td>               
-                        <td>{bike['notes']}</td>
-                        <td>{bike['dateRented']}</td>
-                      </tr>
-                )})
-                :
-                Object.values(bikes.due).map((bike, key) => {
-                  return (
-                    <tr className="table-body gray-highlight">
-                      <td>{bike['id']}</td>
-                      <td>{bike['name']}</td>
-                      <td>{bike['phone']}</td>
-                      <td>{bike['email']}</td>               
-                      <td>{bike['notes']}</td>
-                      <td>{bike['dateRented']}</td>
-                    </tr>
-                  );
-                })
+                  ? searchResults.map((bike, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{bike["id"]}</td>
+                          <td>{bike["name"]}</td>
+                          <td>{bike["phone"]}</td>
+                          <td>{bike["email"]}</td>
+                          <td>{bike["notes"]}</td>
+                          <td>{bike["dateRented"]}</td>
+                        </tr>
+                      );
+                    })
+                  : Object.values(bikes.due).map((bike, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{bike["id"]}</td>
+                          <td>{bike["name"]}</td>
+                          <td>{bike["phone"]}</td>
+                          <td>{bike["email"]}</td>
+                          <td>{bike["notes"]}</td>
+                          <td>{bike["dateRented"]}</td>
+                        </tr>
+                      );
+                    })
               }
             </tbody>
           </Table>
@@ -199,12 +200,7 @@ export default () => {
                 className={isActive2 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass2}
               >
-                {
-                    isActive2 && 
-                    <button onClick={unToggleClass2}>
-                        cancel
-                    </button>
-                }
+                {isActive2 && <button onClick={unToggleClass2}>cancel</button>}
                 <input
                   type="text"
                   placeholder="Search current repairs"
@@ -235,43 +231,100 @@ export default () => {
                   search results. else, display initial
                   table*/
                 isActive2
-                ?
-                searchResults2.map((repair,key)=>{
-                    return(
-                      <tr className="table-body gray-highlight">
-                        <td>{repair['name']}</td>
-                        <td>{repair['phone']}</td>
-                        <td>{repair['email']}</td>
-                        <td>{repair['bikeModel']}</td>
-                        <td>{repair['notes']}</td>
-                        <td>
-                          <DropdownButton id="dropdown-basic-button" title={repair['status']}>
-                            <Dropdown.Item href="#/action-1" onClick={()=>searchDropdownClicked(key,repair['_id'],'IN-SHOP')}>IN-SHOP</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2" onClick={()=>searchDropdownClicked(key,repair['_id'],'CUSTOMER NOTIFIED')}>CUSTOMER NOTIFIED</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3" onClick={()=>searchDropdownClicked(key,repair['_id'],'PICKED UP')}>PICKED UP</Dropdown.Item>
-                          </DropdownButton>
-                        </td>
-                      </tr>
-                )})
-                :
-                Object.keys(repairs).map((_id, key) => {
-                  return (
-                    <tr className="table-body gray-highlight">
-                      <td>{repairs[_id]['name']}</td>
-                      <td>{repairs[_id]['phone']}</td>
-                      <td>{repairs[_id]['email']}</td>
-                      <td>{repairs[_id]['bikeModel']}</td>
-                      <td>{repairs[_id]['notes']}</td>
-                      <td>
-                        <DropdownButton id="dropdown-basic-button" title={repairs[_id]['status']}>
-                          <Dropdown.Item href="#/action-1" onClick={()=>dropdownClicked(_id,'IN-SHOP')}>IN-SHOP</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2" onClick={()=>dropdownClicked(_id,'CUSTOMER NOTIFIED')}>CUSTOMER NOTIFIED</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3" onClick={()=>dropdownClicked(_id,'PICKED UP')}>PICKED UP</Dropdown.Item>
-                        </DropdownButton>
-                      </td>
-                    </tr>
-                  );
-                })
+                  ? searchResults2.map((repair, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{repair["name"]}</td>
+                          <td>{repair["phone"]}</td>
+                          <td>{repair["email"]}</td>
+                          <td>{repair["bikeModel"]}</td>
+                          <td>{repair["notes"]}</td>
+                          <td>
+                            <DropdownButton
+                              id="dropdown-basic-button"
+                              title={repair["status"]}
+                            >
+                              <Dropdown.Item
+                                href="#/action-1"
+                                onClick={() =>
+                                  searchDropdownClicked(
+                                    key,
+                                    repair["_id"],
+                                    "IN-SHOP"
+                                  )
+                                }
+                              >
+                                IN-SHOP
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                href="#/action-2"
+                                onClick={() =>
+                                  searchDropdownClicked(
+                                    key,
+                                    repair["_id"],
+                                    "CUSTOMER NOTIFIED"
+                                  )
+                                }
+                              >
+                                CUSTOMER NOTIFIED
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                href="#/action-3"
+                                onClick={() =>
+                                  searchDropdownClicked(
+                                    key,
+                                    repair["_id"],
+                                    "PICKED UP"
+                                  )
+                                }
+                              >
+                                PICKED UP
+                              </Dropdown.Item>
+                            </DropdownButton>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : Object.keys(repairs).map((_id, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{repairs[_id]["name"]}</td>
+                          <td>{repairs[_id]["phone"]}</td>
+                          <td>{repairs[_id]["email"]}</td>
+                          <td>{repairs[_id]["bikeModel"]}</td>
+                          <td>{repairs[_id]["notes"]}</td>
+                          <td>
+                            <DropdownButton
+                              id="dropdown-basic-button"
+                              title={repairs[_id]["status"]}
+                            >
+                              <Dropdown.Item
+                                href="#/action-1"
+                                onClick={() => dropdownClicked(_id, "IN-SHOP")}
+                              >
+                                IN-SHOP
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                href="#/action-2"
+                                onClick={() =>
+                                  dropdownClicked(_id, "CUSTOMER NOTIFIED")
+                                }
+                              >
+                                CUSTOMER NOTIFIED
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                href="#/action-3"
+                                onClick={() =>
+                                  dropdownClicked(_id, "PICKED UP")
+                                }
+                              >
+                                PICKED UP
+                              </Dropdown.Item>
+                            </DropdownButton>
+                          </td>
+                        </tr>
+                      );
+                    })
               }
             </tbody>
           </Table>
