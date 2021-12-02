@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./register.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import logo from "../../Images/bikengold.png";
-
+import { postUser } from "../../Controller/postUser";
 import { Container, FormControl } from "react-bootstrap";
 
 class ShowPassword extends React.Component {
@@ -41,7 +41,11 @@ class ShowPassword extends React.Component {
           label="Password"
           className="password-field"
         >
-          <Form.Control type={this.state.type} placeholder="Password" />
+          <Form.Control 
+            type={this.state.type} 
+            placeholder="Password" 
+            onChange={this.props.inputPasswordChanged}
+          />
         </FloatingLabel>
 
         <span onClick={this.showHide} className="eye">
@@ -111,6 +115,7 @@ class ShowPassword2 extends React.Component {
           <Form.Control
             type={this.state.type}
             placeholder="Re-enter Password"
+            onChange={this.props.inputPasswordChanged}
           />
         </FloatingLabel>
         <span onClick={this.showHide} className="eye">
@@ -146,6 +151,17 @@ class ShowPassword2 extends React.Component {
 }
 
 export default () => {
+  const history = useHistory();
+  const [formInput, setFormInput] = useState({
+    /*set initial credentials to ""*/
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    verifyPassword: "",
+    phone: ""
+  });
+
   function ForgetPasswordAlert() {
     alert("Forget Password clicked");
   }
@@ -158,6 +174,87 @@ export default () => {
     alert("Sign in clicked");
   }
 
+  function inputFirstNameChanged(e){
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      firstName: e.target.value,
+    });
+  }
+
+  function inputLastNameChanged(e){
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      lastName: e.target.value,
+    });
+  }
+
+  function inputEmailChanged(e){
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      email: e.target.value,
+    });
+  }
+
+  function inputPasswordChanged(e){
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      password: e.target.value,
+    });
+  }
+
+  function verifyPasswordChanged(e){
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      verifyPassword: e.target.value,
+    });
+  }
+
+  function inputPhoneChanged(e){
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      phone: e.target.value,
+    });
+  }
+
+  async function registerUser(){
+    /*Await the API response. The API returns an 
+      array of a single object with user info, such
+      as an email. if arr>0, log the user in.
+      else, return login failed*/
+      if(formInput.password==formInput.verifyPassword)
+      {
+        const credentials = {
+          /*set initial credentials to ""*/
+          name: formInput.firstName + " " + formInput.lastName,
+          email: formInput.email,
+          password: formInput.password,
+          phone: formInput.phone,
+          role: "customer",
+          waiver: false,
+          blacklist: false
+        };
+
+        const account = await postUser(credentials);
+
+        if (account.blacklist==false) {
+          /*On successful login, go back to login*/
+          history.goBack();
+        } else {
+          alert("login failed, try again");
+        }
+      }
+      else
+      {
+        alert("Passwords do not match, try again");
+      }
+  }
+
   return (
     <>
       <div id="center">
@@ -167,10 +264,18 @@ export default () => {
             <div className="input-field-auth">
               <div id="name-container" className="mb-3">
                 <FloatingLabel label="First Name" className="name-textfield">
-                  <Form.Control type="text" placeholder="First Name" />
+                  <Form.Control 
+                    type="text" 
+                    placeholder="First Name" 
+                    onChange={inputFirstNameChanged}
+                  />
                 </FloatingLabel>
                 <FloatingLabel label="Last Name" className="name-textfield">
-                  <Form.Control type="text" placeholder="Last Name" />
+                  <Form.Control 
+                    type="text" 
+                    placeholder="Last Name" 
+                    onChange={inputLastNameChanged}
+                  />
                 </FloatingLabel>
               </div>
               <FloatingLabel
@@ -178,21 +283,29 @@ export default () => {
                 label="Phone Number"
                 className="mb-3"
               >
-                <Form.Control type="text" placeholder="XXX-XXX-XXXX" />
+                <Form.Control 
+                  type="text" 
+                  placeholder="XXX-XXX-XXXX" 
+                  onChange={inputPhoneChanged}
+                />
               </FloatingLabel>
               <FloatingLabel
                 controlId="floatingInput"
                 label="Knights Email"
                 className="mb-3"
               >
-                <Form.Control type="email" placeholder="name@example.com" />
+                <Form.Control 
+                  type="email" 
+                  placeholder="name@example.com" 
+                  onChange={inputEmailChanged}
+                />
               </FloatingLabel>
-              <ShowPassword />
-              <ShowPassword2 />
+              <ShowPassword inputPasswordChanged={inputPasswordChanged} />
+              <ShowPassword2 inputPasswordChanged={verifyPasswordChanged} />
             </div>
-            <Link to="/homeScreen" className="signup">
+            <button className="signup" onClick={registerUser}>
               Sign up
-            </Link>
+            </button>
           </div>
           <div id="right-side">
             <img className="logoBig" src={logo} alt="BikeN'Gold Logo" />
