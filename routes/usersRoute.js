@@ -21,8 +21,7 @@ router.post('/', async (req, res) => {
         password: req.body.password,
         phone: req.body.phone,
         role: req.body.role,
-        waiver : req.body.waiver,
-        bikeNumber: req.body.bikeNumber
+        waiver : req.body.waiver
     })
     try {
         const newUser = await user.save()
@@ -42,8 +41,7 @@ router.patch('/', async (req, res) => {
                         password: req.body.password,
                         phone: req.body.phone,
                         role: req.body.role,
-                        waiver : req.body.waiver,
-                        bikeNumber: req.body.bikeNumber } }
+                        waiver : req.body.waiver } }
             )
             const retVal = await User.findOne({_id:req.body._id})
             res.json(retVal)
