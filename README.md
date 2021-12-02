@@ -1,7 +1,9 @@
 # BikeShare
+
 Front end
 
 # Dependencies
+
 - npm install react-scripts@latest
 - npm install react-router-dom
 - npm install react-bootstrap bootstrap@5.1.3
@@ -9,3 +11,5 @@ Front end
 - npm install react-redux
 - npm install @reduxjs/toolkit
 - npm install react-icons --save
+- npm install --save-dev @iconify/react
+- expo install @expo/vector-icons (Actually we don't need this)

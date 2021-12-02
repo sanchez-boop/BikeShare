@@ -83,62 +83,33 @@ export default () => {
             </div>
           </div>
           {/*this table searches bikes */}
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>NAME</th>
-                <th>PHONE</th>
-                <th>EMAIL</th>
-                <th>BIKE NUMBER</th>
-                <th>SERIAL NUMBER</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                /*if the search bar is active, display 
+          <div className="margin" />
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">NAME</th>
+                  <th className="header-border">PHONE</th>
+                  <th className="header-border">EMAIL</th>
+                  <th className="header-border">BIKE NUMBER</th>
+                  <th className="header-border">SERIAL NUMBER</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  /*if the search bar is active, display 
                     search results. else, display initial
                     table*/
-                isActive1
-                  ? searchResults.map((bike, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{bike["name"]}</td>
-                          <td>{bike["phone"]}</td>
-                          <td>{bike["email"]}</td>
-                          <td>{bike["id"]}</td>
-                          <td>
-                            {bike["serialNumber"]}
-                            <>
-                              <button
-                                className="return"
-                                onClick={() => confirmReturn()}
-                              >
-                                Return
-                              </button>
-                              <button
-                                className="renew"
-                                onClick={() => confirmRenew()}
-                              >
-                                Renew
-                              </button>
-                            </>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : Object.keys(bikes.due).map((_id, key) => {
-                      return (
-                        <tr
-                          className="table-body gray-highlight"
-                          onClick={() => toggleRow(_id)}
-                        >
-                          <td>{bikes.due[_id]["name"]}</td>
-                          <td>{bikes.due[_id]["phone"]}</td>
-                          <td>{bikes.due[_id]["email"]}</td>
-                          <td>{bikes.due[_id]["id"]}</td>
-                          <td>
-                            {bikes.due[_id]["serialNumber"]}
-                            {bikes.due[_id]["renewClicked"] && (
+                  isActive1
+                    ? searchResults.map((bike, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{bike["name"]}</td>
+                            <td>{bike["phone"]}</td>
+                            <td>{bike["email"]}</td>
+                            <td>{bike["id"]}</td>
+                            <td>
+                              {bike["serialNumber"]}
                               <>
                                 <button
                                   className="return"
@@ -153,47 +124,79 @@ export default () => {
                                   Renew
                                 </button>
                               </>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })
-              }
-              {!isActive1 &&
-                Object.keys(bikes.rented).map((_id, key) => {
-                  return (
-                    <tr
-                      className="table-body gray-highlight"
-                      onClick={() => toggleRow(_id)}
-                    >
-                      <td>{bikes.rented[_id]["name"]}</td>
-                      <td>{bikes.rented[_id]["phone"]}</td>
-                      <td>{bikes.rented[_id]["email"]}</td>
-                      <td>{bikes.rented[_id]["id"]}</td>
-                      <td>
-                        {bikes.rented[_id]["serialNumber"]}
-                        {bikes.rented[_id]["renewClicked"] && (
-                          <>
-                            <button
-                              className="return"
-                              onClick={() => confirmReturn()}
-                            >
-                              Return
-                            </button>
-                            <button
-                              className="renew"
-                              onClick={() => confirmRenew()}
-                            >
-                              Renew
-                            </button>
-                          </>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : Object.keys(bikes.due).map((_id, key) => {
+                        return (
+                          <tr
+                            className="table-body gray-highlight"
+                            onClick={() => toggleRow(_id)}
+                          >
+                            <td>{bikes.due[_id]["name"]}</td>
+                            <td>{bikes.due[_id]["phone"]}</td>
+                            <td>{bikes.due[_id]["email"]}</td>
+                            <td>{bikes.due[_id]["id"]}</td>
+                            <td>
+                              {bikes.due[_id]["serialNumber"]}
+                              {bikes.due[_id]["renewClicked"] && (
+                                <>
+                                  <button
+                                    className="return"
+                                    onClick={() => confirmReturn()}
+                                  >
+                                    Return
+                                  </button>
+                                  <button
+                                    className="renew"
+                                    onClick={() => confirmRenew()}
+                                  >
+                                    Renew
+                                  </button>
+                                </>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })
+                }
+                {!isActive1 &&
+                  Object.keys(bikes.rented).map((_id, key) => {
+                    return (
+                      <tr
+                        className="table-body gray-highlight"
+                        onClick={() => toggleRow(_id)}
+                      >
+                        <td>{bikes.rented[_id]["name"]}</td>
+                        <td>{bikes.rented[_id]["phone"]}</td>
+                        <td>{bikes.rented[_id]["email"]}</td>
+                        <td>{bikes.rented[_id]["id"]}</td>
+                        <td>
+                          {bikes.rented[_id]["serialNumber"]}
+                          {bikes.rented[_id]["renewClicked"] && (
+                            <>
+                              <button
+                                className="return"
+                                onClick={() => confirmReturn()}
+                              >
+                                Return
+                              </button>
+                              <button
+                                className="renew"
+                                onClick={() => confirmRenew()}
+                              >
+                                Renew
+                              </button>
+                            </>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
+          </div>
         </div>
       </div>
     </>

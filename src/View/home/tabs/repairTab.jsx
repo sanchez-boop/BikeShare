@@ -100,6 +100,7 @@ export default () => {
             </div>
           </div>
           {/*this table searches users */}
+          <div className="margin" />
           <Table borderless className="table">
             <thead className="table-header">
               <tr>

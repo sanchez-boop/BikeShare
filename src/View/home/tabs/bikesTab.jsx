@@ -79,69 +79,72 @@ export default () => {
             </div>
           </div>
           {/*this table searches bikes */}
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>BIKE NUMBER</th>
-                <th>STYLE OF BIKE</th>
-                <th>SERIAL NUMBER</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                /*if the search bar is active, display 
+          <div className="margin" />
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">BIKE NUMBER</th>
+                  <th className="header-border">STYLE OF BIKE</th>
+                  <th className="header-border">SERIAL NUMBER</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  /*if the search bar is active, display 
                     search results. else, display initial
                     table*/
-                isActive1
-                  ? searchResults.map((bike, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{bike["id"]}</td>
-                          <td>{bike["model"]}</td>
-                          <td>
-                            {bike["serialNumber"]}
-                            <>
-                              <button
-                                className="return"
-                                onClick={() => confirmDelete()}
-                              >
-                                Delete
-                              </button>
-                            </>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : /*return due, rented and available bikes */
-                    Object.values(bikes).map((bikeObjects, key) => {
-                      return Object.keys(bikeObjects).map((_id, key) => {
+                  isActive1
+                    ? searchResults.map((bike, key) => {
                         return (
-                          <tr
-                            className="table-body gray-highlight"
-                            onClick={() => toggleRow(_id)}
-                          >
-                            <td>{bikeObjects[_id]["id"]}</td>
-                            <td>{bikeObjects[_id]["model"]}</td>
+                          <tr className="table-body gray-highlight">
+                            <td>{bike["id"]}</td>
+                            <td>{bike["model"]}</td>
                             <td>
-                              {bikeObjects[_id]["serialNumber"]}
-                              {bikeObjects[_id]["deleteClicked"] && (
-                                <>
-                                  <button
-                                    className="return"
-                                    onClick={() => confirmDelete()}
-                                  >
-                                    Delete
-                                  </button>
-                                </>
-                              )}
+                              {bike["serialNumber"]}
+                              <>
+                                <button
+                                  className="return"
+                                  onClick={() => confirmDelete()}
+                                >
+                                  Delete
+                                </button>
+                              </>
                             </td>
                           </tr>
                         );
-                      });
-                    })
-              }
-            </tbody>
-          </Table>
+                      })
+                    : /*return due, rented and available bikes */
+                      Object.values(bikes).map((bikeObjects, key) => {
+                        return Object.keys(bikeObjects).map((_id, key) => {
+                          return (
+                            <tr
+                              className="table-body gray-highlight"
+                              onClick={() => toggleRow(_id)}
+                            >
+                              <td>{bikeObjects[_id]["id"]}</td>
+                              <td>{bikeObjects[_id]["model"]}</td>
+                              <td>
+                                {bikeObjects[_id]["serialNumber"]}
+                                {bikeObjects[_id]["deleteClicked"] && (
+                                  <>
+                                    <button
+                                      className="return"
+                                      onClick={() => confirmDelete()}
+                                    >
+                                      Delete
+                                    </button>
+                                  </>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        });
+                      })
+                }
+              </tbody>
+            </Table>
+          </div>
         </div>
       </div>
     </>

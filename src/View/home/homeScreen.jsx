@@ -2,13 +2,20 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import TabNav from "./tabNav";
 import { getBikes } from "../../Controller/getBikes";
-import { getRepairs } from "../../Controller/getRepairs"
-import { getCustomers } from "../../Controller/getCustomers"
+import { getRepairs } from "../../Controller/getRepairs";
+import { getCustomers } from "../../Controller/getCustomers";
 import "./homeScreen.css";
 import logo from "../../Images/bikengold.png";
 import { addRepair } from "../../Model/repairsSlice";
-import { addBikeToAvailable, addBikeToDue, addBikeToRented } from "../../Model/bikesSlice";
-import { addCustomerToUnblacklisted, addCustomerToBlacklisted } from "../../Model/customersSlice";
+import {
+  addBikeToAvailable,
+  addBikeToDue,
+  addBikeToRented,
+} from "../../Model/bikesSlice";
+import {
+  addCustomerToUnblacklisted,
+  addCustomerToBlacklisted,
+} from "../../Model/customersSlice";
 
 export default () => {
   const dispatch = useDispatch();
@@ -18,56 +25,47 @@ export default () => {
     /*since the home tab is due bikes and repairs,
       our first API calls go towards due bikes and
       repairs */
-    async function asyncDispatch(){
+    async function asyncDispatch() {
       /*the API returns an arr of bike objects. 
         await both APIs and map through arr*/
       const bikes = await getBikes();
       const repairs = await getRepairs();
 
-      bikes.map(bike=>{
-        if(bike.dateRented.length>0){
+      bikes.map((bike) => {
+        if (bike.dateRented.length > 0) {
           const today = new Date();
           const dueDate = new Date(bike.dateRented);
-          dueDate.setDate(dueDate.getDate()+7);
+          dueDate.setDate(dueDate.getDate() + 7);
 
           /*if past due date, add to due bikes. else,
             add to rented*/
-          if (today.setHours(0,0,0,0)-dueDate.setHours(0,0,0,0)>=0)
-          {
-            dispatch(addBikeToDue(bike))
+          if (today.setHours(0, 0, 0, 0) - dueDate.setHours(0, 0, 0, 0) >= 0) {
+            dispatch(addBikeToDue(bike));
+          } else {
+            dispatch(addBikeToRented(bike));
           }
-          else
-          {
-            dispatch(addBikeToRented(bike))
-          }
-        }
-        else{
+        } else {
           dispatch(addBikeToAvailable(bike));
         }
-      })
+      });
 
-      repairs.map(repair=>{
-        dispatch(addRepair(repair))
+      repairs.map((repair) => {
+        dispatch(addRepair(repair));
       });
 
       /*now request users to complete all tables*/
       const customers = await getCustomers();
-      customers.map(customer=>{
-        if(customer.blacklist==false)
-        {
-          dispatch(addCustomerToUnblacklisted(customer))
-        }
-        else
-        {
-            dispatch(addCustomerToBlacklisted(customer))
+      customers.map((customer) => {
+        if (customer.blacklist == false) {
+          dispatch(addCustomerToUnblacklisted(customer));
+        } else {
+          dispatch(addCustomerToBlacklisted(customer));
         }
       });
     }
 
-    asyncDispatch()
+    asyncDispatch();
   }, []);
-
-  
 
   return (
     <>

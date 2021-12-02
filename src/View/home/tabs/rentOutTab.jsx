@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
+import { BsFillFileCheckFill, BsFillFileXFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
 import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
@@ -108,48 +109,56 @@ export default () => {
             </div>
           </div>
           {/*this table searches users */}
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>NAME</th>
-                <th>PHONE</th>
-                <th>EMAIL</th>
-                <th>WAIVER</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                /*if the search bar is active, display 
+          <div className="margin" />
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">NAME</th>
+                  <th className="header-border">PHONE</th>
+                  <th className="header-border">EMAIL</th>
+                  <th className="header-border">WAIVER</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  /*if the search bar is active, display 
                 search results. else, display initial
                 table*/
-                isActive1
-                  ? searchResults.map((customer) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{customer["name"]}</td>
-                          <td>{customer["phone"]}</td>
-                          <td>{customer["email"]}</td>
-                          <td>{customer["waiver"] ? "true" : "false"}</td>
-                        </tr>
-                      );
-                    })
-                  : Object.keys(customers.unblacklisted).map((_id, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{customers.unblacklisted[_id]["name"]}</td>
-                          <td>{customers.unblacklisted[_id]["phone"]}</td>
-                          <td>{customers.unblacklisted[_id]["email"]}</td>
-                          <td>
-                            {customers.unblacklisted[_id]["waiver"]
-                              ? "true"
-                              : "false"}
-                          </td>
-                        </tr>
-                      );
-                    })
-              }
-            </tbody>
-          </Table>
+                  isActive1
+                    ? searchResults.map((customer) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{customer["name"]}</td>
+                            <td>{customer["phone"]}</td>
+                            <td>{customer["email"]}</td>
+                            <td>{customer["waiver"] ? "true" : "false"}</td>
+                          </tr>
+                        );
+                      })
+                    : Object.keys(customers.unblacklisted).map((_id, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{customers.unblacklisted[_id]["name"]}</td>
+                            <td>{customers.unblacklisted[_id]["phone"]}</td>
+                            <td>{customers.unblacklisted[_id]["email"]}</td>
+                            <td>
+                              {customers.unblacklisted[_id]["waiver"] ? (
+                                <BsFillFileCheckFill
+                                  size={23}
+                                  color="#22C16B"
+                                />
+                              ) : (
+                                <BsFillFileXFill size={23} color="#FF4141" />
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })
+                }
+              </tbody>
+            </Table>
+          </div>
         </div>
         <div className="table-content">
           <div className="title-search-container">
@@ -173,41 +182,44 @@ export default () => {
             </div>
           </div>
           {/*this table searches bikes */}
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>BIKE NUMBER</th>
-                <th>STYLE OF BIKE</th>
-                <th>SERIAL NUMBER</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                /*if the search bar is active, display 
+          <div className="margin" />
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">BIKE NUMBER</th>
+                  <th className="header-border">STYLE OF BIKE</th>
+                  <th className="header-border">SERIAL NUMBER</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  /*if the search bar is active, display 
                 search results. else, display initial
                 table*/
-                isActive2
-                  ? searchResults2.map((bike, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{bike["id"]}</td>
-                          <td>{bike["model"]}</td>
-                          <td>{bike["serialNumber"]}</td>
-                        </tr>
-                      );
-                    })
-                  : Object.values(bikes.available).map((bike, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{bike["id"]}</td>
-                          <td>{bike["model"]}</td>
-                          <td>{bike["serialNumber"]}</td>
-                        </tr>
-                      );
-                    })
-              }
-            </tbody>
-          </Table>
+                  isActive2
+                    ? searchResults2.map((bike, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{bike["id"]}</td>
+                            <td>{bike["model"]}</td>
+                            <td>{bike["serialNumber"]}</td>
+                          </tr>
+                        );
+                      })
+                    : Object.values(bikes.available).map((bike, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{bike["id"]}</td>
+                            <td>{bike["model"]}</td>
+                            <td>{bike["serialNumber"]}</td>
+                          </tr>
+                        );
+                      })
+                }
+              </tbody>
+            </Table>
+          </div>
         </div>
         <Button variant="success">Rent out bike</Button>
       </div>

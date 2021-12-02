@@ -102,6 +102,7 @@ export default () => {
             {/*</div>*/}
           </div>
           {/*these tables searches users, but organize them by blacklist */}
+          <div className="margin" />
           <Table borderless className="table">
             <thead className="table-header">
               <tr>
@@ -164,6 +165,7 @@ export default () => {
               {/*</div>*/}
             </div>
           </div>
+          <div className="margin" />
           <Table borderless className="table">
             <thead className="table-header">
               <tr>

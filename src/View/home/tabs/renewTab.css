@@ -107,24 +107,6 @@
   width: 83%;
 }
 
-.table {
-  width: 100%;
-  text-align: center;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-}
-
-.table-header {
-  background-color: #f2f2f2;
-  border: 1px solid #dfdfdf;
-  font-size: 14px;
-}
-
-.table-body {
-  border: 1px solid #dfdfdf;
-  font-size: 14px;
-}
-
 .gray-highlight:hover {
   background-color: #e4e4e4;
 }

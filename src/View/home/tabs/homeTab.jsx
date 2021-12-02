@@ -147,50 +147,53 @@ export default () => {
             </div>
           </div>
           {/*this table searches bikes */}
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>BIKE NUMBER</th>
-                <th>NAME</th>
-                <th>PHONE NUMBER</th>
-                <th>EMAIL</th>
-                <th>NOTES</th>
-                <th>DATE CHECKED OUT</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                /*if the search bar is active, display 
+          <div className="margin" />
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">BIKE NUMBER</th>
+                  <th className="header-border">NAME</th>
+                  <th className="header-border">PHONE NUMBER</th>
+                  <th className="header-border">EMAIL</th>
+                  <th className="header-border">NOTES</th>
+                  <th className="header-border">DATE CHECKED OUT</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  /*if the search bar is active, display 
                   search results. else, display initial
                   table*/
-                isActive1
-                  ? searchResults.map((bike, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{bike["id"]}</td>
-                          <td>{bike["name"]}</td>
-                          <td>{bike["phone"]}</td>
-                          <td>{bike["email"]}</td>
-                          <td>{bike["notes"]}</td>
-                          <td>{bike["dateRented"]}</td>
-                        </tr>
-                      );
-                    })
-                  : Object.values(bikes.due).map((bike, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{bike["id"]}</td>
-                          <td>{bike["name"]}</td>
-                          <td>{bike["phone"]}</td>
-                          <td>{bike["email"]}</td>
-                          <td>{bike["notes"]}</td>
-                          <td>{bike["dateRented"]}</td>
-                        </tr>
-                      );
-                    })
-              }
-            </tbody>
-          </Table>
+                  isActive1
+                    ? searchResults.map((bike, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{bike["id"]}</td>
+                            <td>{bike["name"]}</td>
+                            <td>{bike["phone"]}</td>
+                            <td>{bike["email"]}</td>
+                            <td>{bike["notes"]}</td>
+                            <td>{bike["dateRented"]}</td>
+                          </tr>
+                        );
+                      })
+                    : Object.values(bikes.due).map((bike, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{bike["id"]}</td>
+                            <td>{bike["name"]}</td>
+                            <td>{bike["phone"]}</td>
+                            <td>{bike["email"]}</td>
+                            <td>{bike["notes"]}</td>
+                            <td>{bike["dateRented"]}</td>
+                          </tr>
+                        );
+                      })
+                }
+              </tbody>
+            </Table>
+          </div>
         </div>
         <div className="table-content">
           <div className="title-search-container">
@@ -214,120 +217,125 @@ export default () => {
             </div>
           </div>
           {/*this table searches repairs */}
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>NAME</th>
-                <th>PHONE NUMBER</th>
-                <th>EMAIL</th>
-                <th>BIKE MODEL</th>
-                <th>NOTES</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                /*if the search bar is active, display 
+          <div className="margin" />
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">NAME</th>
+                  <th className="header-border">PHONE NUMBER</th>
+                  <th className="header-border">EMAIL</th>
+                  <th className="header-border">BIKE MODEL</th>
+                  <th className="header-border">NOTES</th>
+                  <th className="header-border"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  /*if the search bar is active, display 
                   search results. else, display initial
                   table*/
-                isActive2
-                  ? searchResults2.map((repair, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{repair["name"]}</td>
-                          <td>{repair["phone"]}</td>
-                          <td>{repair["email"]}</td>
-                          <td>{repair["bikeModel"]}</td>
-                          <td>{repair["notes"]}</td>
-                          <td>
-                            <DropdownButton
-                              id="dropdown-basic-button"
-                              title={repair["status"]}
-                            >
-                              <Dropdown.Item
-                                href="#/action-1"
-                                onClick={() =>
-                                  searchDropdownClicked(
-                                    key,
-                                    repair["_id"],
-                                    "IN-SHOP"
-                                  )
-                                }
+                  isActive2
+                    ? searchResults2.map((repair, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{repair["name"]}</td>
+                            <td>{repair["phone"]}</td>
+                            <td>{repair["email"]}</td>
+                            <td>{repair["bikeModel"]}</td>
+                            <td>{repair["notes"]}</td>
+                            <td>
+                              <DropdownButton
+                                id="dropdown-basic-button"
+                                title={repair["status"]}
                               >
-                                IN-SHOP
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                href="#/action-2"
-                                onClick={() =>
-                                  searchDropdownClicked(
-                                    key,
-                                    repair["_id"],
-                                    "CUSTOMER NOTIFIED"
-                                  )
-                                }
+                                <Dropdown.Item
+                                  href="#/action-1"
+                                  onClick={() =>
+                                    searchDropdownClicked(
+                                      key,
+                                      repair["_id"],
+                                      "IN-SHOP"
+                                    )
+                                  }
+                                >
+                                  IN-SHOP
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  href="#/action-2"
+                                  onClick={() =>
+                                    searchDropdownClicked(
+                                      key,
+                                      repair["_id"],
+                                      "CUSTOMER NOTIFIED"
+                                    )
+                                  }
+                                >
+                                  CUSTOMER NOTIFIED
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  href="#/action-3"
+                                  onClick={() =>
+                                    searchDropdownClicked(
+                                      key,
+                                      repair["_id"],
+                                      "PICKED UP"
+                                    )
+                                  }
+                                >
+                                  PICKED UP
+                                </Dropdown.Item>
+                              </DropdownButton>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : Object.keys(repairs).map((_id, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{repairs[_id]["name"]}</td>
+                            <td>{repairs[_id]["phone"]}</td>
+                            <td>{repairs[_id]["email"]}</td>
+                            <td>{repairs[_id]["bikeModel"]}</td>
+                            <td>{repairs[_id]["notes"]}</td>
+                            <td>
+                              <DropdownButton
+                                id="dropdown-basic-button"
+                                title={repairs[_id]["status"]}
                               >
-                                CUSTOMER NOTIFIED
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                href="#/action-3"
-                                onClick={() =>
-                                  searchDropdownClicked(
-                                    key,
-                                    repair["_id"],
-                                    "PICKED UP"
-                                  )
-                                }
-                              >
-                                PICKED UP
-                              </Dropdown.Item>
-                            </DropdownButton>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : Object.keys(repairs).map((_id, key) => {
-                      return (
-                        <tr className="table-body gray-highlight">
-                          <td>{repairs[_id]["name"]}</td>
-                          <td>{repairs[_id]["phone"]}</td>
-                          <td>{repairs[_id]["email"]}</td>
-                          <td>{repairs[_id]["bikeModel"]}</td>
-                          <td>{repairs[_id]["notes"]}</td>
-                          <td>
-                            <DropdownButton
-                              id="dropdown-basic-button"
-                              title={repairs[_id]["status"]}
-                            >
-                              <Dropdown.Item
-                                href="#/action-1"
-                                onClick={() => dropdownClicked(_id, "IN-SHOP")}
-                              >
-                                IN-SHOP
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                href="#/action-2"
-                                onClick={() =>
-                                  dropdownClicked(_id, "CUSTOMER NOTIFIED")
-                                }
-                              >
-                                CUSTOMER NOTIFIED
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                href="#/action-3"
-                                onClick={() =>
-                                  dropdownClicked(_id, "PICKED UP")
-                                }
-                              >
-                                PICKED UP
-                              </Dropdown.Item>
-                            </DropdownButton>
-                          </td>
-                        </tr>
-                      );
-                    })
-              }
-            </tbody>
-          </Table>
+                                <Dropdown.Item
+                                  href="#/action-1"
+                                  onClick={() =>
+                                    dropdownClicked(_id, "IN-SHOP")
+                                  }
+                                >
+                                  IN-SHOP
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  href="#/action-2"
+                                  onClick={() =>
+                                    dropdownClicked(_id, "CUSTOMER NOTIFIED")
+                                  }
+                                >
+                                  CUSTOMER NOTIFIED
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  href="#/action-3"
+                                  onClick={() =>
+                                    dropdownClicked(_id, "PICKED UP")
+                                  }
+                                >
+                                  PICKED UP
+                                </Dropdown.Item>
+                              </DropdownButton>
+                            </td>
+                          </tr>
+                        );
+                      })
+                }
+              </tbody>
+            </Table>
+          </div>
         </div>
       </div>
     </>
