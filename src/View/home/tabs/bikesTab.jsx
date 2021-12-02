@@ -59,68 +59,47 @@ export default () => {
 
   return (
     <>
-      <div
-        className={isActive1 ? "search-field-active" : "search-field"}
-        onFocus={toggleClass1}
-      >
-        {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
-        <input
-          type="text"
-          placeholder="Search bike"
-          className="search-bar"
-          onChange={searchBikes}
-        />
-        <div className="search-button" tabindex="0">
-          <AiOutlineSearch />
-        </div>
-      </div>
-      {/*this table searches bikes */}
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>BIKE NUMBER</th>
-            <th>STYLE OF BIKE</th>
-            <th>SERIAL NUMBER</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            /*if the search bar is active, display 
+      <div className="content">
+        <div className="table-content">
+          <div className="search-bar-container">
+            <div
+              className={isActive1 ? "search-field-active" : "search-field"}
+              onFocus={toggleClass1}
+            >
+              {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
+              <input
+                type="text"
+                placeholder="Search bike"
+                className="search-bar"
+                onChange={searchBikes}
+              />
+              <div className="search-button" tabindex="0">
+                <AiOutlineSearch />
+              </div>
+            </div>
+          </div>
+          {/*this table searches bikes */}
+          <Table borderless className="table">
+            <thead className="table-header">
+              <tr>
+                <th>BIKE NUMBER</th>
+                <th>STYLE OF BIKE</th>
+                <th>SERIAL NUMBER</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                /*if the search bar is active, display 
                     search results. else, display initial
                     table*/
-            isActive1
-              ? searchResults.map((bike, key) => {
-                  return (
-                    <tr className="table-body gray-highlight">
-                      <td>{bike["id"]}</td>
-                      <td>{bike["model"]}</td>
-                      <td>
-                        {bike["serialNumber"]}
-                        <>
-                          <button
-                            className="return"
-                            onClick={() => confirmDelete()}
-                          >
-                            Delete
-                          </button>
-                        </>
-                      </td>
-                    </tr>
-                  );
-                })
-              : /*return due, rented and available bikes */
-                Object.values(bikes).map((bikeObjects, key) => {
-                  return Object.keys(bikeObjects).map((_id, key) => {
-                    return (
-                      <tr
-                        className="table-body gray-highlight"
-                        onClick={() => toggleRow(_id)}
-                      >
-                        <td>{bikeObjects[_id]["id"]}</td>
-                        <td>{bikeObjects[_id]["model"]}</td>
-                        <td>
-                          {bikeObjects[_id]["serialNumber"]}
-                          {bikeObjects[_id]["deleteClicked"] && (
+                isActive1
+                  ? searchResults.map((bike, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{bike["id"]}</td>
+                          <td>{bike["model"]}</td>
+                          <td>
+                            {bike["serialNumber"]}
                             <>
                               <button
                                 className="return"
@@ -129,15 +108,42 @@ export default () => {
                                 Delete
                               </button>
                             </>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  });
-                })
-          }
-        </tbody>
-      </Table>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : /*return due, rented and available bikes */
+                    Object.values(bikes).map((bikeObjects, key) => {
+                      return Object.keys(bikeObjects).map((_id, key) => {
+                        return (
+                          <tr
+                            className="table-body gray-highlight"
+                            onClick={() => toggleRow(_id)}
+                          >
+                            <td>{bikeObjects[_id]["id"]}</td>
+                            <td>{bikeObjects[_id]["model"]}</td>
+                            <td>
+                              {bikeObjects[_id]["serialNumber"]}
+                              {bikeObjects[_id]["deleteClicked"] && (
+                                <>
+                                  <button
+                                    className="return"
+                                    onClick={() => confirmDelete()}
+                                  >
+                                    Delete
+                                  </button>
+                                </>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      });
+                    })
+              }
+            </tbody>
+          </Table>
+        </div>
+      </div>
     </>
   );
 };
