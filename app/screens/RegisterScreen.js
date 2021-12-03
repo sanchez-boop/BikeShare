@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { TextInput } from "react-native-paper";
 import {
   StyleSheet,
@@ -17,6 +17,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import logo from "../assets/Shop-Logo.png";
 import { Ionicons } from "@expo/vector-icons";
 import eye from "../assets/icons8-eye-30.png";
+import { postUser } from "../controller/postUser";
 import colors from "../config/colors";
 
 export default function RegisterScreen({ navigation }) {
@@ -28,6 +29,90 @@ export default function RegisterScreen({ navigation }) {
   const [lastNameInput, changeLastNameInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
   const [isSecureEntry2, changeIsSecureEntry2] = React.useState(true);
+
+  const [formInput, setFormInput] = useState({
+    /*set initial credentials to ""*/
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    verifyPassword: "",
+    phone: "",
+  });
+
+  function inputFirstNameChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      firstName: text,
+    });
+  }
+
+  function inputLastNameChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      lastName: text,
+    });
+  }
+
+  function inputEmailChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      email: text,
+    });
+  }
+
+  function inputPasswordChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      password: text,
+    });
+  }
+
+  function verifyPasswordChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      verifyPassword: text,
+    });
+  }
+
+  function inputPhoneChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      phone: text,
+    });
+  }
+
+  async function registerUser() {
+    if (formInput.password == formInput.verifyPassword) {
+      const credentials = {
+        /*set initial credentials to ""*/
+        name: formInput.firstName + " " + formInput.lastName,
+        email: formInput.email,
+        password: formInput.password,
+        phone: formInput.phone,
+        role: "customer",
+        waiver: false,
+        blacklist: false,
+      };
+
+      const account = await postUser(credentials);
+
+      if (account.blacklist == false) {
+        /*On successful login, go back to login*/
+        navigation.navigate("Main", { screen: "Bike Availability" });
+      } else {
+        alert("login failed, try again");
+      }
+    } else {
+      alert("Passwords do not match, try again");
+    }
+  }
 
   function eyeState() {
     if (isSecureEntry == true) {
@@ -63,8 +148,7 @@ export default function RegisterScreen({ navigation }) {
           <View style={styles.nameContainer}>
             <TextInput
               style={styles.nameTextInput}
-              onChangeText={changeFirstNameInput}
-              value={firstNameInput}
+              onChangeText={(text) => inputFirstNameChanged(text)}
               mode="outlined"
               label="First Name"
               outlineColor="#b1b1b1"
@@ -72,8 +156,7 @@ export default function RegisterScreen({ navigation }) {
             />
             <TextInput
               style={styles.nameTextInput}
-              onChangeText={changeLastNameInput}
-              value={lastNameInput}
+              onChangeText={(text) => inputLastNameChanged(text)}
               mode="outlined"
               label="Last Name"
               outlineColor="#b1b1b1"
@@ -83,8 +166,7 @@ export default function RegisterScreen({ navigation }) {
 
           <TextInput
             style={styles.textInput}
-            onChangeText={changePhoneNumberInput}
-            value={phoneNumberInput}
+            onChangeText={(text) => inputPhoneChanged(text)}
             mode="outlined"
             label="Phone Number"
             outlineColor="#b1b1b1"
@@ -93,8 +175,7 @@ export default function RegisterScreen({ navigation }) {
 
           <TextInput
             style={styles.textInput}
-            onChangeText={changeEmailInput}
-            value={emailInput}
+            onChangeText={(text) => inputEmailChanged(text)}
             mode="outlined"
             label="Knight's Email"
             outlineColor="#b1b1b1"
@@ -105,8 +186,7 @@ export default function RegisterScreen({ navigation }) {
               style={styles.textInput}
               secureTextEntry={isSecureEntry}
               mode="outlined"
-              onChangeText={changePasswordInput}
-              value={passwordInput}
+              onChangeText={(text) => inputPasswordChanged(text)}
               label="Password"
               outlineColor="#b1b1b1"
               activeOutlineColor="#000000"
@@ -127,8 +207,7 @@ export default function RegisterScreen({ navigation }) {
               style={styles.textInput}
               secureTextEntry={isSecureEntry2}
               mode="outlined"
-              onChangeText={changeRePasswordInput}
-              value={rePasswordInput}
+              onChangeText={(text) => verifyPasswordChanged(text)}
               label="Re-enter Password"
               outlineColor="#b1b1b1"
               activeOutlineColor="#000000"
@@ -143,10 +222,7 @@ export default function RegisterScreen({ navigation }) {
               {eyeState2()}
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Main")}
-            style={styles.signUpButton}
-          >
+          <TouchableOpacity onPress={registerUser} style={styles.signUpButton}>
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
               Sign up
             </Text>
