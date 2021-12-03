@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         const announcements = await Announcement.find()
         res.json(announcements)
     } catch (err){
-        res.satus(500).json({ message : err.message })
+        res.status(500).json({ message : err.message })
     }
 })
 //create a announcement 
