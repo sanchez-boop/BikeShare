@@ -3,6 +3,7 @@ import { Table, Button } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 import "bootstrap/dist/css/bootstrap.css";
 import "./repairTab.css";
+import { BsFillFileCheckFill, BsFillFileXFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleRepair } from "../../../Model/customersSlice";
 import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
@@ -101,81 +102,97 @@ export default () => {
           </div>
           {/*this table searches users */}
           <div className="margin" />
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>NAME</th>
-                <th>PHONE</th>
-                <th>EMAIL</th>
-                <th>WAIVER</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                /*if the search bar is active, display 
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">NAME</th>
+                  <th className="header-border">PHONE</th>
+                  <th className="header-border">EMAIL</th>
+                  <th className="header-border">WAIVER</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  /*if the search bar is active, display 
                       search results. else, display initial
                       table*/
-                isActive1
-                  ? searchResults.map((customer, key) => {
-                      return (
-                        <tr
-                          className="table-body gray-highlight"
-                          onClick={() => toggleSearchResults(key)}
-                        >
-                          <td>{customer["name"]}</td>
-                          <td>{customer["phone"]}</td>
-                          <td>{customer["email"]}</td>
-                          <td>
-                            {customer["waiver"] ? "true" : "false"}
-                            <>
-                              <button
-                                className="renew"
-                                onClick={() =>
-                                  confirmRepair(customer["_id"], customer)
-                                }
-                              >
-                                REPAIR
-                              </button>
-                            </>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : Object.keys(customers.unblacklisted).map((_id, key) => {
-                      return (
-                        <tr
-                          className="table-body gray-highlight"
-                          onClick={() => toggle(_id)}
-                        >
-                          <td>{customers.unblacklisted[_id]["name"]}</td>
-                          <td>{customers.unblacklisted[_id]["phone"]}</td>
-                          <td>{customers.unblacklisted[_id]["email"]}</td>
-                          <td>
-                            {customers.unblacklisted[_id]["waiver"]
-                              ? "true"
-                              : "false"}
-                            {customers.unblacklisted[_id]["repairClicked"] && (
+                  isActive1
+                    ? searchResults.map((customer, key) => {
+                        return (
+                          <tr
+                            className="table-body gray-highlight"
+                            onClick={() => toggleSearchResults(key)}
+                          >
+                            <td>{customer["name"]}</td>
+                            <td>{customer["phone"]}</td>
+                            <td>{customer["email"]}</td>
+                            <td>
+                              {customer["waiver"] ? (
+                                <BsFillFileCheckFill
+                                  size={23}
+                                  color="#22C16B"
+                                />
+                              ) : (
+                                <BsFillFileXFill size={23} color="#FF4141" />
+                              )}
                               <>
                                 <button
                                   className="renew"
                                   onClick={() =>
-                                    confirmRepair(
-                                      _id,
-                                      customers.unblacklisted[_id]
-                                    )
+                                    confirmRepair(customer["_id"], customer)
                                   }
                                 >
                                   REPAIR
                                 </button>
                               </>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })
-              }
-            </tbody>
-          </Table>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : Object.keys(customers.unblacklisted).map((_id, key) => {
+                        return (
+                          <tr
+                            className="table-body gray-highlight"
+                            onClick={() => toggle(_id)}
+                          >
+                            <td>{customers.unblacklisted[_id]["name"]}</td>
+                            <td>{customers.unblacklisted[_id]["phone"]}</td>
+                            <td>{customers.unblacklisted[_id]["email"]}</td>
+                            <td>
+                              {customers.unblacklisted[_id]["waiver"] ? (
+                                <BsFillFileCheckFill
+                                  size={23}
+                                  color="#22C16B"
+                                />
+                              ) : (
+                                <BsFillFileXFill size={23} color="#FF4141" />
+                              )}
+                              {customers.unblacklisted[_id][
+                                "repairClicked"
+                              ] && (
+                                <>
+                                  <button
+                                    className="renew"
+                                    onClick={() =>
+                                      confirmRepair(
+                                        _id,
+                                        customers.unblacklisted[_id]
+                                      )
+                                    }
+                                  >
+                                    REPAIR
+                                  </button>
+                                </>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })
+                }
+              </tbody>
+            </Table>
+          </div>
         </div>
       </div>
     </>

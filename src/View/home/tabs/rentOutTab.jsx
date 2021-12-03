@@ -132,7 +132,16 @@ export default () => {
                             <td>{customer["name"]}</td>
                             <td>{customer["phone"]}</td>
                             <td>{customer["email"]}</td>
-                            <td>{customer["waiver"] ? "true" : "false"}</td>
+                            <td>
+                              {customer["waiver"] ? (
+                                <BsFillFileCheckFill
+                                  size={23}
+                                  color="#22C16B"
+                                />
+                              ) : (
+                                <BsFillFileXFill size={23} color="#FF4141" />
+                              )}
+                            </td>
                           </tr>
                         );
                       })

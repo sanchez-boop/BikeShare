@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table } from "react-bootstrap";
+import { Table, DropdownButton, Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleRenew } from "../../../Model/bikesSlice";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
@@ -12,6 +12,7 @@ export default () => {
   const dispatch = useDispatch();
   const [searchResults, setSearchResults] = useState([]);
   const [isActive1, setActive1] = useState(false);
+  const [isActive4, setActive4] = useState(false);
 
   function searchBikes(e) {
     /*search only if query not empty*/
@@ -36,6 +37,11 @@ export default () => {
     dispatch(toggleRenew({ _id: _id }));
   }
 
+  function setColor(_id) {
+    console.log("Set color was triggered by id: " + _id);
+    return "table-body gray-highlight yellow-highlight";
+  }
+
   /* Toggle the outline for the first search bar */
   const toggleClass1 = () => {
     if (!isActive1) {
@@ -45,6 +51,16 @@ export default () => {
   /* Untoggle the outline for the first search bar */
   const unToggleClass1 = () => {
     setActive1(!isActive1);
+  };
+
+  const toggleClass4 = () => {
+    if (!isActive4) {
+      setActive4(!isActive4);
+    }
+  };
+
+  const unToggleClass4 = () => {
+    setActive4(!isActive4);
   };
 
   function confirmRenew() {
@@ -131,17 +147,37 @@ export default () => {
                     : Object.keys(bikes.due).map((_id, key) => {
                         return (
                           <tr
-                            className="table-body gray-highlight"
+                            //className="table-body gray-highlight yellow-highlight"
+                            className={
+                              "table-body gray-highlight yellow-highlight"
+                            }
+                            //{setColor(_id)}
                             onClick={() => toggleRow(_id)}
+                            //onClick={() => setColor(_id)}
                           >
                             <td>{bikes.due[_id]["name"]}</td>
                             <td>{bikes.due[_id]["phone"]}</td>
                             <td>{bikes.due[_id]["email"]}</td>
                             <td>{bikes.due[_id]["id"]}</td>
-                            <td>
+                            <td className="anchor">
                               {bikes.due[_id]["serialNumber"]}
                               {bikes.due[_id]["renewClicked"] && (
                                 <>
+                                  <div class="dropdown2-menu show">
+                                    <button
+                                      className="return"
+                                      onClick={() => confirmReturn()}
+                                    >
+                                      Return
+                                    </button>
+                                    <button
+                                      className="renew"
+                                      onClick={() => confirmRenew()}
+                                    >
+                                      Renew
+                                    </button>
+                                  </div>
+                                  {/*
                                   <button
                                     className="return"
                                     onClick={() => confirmReturn()}
@@ -154,6 +190,7 @@ export default () => {
                                   >
                                     Renew
                                   </button>
+                                */}
                                 </>
                               )}
                             </td>

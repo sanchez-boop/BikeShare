@@ -103,43 +103,45 @@ export default () => {
           </div>
           {/*these tables searches users, but organize them by blacklist */}
           <div className="margin" />
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>NAME</th>
-                <th>PHONE</th>
-                <th>EMAIL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(customers.unblacklisted).map((_id, key) => {
-                return (
-                  <tr
-                    className="table-body gray-highlight"
-                    onClick={() => {
-                      toggleBlacklist(_id);
-                    }}
-                  >
-                    <td>{customers.unblacklisted[_id]["name"]}</td>
-                    <td>{customers.unblacklisted[_id]["phone"]}</td>
-                    <td>
-                      {customers.unblacklisted[_id]["email"]}
-                      {customers.unblacklisted[_id]["blackTabClicked"] && (
-                        <>
-                          <button
-                            className="blacklist"
-                            onClick={() => confirmBlacklist(_id)}
-                          >
-                            Blacklist
-                          </button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">NAME</th>
+                  <th className="header-border">PHONE</th>
+                  <th className="header-border">EMAIL</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(customers.unblacklisted).map((_id, key) => {
+                  return (
+                    <tr
+                      className="table-body gray-highlight"
+                      onClick={() => {
+                        toggleBlacklist(_id);
+                      }}
+                    >
+                      <td>{customers.unblacklisted[_id]["name"]}</td>
+                      <td>{customers.unblacklisted[_id]["phone"]}</td>
+                      <td>
+                        {customers.unblacklisted[_id]["email"]}
+                        {customers.unblacklisted[_id]["blackTabClicked"] && (
+                          <>
+                            <button
+                              className="blacklist"
+                              onClick={() => confirmBlacklist(_id)}
+                            >
+                              Blacklist
+                            </button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
         </div>
         <div className="table-content">
           <div className="title-search-container">
@@ -166,43 +168,45 @@ export default () => {
             </div>
           </div>
           <div className="margin" />
-          <Table borderless className="table">
-            <thead className="table-header">
-              <tr>
-                <th>NAME</th>
-                <th>PHONE</th>
-                <th>EMAIL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(customers.blacklisted).map((_id, key) => {
-                return (
-                  <tr
-                    className="table-body gray-highlight"
-                    onClick={() => {
-                      toggleBlacklist(_id);
-                    }}
-                  >
-                    <td>{customers.blacklisted[_id]["name"]}</td>
-                    <td>{customers.blacklisted[_id]["phone"]}</td>
-                    <td>
-                      {customers.blacklisted[_id]["email"]}
-                      {customers.blacklisted[_id]["blackTabClicked"] && (
-                        <>
-                          <button
-                            className="unblacklist"
-                            onClick={() => confirmUnblacklist(_id)}
-                          >
-                            Unblacklist
-                          </button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+          <div className="scroll">
+            <Table borderless className="table">
+              <thead className="table-header">
+                <tr className="sticky">
+                  <th className="header-border">NAME</th>
+                  <th className="header-border">PHONE</th>
+                  <th className="header-border">EMAIL</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(customers.blacklisted).map((_id, key) => {
+                  return (
+                    <tr
+                      className="table-body gray-highlight"
+                      onClick={() => {
+                        toggleBlacklist(_id);
+                      }}
+                    >
+                      <td>{customers.blacklisted[_id]["name"]}</td>
+                      <td>{customers.blacklisted[_id]["phone"]}</td>
+                      <td>
+                        {customers.blacklisted[_id]["email"]}
+                        {customers.blacklisted[_id]["blackTabClicked"] && (
+                          <>
+                            <button
+                              className="unblacklist"
+                              onClick={() => confirmUnblacklist(_id)}
+                            >
+                              Unblacklist
+                            </button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
         </div>
       </div>
     </>

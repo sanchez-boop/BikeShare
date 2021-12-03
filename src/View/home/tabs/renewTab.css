@@ -1,5 +1,58 @@
+.dropdown2-menu {
+  position: absolute;
+  z-index: 200;
+  right: 10px;
+  top: 36px;
+  display: none;
+  min-width: 10rem;
+  margin-right: 20px;
+  padding: 0.5rem 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  scroll-snap-align: inherit;
+}
+
+.anchor {
+  position: relative;
+}
+
+.dropdown2-menu.show {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .renew {
   background-color: #22c16b;
+  border-radius: 7px;
+  border-style: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: right;
+}
+
+.renew:hover {
+  background-color: #1ea85e;
+}
+
+.renew:active {
+  background-color: #1a9453;
+}
+
+.return {
+  background-color: #ff4141;
+  border-radius: 7px;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -10,17 +63,13 @@
   cursor: pointer;
   float: right;
 }
-.return {
-  background-color: #ff4141;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 12px;
-  margin: 4px 2px;
-  cursor: pointer;
-  float: right;
+
+.return:hover {
+  background-color: #e03838;
+}
+
+.return:active {
+  background-color: #c93131;
 }
 
 .content {
@@ -109,14 +158,6 @@
 
 .gray-highlight:hover {
   background-color: #e4e4e4;
-}
-
-.yellow-highlight:active {
-  background-color: #ffcc0099;
-}
-
-.yellow-highlight-active {
-  background-color: #c00 !important;
 }
 
 /* Set search bar to margin-left to avoid getting squished by the table title */
