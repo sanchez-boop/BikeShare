@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         const bikes = await Bike.find()
         res.json(bikes)
     } catch (err){
-        res.satus(500).json({ message : err.message })
+        res.status(500).json({ message : err.message })
     }
 })
 //create a bike
