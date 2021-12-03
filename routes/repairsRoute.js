@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         const repairs = await Repair.find()
         res.json(repairs)
     } catch (err){
-        res.satus(500).json({ message : err.message })
+        res.status(500).json({ message : err.message })
     }
 })
 
