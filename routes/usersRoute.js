@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         const users = await User.find().limit(50)
         res.json(users)
     } catch (err){
-        res.satus(500).json({ message : err.message })
+        res.status(500).json({ message : err.message })
     }
 })
 
