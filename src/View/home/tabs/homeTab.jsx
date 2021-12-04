@@ -1,5 +1,11 @@
 import { React, useState } from "react";
-import { Table, DropdownButton, Dropdown } from "react-bootstrap";
+import {
+  Table,
+  DropdownButton,
+  Dropdown,
+  FloatingLabel,
+  Form,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./homeTab.css";
@@ -16,6 +22,21 @@ export default () => {
   const [searchResults2, setSearchResults2] = useState([]);
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
+
+  const { acc } = useSelector((state) => state);
+
+  const [formInput, setFormInput] = useState({
+    /*set initial credentials to ""*/
+    announcement: "",
+  });
+
+  function inputAnnouncementChanged(e) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      announcement: e.target.value,
+    });
+  }
 
   function searchBikes(e) {
     /*search only if query not empty*/
@@ -201,6 +222,36 @@ export default () => {
   return (
     <>
       <div className="content">
+        {acc.role == "admin" && (
+          <div className="table-content">
+            <div className="announcement-title">MAKE AN ANNOUNCEMENT</div>
+            <div className="announcement-content">
+              <Form.Control
+                as="textarea"
+                placeholder="Type your announcement here..."
+                className="announcement-text"
+                onChange={inputAnnouncementChanged}
+              />
+              <button
+                className={
+                  formInput.announcement == ""
+                    ? "submit-announcement-dim"
+                    : "submit-announcement"
+                }
+                onClick={() =>
+                  formInput.announcement == ""
+                    ? ""
+                    : alert(
+                        "The following announcement would be displayed:\n" +
+                          formInput.announcement
+                      )
+                }
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        )}
         <div className="table-content">
           <div className="title-search-container">
             <div className="table-title">DUE</div>

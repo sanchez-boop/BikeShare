@@ -68,6 +68,8 @@ export default () => {
     asyncDispatch();
   }, []);
 
+  function logOut() {}
+
   return (
     <>
       <div id="tab-background">
