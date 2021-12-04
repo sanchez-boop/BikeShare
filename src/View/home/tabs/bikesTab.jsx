@@ -9,6 +9,7 @@ import "./bikesTab.css";
 
 export default () => {
   const { bikes } = useSelector((state) => state);
+  const { acc } = useSelector((state) => state);
   //console.log(bikes);
 
   const dispatch = useDispatch();
@@ -130,14 +131,16 @@ export default () => {
                                 {bikeObjects[_id]["serialNumber"]}
                                 {bikeObjects[_id]["deleteClicked"] && (
                                   <>
-                                    <div class="dropdown2-menu show">
-                                      <button
-                                        className="return"
-                                        onClick={() => confirmDelete()}
-                                      >
-                                        Delete
-                                      </button>
-                                    </div>
+                                    {acc.role == "admin" && (
+                                      <div class="dropdown2-menu show">
+                                        <button
+                                          className="return"
+                                          onClick={() => confirmDelete()}
+                                        >
+                                          Delete
+                                        </button>
+                                      </div>
+                                    )}
                                   </>
                                 )}
                               </td>

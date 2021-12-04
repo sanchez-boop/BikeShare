@@ -8,7 +8,7 @@ import RenewTab from "./tabs/renewTab";
 import RepairTab from "./tabs/repairTab";
 import BlacklistTab from "./tabs/blacklistTab";
 import AssignRolesTab from "./tabs/assignRolesTab";
-import BikesTab from "./tabs/bikesTab"
+import BikesTab from "./tabs/bikesTab";
 import "./tabNav.css";
 
 export default () => {
@@ -42,15 +42,9 @@ export default () => {
               <AssignRolesTab />
             </Tab>
           )}
-          {acc.role == "admin" && (
-            <Tab
-              eventKey="bikes"
-              title="Bikes"
-              tabClassName="tab"
-            >
-              <BikesTab />
-            </Tab>
-          )}
+          <Tab eventKey="bikes" title="Bikes" tabClassName="tab">
+            <BikesTab />
+          </Tab>
         </Tabs>
       </div>
     </>
