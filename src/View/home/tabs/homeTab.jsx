@@ -122,6 +122,82 @@ export default () => {
   const unToggleClass2 = () => {
     setActive2(!isActive2);
   };
+
+  function tagDisplay(status, _id) {
+    if (status == "PICKED UP") {
+      return (
+        <DropdownButton
+          id="dropdown-button-picked-up"
+          title={repairs[_id]["status"]}
+        >
+          <Dropdown.Item
+            href="#/action-1"
+            onClick={() => dropdownClicked(_id, "IN-SHOP")}
+          >
+            <DropdownButton id="dropdown-button-in-shop" title={"IN-SHOP"} />
+          </Dropdown.Item>
+          <Dropdown.Item
+            href="#/action-2"
+            onClick={() => dropdownClicked(_id, "CUSTOMER NOTIFIED")}
+          >
+            <DropdownButton
+              id="dropdown-button-customer-notified"
+              title={"CUSTOMER NOTIFIED"}
+            />
+          </Dropdown.Item>
+        </DropdownButton>
+      );
+    } else if (status == "IN-SHOP") {
+      return (
+        <DropdownButton
+          id="dropdown-button-in-shop"
+          title={repairs[_id]["status"]}
+        >
+          <Dropdown.Item
+            href="#/action-3"
+            onClick={() => dropdownClicked(_id, "PICKED UP")}
+          >
+            <DropdownButton
+              id="dropdown-button-picked-up"
+              title={"PICKED UP"}
+            />
+          </Dropdown.Item>
+          <Dropdown.Item
+            href="#/action-2"
+            onClick={() => dropdownClicked(_id, "CUSTOMER NOTIFIED")}
+          >
+            <DropdownButton
+              id="dropdown-button-customer-notified"
+              title={"CUSTOMER NOTIFIED"}
+            />
+          </Dropdown.Item>
+        </DropdownButton>
+      );
+    } else if (status == "CUSTOMER NOTIFIED") {
+      return (
+        <DropdownButton
+          id="dropdown-button-customer-notified"
+          title={repairs[_id]["status"]}
+        >
+          <Dropdown.Item
+            href="#/action-1"
+            onClick={() => dropdownClicked(_id, "IN-SHOP")}
+          >
+            <DropdownButton id="dropdown-button-in-shop" title={"IN-SHOP"} />
+          </Dropdown.Item>
+          <Dropdown.Item
+            href="#/action-3"
+            onClick={() => dropdownClicked(_id, "PICKED UP")}
+          >
+            <DropdownButton
+              id="dropdown-button-picked-up"
+              title={"PICKED UP"}
+            />
+          </Dropdown.Item>
+        </DropdownButton>
+      );
+    }
+  }
   return (
     <>
       <div className="content">
@@ -291,6 +367,7 @@ export default () => {
                         );
                       })
                     : Object.keys(repairs).map((_id, key) => {
+                        console.log("Status is: " + repairs[_id]["status"]);
                         return (
                           <tr className="table-body gray-highlight">
                             <td>{repairs[_id]["name"]}</td>
@@ -298,37 +375,7 @@ export default () => {
                             <td>{repairs[_id]["email"]}</td>
                             <td>{repairs[_id]["bikeModel"]}</td>
                             <td>{repairs[_id]["notes"]}</td>
-                            <td>
-                              <DropdownButton
-                                id="dropdown-basic-button"
-                                title={repairs[_id]["status"]}
-                              >
-                                <Dropdown.Item
-                                  href="#/action-1"
-                                  onClick={() =>
-                                    dropdownClicked(_id, "IN-SHOP")
-                                  }
-                                >
-                                  IN-SHOP
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  href="#/action-2"
-                                  onClick={() =>
-                                    dropdownClicked(_id, "CUSTOMER NOTIFIED")
-                                  }
-                                >
-                                  CUSTOMER NOTIFIED
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  href="#/action-3"
-                                  onClick={() =>
-                                    dropdownClicked(_id, "PICKED UP")
-                                  }
-                                >
-                                  PICKED UP
-                                </Dropdown.Item>
-                              </DropdownButton>
-                            </td>
+                            <td>{tagDisplay(repairs[_id]["status"], _id)}</td>
                           </tr>
                         );
                       })

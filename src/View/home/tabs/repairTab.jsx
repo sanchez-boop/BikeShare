@@ -127,7 +127,7 @@ export default () => {
                             <td>{customer["name"]}</td>
                             <td>{customer["phone"]}</td>
                             <td>{customer["email"]}</td>
-                            <td>
+                            <td className="anchor">
                               {customer["waiver"] ? (
                                 <BsFillFileCheckFill
                                   size={23}
@@ -151,6 +151,7 @@ export default () => {
                         );
                       })
                     : Object.keys(customers.unblacklisted).map((_id, key) => {
+                        //console.log("key is: " + key);
                         return (
                           <tr
                             className="table-body gray-highlight"
@@ -159,7 +160,7 @@ export default () => {
                             <td>{customers.unblacklisted[_id]["name"]}</td>
                             <td>{customers.unblacklisted[_id]["phone"]}</td>
                             <td>{customers.unblacklisted[_id]["email"]}</td>
-                            <td>
+                            <td className="anchor">
                               {customers.unblacklisted[_id]["waiver"] ? (
                                 <BsFillFileCheckFill
                                   size={23}
@@ -172,17 +173,19 @@ export default () => {
                                 "repairClicked"
                               ] && (
                                 <>
-                                  <button
-                                    className="renew"
-                                    onClick={() =>
-                                      confirmRepair(
-                                        _id,
-                                        customers.unblacklisted[_id]
-                                      )
-                                    }
-                                  >
-                                    REPAIR
-                                  </button>
+                                  <div class="dropdown2-menu show">
+                                    <button
+                                      className="renew"
+                                      onClick={() =>
+                                        confirmRepair(
+                                          _id,
+                                          customers.unblacklisted[_id]
+                                        )
+                                      }
+                                    >
+                                      REPAIR
+                                    </button>
+                                  </div>
                                 </>
                               )}
                             </td>

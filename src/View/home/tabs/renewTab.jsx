@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, className } from "react";
 import { Table, DropdownButton, Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleRenew } from "../../../Model/bikesSlice";
@@ -12,7 +12,7 @@ export default () => {
   const dispatch = useDispatch();
   const [searchResults, setSearchResults] = useState([]);
   const [isActive1, setActive1] = useState(false);
-  const [isActive4, setActive4] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(false);
 
   function searchBikes(e) {
     /*search only if query not empty*/
@@ -34,14 +34,17 @@ export default () => {
   }
 
   function toggleRow(_id) {
+    console.log("ID clicked: " + _id);
+    setSelectedRow(!selectedRow);
+    //setColor(_id);
     dispatch(toggleRenew({ _id: _id }));
   }
-
+  /*
   function setColor(_id) {
     console.log("Set color was triggered by id: " + _id);
-    return "table-body gray-highlight yellow-highlight";
+    return (className = "table-body gray-highlight yellow-highlight");
   }
-
+*/
   /* Toggle the outline for the first search bar */
   const toggleClass1 = () => {
     if (!isActive1) {
@@ -51,16 +54,6 @@ export default () => {
   /* Untoggle the outline for the first search bar */
   const unToggleClass1 = () => {
     setActive1(!isActive1);
-  };
-
-  const toggleClass4 = () => {
-    if (!isActive4) {
-      setActive4(!isActive4);
-    }
-  };
-
-  const unToggleClass4 = () => {
-    setActive4(!isActive4);
   };
 
   function confirmRenew() {
@@ -76,7 +69,33 @@ export default () => {
       alert("Returned");
     }
   }
-
+  /*
+  function toggleActive(i) {
+    console.log("toggleActive clicked");
+    console.log("isActive is: " + isActive4);
+    //Remove the if statement if you don't want to unselect an already selected item
+    if (i === isActive4) {
+      setActive4({
+        isActive4: null,
+      });
+    } else {
+      setActive4({
+        isActive4: i,
+      });
+    }
+  }
+*/
+  /*
+  function changeColor(selectedRow) {
+    console.log("change color was triggered");
+    console.log("selectedRow before: " + selectedRow);
+    if (selectedRow !== undefined) {
+      console.log("setSelectedRow triggered!!!!");
+      setSelectedRow({ selectedRow });
+      console.log("selectedRow after: " + selectedRow);
+    }
+  }
+*/
   return (
     <>
       <div className="content">
@@ -144,17 +163,50 @@ export default () => {
                           </tr>
                         );
                       })
-                    : Object.keys(bikes.due).map((_id, key) => {
+                    : Object.keys(bikes.due).map((_id, i) => {
+                        //console.log("_id is: " + _id);
+                        //console.log(
+                        //  "selectedRow: " + selectedRow + "\ni: " + i
+                        //);
                         return (
                           <tr
                             //className="table-body gray-highlight yellow-highlight"
-                            className={
-                              "table-body gray-highlight yellow-highlight"
-                            }
+                            //className={
+                            //  "table-body gray-highlight yellow-highlight"
+                            //}
+                            //className={
+                            //  isActive4 ? "search-field-active" : "search-field"
+                            //}
                             //{setColor(_id)}
+                            //style={
+                            //  isActive4 === key
+                            //    ? { backgroundColor: "#ffcc0099" }
+                            //    : { backgroundColor: "#ff9999" }
+                            //}
+                            //key={key}
+                            //key={i}
+                            //onClick={() => changeColor(i)}
+                            //className={"yellow-highlight"}
+                            //className={
+                            //  JSON.stringify(selectedRow) === i
+                            //    ? "yellow-highlight"
+                            //    : "test-highlight"
+                            //}
+                            className={
+                              selectedRow
+                                ? "yellow-highlight"
+                                : "test-highlight "
+                            }
                             onClick={() => toggleRow(_id)}
+                            //onClick={() => toggleActive(key)}
                             //onClick={() => setColor(_id)}
                           >
+                            {/*console.log(
+                              "selectedRow: " +
+                                selectedRow +
+                                "\ni: " +
+                                i
+                            )*/}
                             <td>{bikes.due[_id]["name"]}</td>
                             <td>{bikes.due[_id]["phone"]}</td>
                             <td>{bikes.due[_id]["email"]}</td>
@@ -177,20 +229,6 @@ export default () => {
                                       Renew
                                     </button>
                                   </div>
-                                  {/*
-                                  <button
-                                    className="return"
-                                    onClick={() => confirmReturn()}
-                                  >
-                                    Return
-                                  </button>
-                                  <button
-                                    className="renew"
-                                    onClick={() => confirmRenew()}
-                                  >
-                                    Renew
-                                  </button>
-                                */}
                                 </>
                               )}
                             </td>

@@ -191,7 +191,7 @@ export default () => {
                             <td>{customers.unblacklisted[_id]["name"]}</td>
                             <td>{customers.unblacklisted[_id]["phone"]}</td>
                             <td>{customers.unblacklisted[_id]["email"]}</td>
-                            <td>
+                            <td className="anchor">
                               {customers.unblacklisted[_id]["waiver"] ? (
                                 <BsFillFileCheckFill
                                   size={23}
@@ -204,52 +204,60 @@ export default () => {
                                 "assignClicked"
                               ] && (
                                 <>
-                                  {/*Make sure the button shown isn't the worker's current role*/}
-                                  {customers.unblacklisted[_id]["role"] !=
-                                    "admin" && (
-                                    <button
-                                      className="renew"
-                                      onClick={() =>
-                                        confirmAssign(
-                                          _id,
-                                          customers.unblacklisted[_id]["name"],
-                                          "admin"
-                                        )
-                                      }
-                                    >
-                                      ADMIN
-                                    </button>
-                                  )}
-                                  {customers.unblacklisted[_id]["role"] !=
-                                    "worker" && (
-                                    <button
-                                      className="renew"
-                                      onClick={() =>
-                                        confirmAssign(
-                                          _id,
-                                          customers.unblacklisted[_id]["name"],
-                                          "worker"
-                                        )
-                                      }
-                                    >
-                                      WORKER
-                                    </button>
-                                  )}
-                                  {customers.unblacklisted[_id]["role"] !=
-                                    "customer" && (
-                                    <button
-                                      className="renew"
-                                      onClick={() =>
-                                        confirmAssign(
-                                          _id,
-                                          customers.unblacklisted[_id]["name"],
-                                          "customer"
-                                        )
-                                      }
-                                    >
-                                      CUSTOMER
-                                    </button>
-                                  )}
+                                  <div class="dropdown2-menu show">
+                                    {/*Make sure the button shown isn't the worker's current role*/}
+                                    {customers.unblacklisted[_id]["role"] !=
+                                      "admin" && (
+                                      <button
+                                        className="renew"
+                                        onClick={() =>
+                                          confirmAssign(
+                                            _id,
+                                            customers.unblacklisted[_id][
+                                              "name"
+                                            ],
+                                            "admin"
+                                          )
+                                        }
+                                      >
+                                        ADMIN
+                                      </button>
+                                    )}
+                                    {customers.unblacklisted[_id]["role"] !=
+                                      "worker" && (
+                                      <button
+                                        className="renew"
+                                        onClick={() =>
+                                          confirmAssign(
+                                            _id,
+                                            customers.unblacklisted[_id][
+                                              "name"
+                                            ],
+                                            "worker"
+                                          )
+                                        }
+                                      >
+                                        WORKER
+                                      </button>
+                                    )}
+                                    {customers.unblacklisted[_id]["role"] !=
+                                      "customer" && (
+                                      <button
+                                        className="renew"
+                                        onClick={() =>
+                                          confirmAssign(
+                                            _id,
+                                            customers.unblacklisted[_id][
+                                              "name"
+                                            ],
+                                            "customer"
+                                          )
+                                        }
+                                      >
+                                        CUSTOMER
+                                      </button>
+                                    )}
+                                  </div>
                                 </>
                               )}
                             </td>

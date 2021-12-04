@@ -94,8 +94,12 @@
   background-color: #e4e4e4;
 }
 
-.yellow-highlight:active {
+.yellow-highlight {
   background-color: #ffcc0099;
+}
+
+.test-highlight {
+  background-color: #ff0099;
 }
 
 /* Set search bar to margin-left to avoid getting squished by the table title */

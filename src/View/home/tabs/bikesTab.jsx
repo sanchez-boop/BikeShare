@@ -124,16 +124,18 @@ export default () => {
                             >
                               <td>{bikeObjects[_id]["id"]}</td>
                               <td>{bikeObjects[_id]["model"]}</td>
-                              <td>
+                              <td className="anchor">
                                 {bikeObjects[_id]["serialNumber"]}
                                 {bikeObjects[_id]["deleteClicked"] && (
                                   <>
-                                    <button
-                                      className="return"
-                                      onClick={() => confirmDelete()}
-                                    >
-                                      Delete
-                                    </button>
+                                    <div class="dropdown2-menu show">
+                                      <button
+                                        className="return"
+                                        onClick={() => confirmDelete()}
+                                      >
+                                        Delete
+                                      </button>
+                                    </div>
                                   </>
                                 )}
                               </td>

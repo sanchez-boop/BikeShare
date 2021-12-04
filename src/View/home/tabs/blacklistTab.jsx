@@ -123,16 +123,18 @@ export default () => {
                     >
                       <td>{customers.unblacklisted[_id]["name"]}</td>
                       <td>{customers.unblacklisted[_id]["phone"]}</td>
-                      <td>
+                      <td className="anchor">
                         {customers.unblacklisted[_id]["email"]}
                         {customers.unblacklisted[_id]["blackTabClicked"] && (
                           <>
-                            <button
-                              className="blacklist"
-                              onClick={() => confirmBlacklist(_id)}
-                            >
-                              Blacklist
-                            </button>
+                            <div class="dropdown2-menu show">
+                              <button
+                                className="blacklist"
+                                onClick={() => confirmBlacklist(_id)}
+                              >
+                                Blacklist
+                              </button>
+                            </div>
                           </>
                         )}
                       </td>
@@ -188,16 +190,18 @@ export default () => {
                     >
                       <td>{customers.blacklisted[_id]["name"]}</td>
                       <td>{customers.blacklisted[_id]["phone"]}</td>
-                      <td>
+                      <td className="anchor">
                         {customers.blacklisted[_id]["email"]}
                         {customers.blacklisted[_id]["blackTabClicked"] && (
                           <>
-                            <button
-                              className="unblacklist"
-                              onClick={() => confirmUnblacklist(_id)}
-                            >
-                              Unblacklist
-                            </button>
+                            <div class="dropdown2-menu show">
+                              <button
+                                className="unblacklist"
+                                onClick={() => confirmUnblacklist(_id)}
+                              >
+                                Unblacklist
+                              </button>
+                            </div>
                           </>
                         )}
                       </td>

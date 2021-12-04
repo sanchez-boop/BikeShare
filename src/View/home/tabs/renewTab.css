@@ -4,9 +4,11 @@
   right: 10px;
   top: 36px;
   display: none;
-  min-width: 10rem;
+  width: auto;
   margin-right: 20px;
   padding: 0.5rem 0;
+  padding-left: 10px;
+  padding-right: 10px;
   margin: 0;
   font-size: 1rem;
   color: #212529;
