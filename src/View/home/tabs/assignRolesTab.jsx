@@ -68,7 +68,8 @@ export default () => {
         /*now edit role on back end & sync changes*/
         const customer = await patchRole(credentials);
         if (customer != null) {
-          dispatch(addCustomerToUnblacklisted(customer));
+          //dispatch(addCustomerToUnblacklisted(customer));  DELETEME: This line will break
+          //                                                 the buttons display when assigned a role
           alert(`Assigned ${name} as ${role}`);
         } else {
           alert("Server might be out of sync with recent changes");
@@ -185,8 +186,10 @@ export default () => {
                     : Object.keys(customers.unblacklisted).map((_id, key) => {
                         return (
                           <tr
+                            tabindex="-1"
                             className="table-body gray-highlight"
-                            onClick={() => toggle(_id)}
+                            onFocus={() => toggle(_id)}
+                            onBlur={() => toggle(_id)}
                           >
                             <td>{customers.unblacklisted[_id]["name"]}</td>
                             <td>{customers.unblacklisted[_id]["phone"]}</td>
@@ -204,21 +207,35 @@ export default () => {
                                 "assignClicked"
                               ] && (
                                 <>
-                                  <div class="dropdown2-menu show">
+                                  <div
+                                    class="dropdown2-menu show"
+                                    //tabindex="-1"
+                                  >
                                     {/*Make sure the button shown isn't the worker's current role*/}
                                     {customers.unblacklisted[_id]["role"] !=
                                       "admin" && (
                                       <button
                                         className="renew"
-                                        onClick={() =>
+                                        onClick={() => {
                                           confirmAssign(
                                             _id,
                                             customers.unblacklisted[_id][
                                               "name"
                                             ],
                                             "admin"
+                                          );
+                                          console.log(
+                                            "confirmAssign triggered"
+                                          );
+                                        }}
+                                        /*onClick={(e) => e.currentTarget.blur()}
+                                        onClick={(e) =>
+                                          console.log(
+                                            "e.currentTarget: " +
+                                              e.currentTarget
                                           )
                                         }
+                                        */
                                       >
                                         ADMIN
                                       </button>
