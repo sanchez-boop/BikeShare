@@ -21,6 +21,37 @@
   padding: 5px;
 }
 .logoBackground {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: #ffcc00;
   margin-bottom: 20px;
+}
+
+.signout {
+  display: flex;
+  justify-content: space-around;
+  width: 114px;
+  background-color: #f9f9f9;
+  border: 1px solid rgb(95, 95, 95);
+  border-radius: 5px;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.05));
+  color: rgb(71, 71, 71);
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.signout:hover {
+  background-color: #f1f1f1;
+  color: #414141;
+  border: 1px solid rgb(48, 48, 48);
+}
+
+.signout:active {
+  background-color: #e6e6e6;
+  color: #000000;
+  border: 1px solid black;
 }

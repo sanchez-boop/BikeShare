@@ -154,8 +154,10 @@ export default () => {
                         //console.log("key is: " + key);
                         return (
                           <tr
+                            tabindex="-1"
                             className="table-body gray-highlight"
-                            onClick={() => toggle(_id)}
+                            onFocus={() => toggle(_id)}
+                            onBlur={() => toggle(_id)}
                           >
                             <td>{customers.unblacklisted[_id]["name"]}</td>
                             <td>{customers.unblacklisted[_id]["phone"]}</td>

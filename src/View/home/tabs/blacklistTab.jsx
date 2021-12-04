@@ -116,10 +116,10 @@ export default () => {
                 {Object.keys(customers.unblacklisted).map((_id, key) => {
                   return (
                     <tr
+                      tabindex="-1"
                       className="table-body gray-highlight"
-                      onClick={() => {
-                        toggleBlacklist(_id);
-                      }}
+                      onFocus={() => toggleBlacklist(_id)}
+                      onBlur={() => toggleBlacklist(_id)}
                     >
                       <td>{customers.unblacklisted[_id]["name"]}</td>
                       <td>{customers.unblacklisted[_id]["phone"]}</td>
@@ -183,10 +183,10 @@ export default () => {
                 {Object.keys(customers.blacklisted).map((_id, key) => {
                   return (
                     <tr
+                      tabindex="-1"
                       className="table-body gray-highlight"
-                      onClick={() => {
-                        toggleBlacklist(_id);
-                      }}
+                      onFocus={() => toggleBlacklist(_id)}
+                      onBlur={() => toggleBlacklist(_id)}
                     >
                       <td>{customers.blacklisted[_id]["name"]}</td>
                       <td>{customers.blacklisted[_id]["phone"]}</td>

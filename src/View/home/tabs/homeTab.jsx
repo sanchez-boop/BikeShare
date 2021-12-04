@@ -367,7 +367,6 @@ export default () => {
                         );
                       })
                     : Object.keys(repairs).map((_id, key) => {
-                        console.log("Status is: " + repairs[_id]["status"]);
                         return (
                           <tr className="table-body gray-highlight">
                             <td>{repairs[_id]["name"]}</td>

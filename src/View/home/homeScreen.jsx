@@ -6,6 +6,7 @@ import { getRepairs } from "../../Controller/getRepairs";
 import { getCustomers } from "../../Controller/getCustomers";
 import "./homeScreen.css";
 import logo from "../../Images/bikengold.png";
+import { VscSignOut } from "react-icons/vsc";
 import { addRepair } from "../../Model/repairsSlice";
 import {
   addBikeToAvailable,
@@ -75,6 +76,10 @@ export default () => {
             <img className="logo" src={logo} alt="image error" />
             <text id="title">BikeN'Gold</text>
           </div>
+          <button className="signout" onClick={() => alert("Sign out clicked")}>
+            Sign out
+            <VscSignOut size={23} />
+          </button>
         </div>
         <TabNav />
       </div>

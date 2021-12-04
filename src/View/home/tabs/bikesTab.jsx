@@ -119,8 +119,10 @@ export default () => {
                         return Object.keys(bikeObjects).map((_id, key) => {
                           return (
                             <tr
+                              tabindex="-1"
                               className="table-body gray-highlight"
-                              onClick={() => toggleRow(_id)}
+                              onFocus={() => toggleRow(_id)}
+                              onBlur={() => toggleRow(_id)}
                             >
                               <td>{bikeObjects[_id]["id"]}</td>
                               <td>{bikeObjects[_id]["model"]}</td>
