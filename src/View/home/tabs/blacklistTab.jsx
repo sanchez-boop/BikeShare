@@ -130,7 +130,7 @@ export default () => {
                             <div class="dropdown2-menu show">
                               <button
                                 className="blacklist"
-                                onClick={() => confirmBlacklist(_id)}
+                                onMouseDown={() => confirmBlacklist(_id)}
                               >
                                 Blacklist
                               </button>
@@ -197,7 +197,7 @@ export default () => {
                             <div class="dropdown2-menu show">
                               <button
                                 className="renew"
-                                onClick={() => confirmUnblacklist(_id)}
+                                onMouseDown={() => confirmUnblacklist(_id)}
                               >
                                 Unblacklist
                               </button>

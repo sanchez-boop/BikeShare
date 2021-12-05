@@ -139,7 +139,7 @@ export default () => {
                               <>
                                 <button
                                   className="renew"
-                                  onClick={() =>
+                                  onMouseDown={() =>
                                     confirmRepair(customer["_id"], customer)
                                   }
                                 >
@@ -178,7 +178,7 @@ export default () => {
                                   <div class="dropdown2-menu show">
                                     <button
                                       className="renew"
-                                      onClick={() =>
+                                      onMouseDown={() =>
                                         confirmRepair(
                                           _id,
                                           customers.unblacklisted[_id]

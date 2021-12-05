@@ -148,13 +148,13 @@ export default () => {
                               <>
                                 <button
                                   className="return"
-                                  onClick={() => confirmReturn()}
+                                  onMouseDown={() => confirmReturn()}
                                 >
                                   Return
                                 </button>
                                 <button
                                   className="renew"
-                                  onClick={() => confirmRenew()}
+                                  onMouseDown={() => confirmRenew()}
                                 >
                                   Renew
                                 </button>
@@ -218,13 +218,13 @@ export default () => {
                                   <div class="dropdown2-menu show">
                                     <button
                                       className="return"
-                                      onClick={() => confirmReturn()}
+                                      onMouseDown={() => confirmReturn()}
                                     >
                                       Return
                                     </button>
                                     <button
                                       className="renew"
-                                      onClick={() => confirmRenew()}
+                                      onMouseDown={() => confirmRenew()}
                                     >
                                       Renew
                                     </button>
@@ -253,13 +253,13 @@ export default () => {
                             <>
                               <button
                                 className="return"
-                                onClick={() => confirmReturn()}
+                                onMouseDown={() => confirmReturn()}
                               >
                                 Return
                               </button>
                               <button
                                 className="renew"
-                                onClick={() => confirmRenew()}
+                                onMouseDown={() => confirmRenew()}
                               >
                                 Renew
                               </button>

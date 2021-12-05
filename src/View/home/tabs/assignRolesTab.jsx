@@ -139,7 +139,7 @@ export default () => {
                                 {customer["role"] != "admin" && (
                                   <button
                                     className="renew"
-                                    onClick={() =>
+                                    onMouseDown={() =>
                                       confirmAssign(
                                         customer["_id"],
                                         customer["name"],
@@ -153,7 +153,7 @@ export default () => {
                                 {customer["role"] != "worker" && (
                                   <button
                                     className="renew"
-                                    onClick={() =>
+                                    onMouseDown={() =>
                                       confirmAssign(
                                         customer["_id"],
                                         customer["name"],
@@ -167,7 +167,7 @@ export default () => {
                                 {customer["role"] != "customer" && (
                                   <button
                                     className="renew"
-                                    onClick={() =>
+                                    onMouseDown={() =>
                                       confirmAssign(
                                         customer["_id"],
                                         customer["name"],
@@ -216,7 +216,7 @@ export default () => {
                                       "admin" && (
                                       <button
                                         className="renew"
-                                        onClick={() => {
+                                        onMouseDown={() => {
                                           confirmAssign(
                                             _id,
                                             customers.unblacklisted[_id][
@@ -244,7 +244,7 @@ export default () => {
                                       "worker" && (
                                       <button
                                         className="renew"
-                                        onClick={() =>
+                                        onMouseDown={() =>
                                           confirmAssign(
                                             _id,
                                             customers.unblacklisted[_id][
@@ -261,7 +261,7 @@ export default () => {
                                       "customer" && (
                                       <button
                                         className="renew"
-                                        onClick={() =>
+                                        onMouseDown={() =>
                                           confirmAssign(
                                             _id,
                                             customers.unblacklisted[_id][

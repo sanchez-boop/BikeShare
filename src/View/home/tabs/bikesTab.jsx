@@ -126,7 +126,7 @@ export default () => {
                               <>
                                 <button
                                   className="return"
-                                  onClick={() => confirmDelete()}
+                                  onMouseDown={() => confirmDelete()}
                                 >
                                   Delete
                                 </button>
@@ -155,7 +155,7 @@ export default () => {
                                       <div class="dropdown2-menu show">
                                         <button
                                           className="return"
-                                          onClick={() => confirmDelete()}
+                                          onMouseDown={() => confirmDelete()}
                                         >
                                           Delete
                                         </button>
