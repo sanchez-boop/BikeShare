@@ -5,9 +5,10 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Login from "./View/auth/login";
 import Register from "./View/auth/register";
 import HomeScreen from "./View/home/homeScreen";
+import CustomerScreen from "./View/home/customerScreen";
 
 function App() {
-  const {acc} = useSelector(state=>state);
+  const { acc } = useSelector((state) => state);
 
   return (
     <Router>
@@ -19,17 +20,19 @@ function App() {
           <Register />
         </Route>
         <>
-          {
-            acc.loggedIn==true 
-            ?
-            <Route path="/homeScreen">
-              <HomeScreen />
-            </Route>
-            :
-            <>
-              you're logged out
-            </>
-          }
+          {acc.loggedIn == true ? (
+            acc.role == "admin" || acc.role == "worker" ? (
+              <Route path="/homeScreen">
+                <HomeScreen />
+              </Route>
+            ) : (
+              <Route path="/customerScreen">
+                <CustomerScreen />
+              </Route>
+            )
+          ) : (
+            <>you're logged out</>
+          )}
         </>
       </Switch>
     </Router>

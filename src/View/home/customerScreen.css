@@ -1,0 +1,36 @@
+#customer-background {
+  background-color: #ededed;
+  padding-bottom: 20px;
+}
+
+.customer-content {
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  padding: 30px;
+  margin: auto;
+  padding-bottom: 30px;
+}
+
+.customer-text-background {
+  background-color: #f9f9f9;
+  width: 80%;
+  margin-bottom: 20px;
+  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+}
+
+.list {
+  text-align: left;
+}
+
+.iPhone {
+  width: 300px;
+}

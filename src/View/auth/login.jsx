@@ -117,7 +117,12 @@ export default () => {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
         dispatch(signIn(account[0]));
-        history.push("/homeScreen");
+        //console.log("User logged in is a " + account[0].role);
+        if (account[0].role == "admin" || account[0].role == "worker") {
+          history.push("/homeScreen");
+        } else if (account[0].role == "customer") {
+          history.push("/customerScreen");
+        }
       } else {
         alert("login failed, try again");
       }
