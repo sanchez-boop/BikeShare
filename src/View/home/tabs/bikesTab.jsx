@@ -56,28 +56,48 @@ export default () => {
       alert("Deleted");
     }
   }
-  //console.log(Object.values(bikes));
+
+  function confirmBike() {
+    /*Use prompt to add bike model and notes. 
+          Post new repair with bike model, notes and 
+          customer info to API. Update redux state*/
+    const bikeNumber = prompt("Assign a bike number");
+    const bikeModel = prompt("Add bike model");
+    const serialNumber = prompt("Add a serial number for this bike");
+    const newBike = {
+      bikeNumber: bikeNumber,
+      bikeModel: bikeModel,
+      serialNumber: serialNumber,
+    };
+  }
 
   return (
     <>
       <div className="content">
         <div className="table-content">
-          <div className="search-bar-container">
-            <div
-              className={isActive1 ? "search-field-active" : "search-field"}
-              onFocus={toggleClass1}
-            >
-              {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
-              <input
-                type="text"
-                placeholder="Search bike"
-                className="search-bar"
-                onChange={searchBikes}
-              />
-              <div className="search-button" tabindex="0">
-                <AiOutlineSearch />
+          <div className="search-bar-and-button-container">
+            <div className="search-bar-container">
+              <div
+                className={isActive1 ? "search-field-active" : "search-field"}
+                onFocus={toggleClass1}
+              >
+                {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
+                <input
+                  type="text"
+                  placeholder="Search bike"
+                  className="search-bar"
+                  onChange={searchBikes}
+                />
+                <div className="search-button" tabindex="0">
+                  <AiOutlineSearch />
+                </div>
               </div>
             </div>
+            {acc.role == "admin" && (
+              <button className="add-bike" onClick={() => confirmBike()}>
+                Add bike
+              </button>
+            )}
           </div>
           {/*this table searches bikes */}
           <div className="margin" />

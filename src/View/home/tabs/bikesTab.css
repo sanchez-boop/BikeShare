@@ -17,6 +17,34 @@
   font-size: 21px;
 }
 
+.search-bar-and-button-container {
+  display: flex;
+}
+
+.add-bike {
+  display: flex;
+  justify-content: space-around;
+  width: 94px;
+  background-color: #22c16b;
+  border: 1px solid #18864b;
+  border-radius: 7px;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.05));
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.add-bike:hover {
+  background-color: #1ea85e;
+}
+
+.add-bike:active {
+  background-color: #1a9453;
+}
+
 .search-bar-container {
   display: flex;
   justify-content: space-between;

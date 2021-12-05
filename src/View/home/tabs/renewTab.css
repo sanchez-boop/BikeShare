@@ -32,8 +32,8 @@
 
 .renew {
   background-color: #22c16b;
+  border: 1px solid #18864b;
   border-radius: 7px;
-  border-style: none;
   color: white;
   padding: 5px 10px;
   text-align: center;
@@ -54,8 +54,8 @@
 
 .return {
   background-color: #ff4141;
+  border: 1px solid #c93232;
   border-radius: 7px;
-  border: none;
   color: white;
   padding: 5px 10px;
   text-align: center;

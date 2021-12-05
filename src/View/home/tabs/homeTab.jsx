@@ -239,12 +239,10 @@ export default () => {
                     : "submit-announcement"
                 }
                 onClick={() =>
-                  formInput.announcement == ""
-                    ? ""
-                    : alert(
-                        "The following announcement would be displayed:\n" +
-                          formInput.announcement
-                      )
+                  alert(
+                    "The following announcement would be displayed:\n" +
+                      formInput.announcement
+                  )
                 }
               >
                 Submit

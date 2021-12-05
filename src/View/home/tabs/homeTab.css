@@ -30,7 +30,7 @@
 }
 
 .submit-announcement-dim {
-  display: flex;
+  display: none;
   justify-content: space-around;
   width: 94px;
   background-color: #ececec;

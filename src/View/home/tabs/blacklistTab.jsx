@@ -196,7 +196,7 @@ export default () => {
                           <>
                             <div class="dropdown2-menu show">
                               <button
-                                className="unblacklist"
+                                className="renew"
                                 onClick={() => confirmUnblacklist(_id)}
                               >
                                 Unblacklist

@@ -1,6 +1,7 @@
 .blacklist {
-  background-color: #000000;
-  border: none;
+  background-color: #303030;
+  border: 1px solid #000000;
+  border-radius: 7px;
   color: white;
   padding: 5px 10px;
   text-align: center;
@@ -11,10 +12,24 @@
   float: right;
 }
 
+.blacklist:hover {
+  background-color: #181818;
+  border: 1px solid #000000;
+  color: rgb(233, 233, 233);
+}
+
+.blacklist:active {
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: rgb(207, 207, 207);
+}
+
+/* .renew styling is used for unblacklist. So this is deprecated */
 .unblacklist {
   background-color: #22c16b;
   border: none;
   color: white;
+  border-radius: 7px;
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
