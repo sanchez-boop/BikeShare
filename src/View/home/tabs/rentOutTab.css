@@ -132,7 +132,7 @@ tr:last-child {
 .table-body {
   font-size: 14px;
   border-bottom: 1px solid #dfdfdf;
-  /*outline: none;*/
+  outline: none;
 }
 
 .gray-highlight:hover {
