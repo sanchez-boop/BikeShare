@@ -3,43 +3,43 @@ const mongoose = require('mongoose')
 const bikeSchema = new mongoose.Schema({
     dateRented: {
         type: String,
-        required: true
+        required: false
     },
     id: {
         type: String,
-        required: true
+        required: false
     },
     model: {
         type: String,
-        required: true
+        required: false
     },
     notes: {
         type: String,
-        required: true
+        required: false
     },
     serialNumber: {
         type: String,
-        required: true
+        required: false
     },
     customerID: {
         type: String,
-        required: true
+        required: false
     },
     availability: {
         type:Boolean,
-        required: true
+        required: false
     },
     email: {
         type: String,
-        required: true
+        required: false
     },
     name: {
         type: String,
-        required: true
+        required: false
     },
     phone: {
         type: String,
-        required: true
+        required: false
     }
 })
 
