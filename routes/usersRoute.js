@@ -71,7 +71,7 @@ router.post('/login', async (req, res, next) =>
       const result =  await User.findOne({ email : Email, password : Password });
 
       //create valid json web token when user logs in, expires after 20 minutes
-      const jwtToken = jwt.sign({_id: result._id}, process.env.JWT_SECRET, {expiresIn: '2m'});
+      const jwtToken = jwt.sign({_id: result._id}, process.env.JWT_SECRET, {expiresIn: '20m'});
       res.header('auth-token', jwtToken);
       //return sucess
       res.status(200).json(result);
