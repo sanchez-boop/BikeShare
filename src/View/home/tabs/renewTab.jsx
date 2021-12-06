@@ -12,7 +12,10 @@ export default () => {
   const dispatch = useDispatch();
   const [searchResults, setSearchResults] = useState([]);
   const [isActive1, setActive1] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(false);
+  //const [selectedRow, setSelectedRow] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(
+    "table-body gray-highlight yellow-highlight"
+  );
 
   function searchBikes(e) {
     /*search only if query not empty*/
@@ -33,11 +36,17 @@ export default () => {
     }
   }
 
-  function toggleRow(_id) {
-    console.log("ID clicked: " + _id);
-    setSelectedRow(!selectedRow);
+  function toggleRow(_id, toggled) {
+    //console.log("ID clicked: " + _id);
+    //setSelectedRow(!selectedRow);
     //setColor(_id);
     dispatch(toggleRenew({ _id: _id }));
+
+    //if (toggled == false) {
+    //  setSelectedRow("table-body gray-highlight yellow-highlight");
+    //} else if (toggled == true) {
+    //  setSelectedRow("table-body yellow-highlight-active");
+    //}
   }
   /*
   function setColor(_id) {
@@ -170,10 +179,11 @@ export default () => {
                         //);
                         return (
                           <tr
-                            //className="table-body gray-highlight yellow-highlight"
-                            //className={
-                            //  "table-body gray-highlight yellow-highlight"
-                            //}
+                            tabindex="-1"
+                            //className={selectedRow}
+                            className={
+                              "table-body gray-highlight yellow-highlight"
+                            }
                             //className={
                             //  isActive4 ? "search-field-active" : "search-field"
                             //}
@@ -192,12 +202,25 @@ export default () => {
                             //    ? "yellow-highlight"
                             //    : "test-highlight"
                             //}
-                            className={
-                              selectedRow
-                                ? "yellow-highlight"
-                                : "test-highlight "
-                            }
-                            onClick={() => toggleRow(_id)}
+                            //className={
+                            //selectedRow
+                            //   ? "yellow-highlight"
+                            //    : "test-highlight "
+                            //}
+                            onFocus={() => {
+                              toggleRow(_id, bikes.due[_id]["renewClicked"]);
+                              console.log(
+                                "RenewClicked when focused: " +
+                                  bikes.due[_id]["renewClicked"]
+                              );
+                            }}
+                            onBlur={() => {
+                              toggleRow(_id, bikes.due[_id]["renewClicked"]);
+                              console.log(
+                                "RenewClicked when blurred: " +
+                                  bikes.due[_id]["renewClicked"]
+                              );
+                            }}
                             //onClick={() => toggleActive(key)}
                             //onClick={() => setColor(_id)}
                           >
@@ -219,6 +242,12 @@ export default () => {
                                     <button
                                       className="return"
                                       onMouseDown={() => confirmReturn()}
+                                      onClick={() => {
+                                        setSelectedRow(
+                                          "table-body yellow-highlight-active"
+                                        );
+                                        console.log("I was clicked");
+                                      }}
                                     >
                                       Return
                                     </button>

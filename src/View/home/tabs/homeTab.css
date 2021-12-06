@@ -192,6 +192,13 @@
   vertical-align: 0.155em;
 }
 
+.table-test {
+  width: 100%;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
 .table-content {
   width: 83%;
   margin-bottom: 20px;

@@ -76,7 +76,7 @@ export default () => {
       <div className="content">
         <div className="table-content">
           <div className="search-bar-and-button-container">
-            <div className="search-bar-container">
+            <div className="bike-search-bar-container">
               <div
                 className={isActive1 ? "search-field-active" : "search-field"}
                 onFocus={toggleClass1}

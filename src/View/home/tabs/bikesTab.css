@@ -45,7 +45,7 @@
   background-color: #1a9453;
 }
 
-.search-bar-container {
+.bike-search-bar-container {
   display: flex;
   justify-content: space-between;
   margin: auto;
@@ -122,8 +122,16 @@
   background-color: #e4e4e4;
 }
 
-.yellow-highlight {
-  background-color: #ffcc0099;
+.yellow-highlight-active {
+  background-color: #ffe785;
+}
+
+.yellow-highlight:active {
+  background-color: #ffe785;
+}
+
+tr:has(.anchor) {
+  background-color: #ffe785;
 }
 
 .test-highlight {

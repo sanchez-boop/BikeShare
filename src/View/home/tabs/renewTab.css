@@ -17,7 +17,8 @@
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border-top: none;
+  border-radius: 0 0 0.25rem 0.25rem;
   scroll-snap-align: inherit;
 }
 
@@ -162,6 +163,11 @@
   background-color: #e4e4e4;
 }
 
+/*
+tr.table-body > td:last-of-type > div {
+  background-color: #ffe785;
+}
+*/
 /* Set search bar to margin-left to avoid getting squished by the table title */
 @media only screen and (max-width: 844px) {
   .search-bar-container-adjust {

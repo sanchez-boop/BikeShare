@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./blacklistTab.css";
@@ -16,6 +16,7 @@ import { patchBlacklist } from "../../../Controller/patchBlacklist";
 export default () => {
   const { customers } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [modalShow, setModalShow] = useState(false);
 
   function toggleBlacklist(_id) {
     dispatch(toggleBlackTab({ _id: _id }));
@@ -49,32 +50,64 @@ export default () => {
     }
   }
 
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Modal heading
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Centered Modal</h4>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+            ac consectetur ac, vestibulum at eros.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setModalShow(false)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  function setModalShowFunction() {
+    setModalShow(true);
+  }
+
   function confirmUnblacklist(_id) {
-    if (window.confirm("Are you sure you want to unblacklist?")) {
-      /*First, swap from unblack to black on 
+    //if (window.confirm("Are you sure you want to unblacklist?")) {
+    /*First, swap from unblack to black on 
               front end, then patch changes to back end. 
               sync the app by checking if object on 
               front end is same as object on back end */
-      async function asyncDispatch() {
-        dispatch(swapToUnblacklisted({ _id: _id }));
+    async function asyncDispatch() {
+      dispatch(swapToUnblacklisted({ _id: _id }));
 
-        /*now edit blacklist on back end & sync changes*/
-        const credentials = {
-          _id: _id,
-          blacklist: false,
-        };
+      /*now edit blacklist on back end & sync changes*/
+      const credentials = {
+        _id: _id,
+        blacklist: false,
+      };
 
-        const customer = await patchBlacklist(credentials);
-        if (customer != null) {
-          dispatch(addCustomerToUnblacklisted(customer));
-          alert("Unblacklisted");
-        } else {
-          alert("Server might be out of sync with recent changes");
-        }
+      const customer = await patchBlacklist(credentials);
+      if (customer != null) {
+        dispatch(addCustomerToUnblacklisted(customer));
+        alert("Unblacklisted");
+      } else {
+        alert("Server might be out of sync with recent changes");
       }
-
-      asyncDispatch();
     }
+
+    asyncDispatch();
+    //}
   }
 
   return (
@@ -197,10 +230,12 @@ export default () => {
                             <div class="dropdown2-menu show">
                               <button
                                 className="renew"
-                                onMouseDown={() => confirmUnblacklist(_id)}
+                                //onMouseDown={() => confirmUnblacklist(_id)}
+                                onMouseDown={() => setModalShowFunction()}
                               >
                                 Unblacklist
                               </button>
+                              <MyVerticallyCenteredModal show={modalShow} />
                             </div>
                           </>
                         )}
@@ -213,6 +248,14 @@ export default () => {
           </div>
         </div>
       </div>
+      <button
+        className="renew"
+        //onMouseDown={() => confirmUnblacklist(_id)}
+        onMouseDown={() => setModalShowFunction()}
+      >
+        Unblacklist
+      </button>
+      <MyVerticallyCenteredModal show={modalShow} />
     </>
   );
 };
