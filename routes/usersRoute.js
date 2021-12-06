@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
+//jwt auth middleware
+const jwt = require('jsonwebtoken');
+const auth1 = require('./authenticate')
 
 //getting all users
 router.get('/', async (req, res) => {
@@ -31,7 +34,7 @@ router.post('/', async (req, res) => {
     }
 })
 //updating a user
-router.patch('/', async (req, res) => {
+router.patch('/', auth1, async (req, res) => {
     try{
         const updatedUser = await User.updateOne(
             {_id: req.body._id},
@@ -43,14 +46,14 @@ router.patch('/', async (req, res) => {
                         role: req.body.role,
                         waiver : req.body.waiver } }
             )
-            const retVal = await User.findOne({_id:req.body._id})
-            res.json(retVal)
+        const retVal = await User.findOne({_id:req.body._id})
+        res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
     }
 })
 //deleteing a user
-router.delete('/', async (req, res) => {
+router.delete('/', auth1, async (req, res) => {
     try{
     const deletedUser = await User.deleteOne({_id: req.body._id})
     res.json(deletedUser)
@@ -63,16 +66,15 @@ router.post('/login', async (req, res, next) =>
     {
       // incoming: Email, Password
       // outgoing: id, firstName, lastName, error
-    
-     var error = '';
-    
       const  Email= req.body.email 
       const Password  = req.body.password
-    
-      //const db = client.db();
-      //const results = await db.collection('Users').find({Email:email,Password:password}).toArray();
-      const results =  await User.find({ email : Email, password : Password });
-      res.status(200).json(results);
+      const result =  await User.findOne({ email : Email, password : Password });
+
+      //create valid json web token when user logs in, expires after 20 minutes
+      const jwtToken = jwt.sign({_id: result._id}, process.env.JWT_SECRET, {expiresIn: '20m'});
+      res.header('auth-token', jwtToken);
+      //return sucess
+      res.status(200).json(result);
     });
 //searching users 
 router.post('/search', async (req, res, next) =>

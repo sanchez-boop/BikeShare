@@ -1,9 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const Repair = require('../models/repair')
+//jwt auth middleware
+const jwt = require('jsonwebtoken');
+const auth1 = require('./authenticate')
 
 //getting all repairs 
-router.get('/', async (req, res) => {
+router.get('/', auth1, async (req, res) => {
     try {
         const repairs = await Repair.find()
         res.json(repairs)
@@ -13,7 +16,7 @@ router.get('/', async (req, res) => {
 })
 
 //create a repair
-router.post('/', async (req, res) => {
+router.post('/', auth1, async (req, res) => {
     const repair = new Repair({
         bikeModel: req.body.bikeModel,
         customerID: req.body.customerID,
@@ -32,7 +35,7 @@ router.post('/', async (req, res) => {
     }
 })
 //updating a repair
-router.patch('/', async (req, res) => {
+router.patch('/', auth1, async (req, res) => {
     try{
         const updatedRepair = await Repair.updateOne(
             {_id: req.body._id},
@@ -52,7 +55,7 @@ router.patch('/', async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', async (req, res) => {
+router.delete('/', auth1, async (req, res) => {
     try{
     const deletedRepair = await Repair.deleteOne({id: req.body.id})
     res.json(deletedRepair)
@@ -61,7 +64,7 @@ router.delete('/', async (req, res) => {
     }
 })
 //searching repairs 
-router.post('/search', async (req, res, next) =>
+router.post('/search',  auth1, async (req, res, next) =>
 {
 try{
     const searchedRepairs = await Repair.find({$or:[{name:{$regex: req.body.key, $options: 'i'}},
