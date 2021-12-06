@@ -7,11 +7,11 @@ const bikeSchema = new mongoose.Schema({
     },
     id: {
         type: String,
-        required: false
+        required: true
     },
     model: {
         type: String,
-        required: false
+        required: true
     },
     notes: {
         type: String,
@@ -19,7 +19,7 @@ const bikeSchema = new mongoose.Schema({
     },
     serialNumber: {
         type: String,
-        required: false
+        required: true
     },
     customerID: {
         type: String,
