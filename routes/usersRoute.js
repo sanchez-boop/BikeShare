@@ -95,6 +95,25 @@ try{
     res.status(400).json({message: err.message })
 }
 });
+//searching blacklisted users
+router.post('/blacklistSearch', async (req, res, next) =>
+{
+try{
+    const searchedUsers = await User.find({
+    $and: [
+        {blacklist:true},
+        {$or:[
+            {name:{$regex: req.body.key, $options: 'i'}},
+            {phone:{$regex: req.body.key, $options: 'i'}},
+            {email:{$regex: req.body.key, $options: 'i'}}
+            ]},
+    ]
+    })
+    res.json(searchedUsers)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
 //blacklisted users 
 router.get('/blacklisted', async (req, res) => {
     try {
