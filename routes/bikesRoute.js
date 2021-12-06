@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const Bike = require('../models/bike')
+//jwt auth middleware
+const jwt = require('jsonwebtoken');
+const auth1 = require('./authenticate')
 
 //getting all bikes 
 router.get('/', async (req, res) => {
@@ -12,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 //create a bike
-router.post('/', async (req, res) => {
+router.post('/', auth1, async (req, res) => {
     const bike = new Bike({
         dateRented: req.body.dateRented,
         id: req.body.id,
@@ -33,7 +36,7 @@ router.post('/', async (req, res) => {
     }
 })
 //updating a repair
-router.patch('/', async (req, res) => {
+router.patch('/', auth1, async (req, res) => {
     try{
         const updatedBike = await Bike.updateOne(
             {id: req.body.id},
@@ -55,7 +58,7 @@ router.patch('/', async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', async (req, res) => {
+router.delete('/', auth1, async (req, res) => {
     try{
     const deletedBike = await Bike.deleteOne({id: req.body.id})
     res.json(deletedBike)
