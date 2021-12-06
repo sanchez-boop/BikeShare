@@ -23,6 +23,7 @@ export default () => {
         /*since we need to toggle to show buttons,
               add a boolean to results */
         let results = await postBikeSearch({ key: e.target.value });
+        
         setSearchResults((searchResults) => {
           return results;
         });

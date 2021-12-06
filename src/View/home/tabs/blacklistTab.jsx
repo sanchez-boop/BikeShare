@@ -16,10 +16,35 @@ import { patchBlacklist } from "../../../Controller/patchBlacklist";
 export default () => {
   const { customers } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [searchResults, setSearchResults] = useState([]);
   const [modalShow, setModalShow] = useState(false);
 
   function toggleBlacklist(_id) {
     dispatch(toggleBlackTab({ _id: _id }));
+  }
+
+  function searchCustomers(e) {
+    /*search only if query not empty*/
+    if (e.target.value != "") {
+      async function asyncSearch() {
+        /*since we need to toggle to show buttons,
+              add a boolean to results */
+        // let results = await postCustomerSearch({ key: e.target.value });
+
+        // results.map((customer) => {
+        //   customer["repairClicked"] = false;
+        // });
+
+        setSearchResults((searchResults) => {
+          return //results;
+        });
+      }
+      asyncSearch();
+    } else {
+      setSearchResults((searchResults) => {
+        return [];
+      });
+    }
   }
 
   function confirmBlacklist(_id) {

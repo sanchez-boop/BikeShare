@@ -17,9 +17,12 @@ import {
   addCustomerToUnblacklisted,
   addCustomerToBlacklisted,
 } from "../../Model/customersSlice";
+import { signIn, signOut } from "../../Model/accSlice";
+import { useHistory } from "react-router";
 
 export default () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //useEffect will render once when given arg of []
   useEffect(() => {
@@ -68,7 +71,10 @@ export default () => {
     asyncDispatch();
   }, []);
 
-  function logOut() {}
+  function logOut() {
+    dispatch(signOut());
+    history.goBack();
+  }
 
   return (
     <>
@@ -78,7 +84,7 @@ export default () => {
             <img className="logo" src={logo} alt="image error" />
             <text id="title">BikeN'Gold</text>
           </div>
-          <button className="signout" onClick={() => alert("Sign out clicked")}>
+          <button className="signout" onClick={logOut}>
             Sign out
             <VscSignOut size={23} />
           </button>
