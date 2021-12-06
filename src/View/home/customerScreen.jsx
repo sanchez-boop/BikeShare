@@ -1,6 +1,7 @@
 import React from "react";
 import "./customerScreen.css";
 import iPhone from "../../Images/iPhone.png";
+import android from "../../Images/android.png";
 import { VscSignOut } from "react-icons/vsc";
 import logo from "../../Images/bikengold.png";
 
@@ -32,10 +33,13 @@ export default () => {
             </li>
             <li className="list">
               If you are a worker, please notify an admin to promote your
-              account as a worker.
+              account to a worker.
             </li>
           </div>
-          <img className="iPhone" src={iPhone} alt="iPhone image" />
+          <div className="phone-container">
+            <img className="iPhone" src={iPhone} alt="iPhone image" />
+            <img className="android" src={android} alt="Android image" />
+          </div>
         </div>
       </div>
     </>

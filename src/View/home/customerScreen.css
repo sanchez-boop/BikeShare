@@ -1,6 +1,6 @@
 #customer-background {
   background-color: #ededed;
-  padding-bottom: 20px;
+  padding-bottom: 50px;
 }
 
 .customer-content {
@@ -12,7 +12,7 @@
   width: 90%;
   padding: 30px;
   margin: auto;
-  padding-bottom: 30px;
+  padding-bottom: 120px;
 }
 
 .customer-text-background {
@@ -31,6 +31,19 @@
   text-align: left;
 }
 
+.phone-container {
+  display: flex;
+  position: relative;
+  right: 80px;
+}
+
 .iPhone {
+  width: 270px;
+  position: absolute;
+  top: 40px;
+  left: 220px;
+}
+
+.android {
   width: 300px;
 }
