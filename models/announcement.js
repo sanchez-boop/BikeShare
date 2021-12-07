@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const announcementSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required:true
-    },
     timeStamp: {
         type: String,
         required:true
