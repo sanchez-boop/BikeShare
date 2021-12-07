@@ -130,6 +130,21 @@ export default () => {
       }
     }
 
+    //FOR WHEN WE IMPLEMENT JWT
+    // if (account.role.length > 0) {
+    //   /*On successful login, update the redux state 
+    //   with account info and push the home screen*/
+    //   dispatch(signIn(account));
+    //   //console.log("User logged in is a " + account[0].role);
+    //   if (account.role == "admin" || account.role == "worker") {
+    //     history.push("/homeScreen");
+    //   } else if (account.role == "customer") {
+    //     history.push("/customerScreen");
+    //   }
+    // } else {
+    //   alert("login failed, try again");
+    // }
+
     asyncDispatch();
   }
 

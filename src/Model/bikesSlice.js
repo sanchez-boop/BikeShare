@@ -92,6 +92,16 @@ const slice = createSlice({
 
       state.available[_id] = bike;
     },
+    editBikeToRented: (state,action) =>{
+      const { _id, name, email, phone } = action.payload;
+      state.available[_id].name = name;
+      state.available[_id].email = email;
+      state.available[_id].phone = phone;
+
+      //now add bike to rented and delete from available
+      state.rented[_id] = state.available[_id];
+      delete state.available[_id];
+    },
     deleteFromDue: (state, action) => {
       const { _id } = action.payload;
       delete state.due[_id];
@@ -150,6 +160,7 @@ export const {
   addBikeToDue,
   addBikeToRented,
   addBikeToAvailable,
+  editBikeToRented,
   deleteFromDue,
   deleteFromAvailable,
   deleteFromRented,

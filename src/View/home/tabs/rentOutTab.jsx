@@ -7,11 +7,20 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import "./rentOutTab.css";
+import { patchRentedBike } from "../../../Controller/patchRentedBike";
+import { editBikeToRented } from "../../../Model/bikesSlice";
 
 export default () => {
   const { customers, bikes } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [searchResults, setSearchResults] = useState([]);
   const [searchResults2, setSearchResults2] = useState([]);
+  const [selectedUser,setSelectedUser] = useState({
+    name:'',
+    email:'',
+    phone:''
+  });
+  const [selectedBikeId,setSelectedBikeId] = useState('');
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
   const [isActive4, setActive4] = useState(false);
@@ -85,6 +94,26 @@ export default () => {
     setActive4(!isActive4);
   };
 
+  async function rentOutBike(){
+    if(selectedUser.name!='' && selectedBikeId!='')
+    {
+      const credentials = {
+        id : selectedBikeId,
+        name : selectedUser.name,
+        email : selectedUser.email,
+        phone : selectedUser.phone
+      }
+      const res = await patchRentedBike(credentials);
+      console.log(res);
+      if (res.id==selectedBikeId) {
+        dispatch(editBikeToRented(res));
+        alert(`Rented bike numer ${selectedBikeId} to ${selectedUser.name}`);
+      } else {
+        alert("Server might be out of sync with recent changes");
+      }
+    }
+  }
+
   return (
     <>
       <div className="content">
@@ -150,11 +179,15 @@ export default () => {
                         return (
                           <tr
                             className="table-body gray-highlight yellow-highlight"
-                            onClick={() =>
-                              alert(
-                                "Clicked name: " +
-                                  customers.unblacklisted[_id]["name"]
-                              )
+                            onClick={() => {setSelectedUser((selectedUser)=>{
+                                const newSelected = {
+                                  name: customers.unblacklisted[_id]["name"],
+                                  phone: customers.unblacklisted[_id]["phone"],
+                                  email: customers.unblacklisted[_id]["email"]
+                                }
+                                console.log(newSelected);
+                                return newSelected;
+                            });}
                             }
                           >
                             <td>{customers.unblacklisted[_id]["name"]}</td>
@@ -229,8 +262,10 @@ export default () => {
                         return (
                           <tr
                             className="table-body gray-highlight yellow-highlight"
-                            onClick={() =>
-                              alert("You selected bike number: " + bike["id"])
+                            onClick={() => {setSelectedBikeId((selectedBikeId)=>{
+                                console.log(bike["id"]);
+                                return bike["id"];
+                            });}
                             }
                           >
                             <td>{bike["id"]}</td>
@@ -244,7 +279,7 @@ export default () => {
             </Table>
           </div>
         </div>
-        <Button variant="success">Rent out bike</Button>
+        <Button variant="success" onClick={rentOutBike}>Rent out bike</Button>
       </div>
     </>
   );

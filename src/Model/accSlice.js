@@ -16,7 +16,6 @@ const slice = createSlice({
       /*save the name and password from the state payload passed in. Pass in
             state, name, password into authenticator*/
       const { _id, name, email, phone, role } = action.payload;
-      console.log(_id, name, email, phone, role);
       state.loggedIn = true;
       state.id = _id;
       state.name = name;
