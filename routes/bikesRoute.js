@@ -63,12 +63,42 @@ router.delete('/', async (req, res) => {
         res.status(400).json({message: err.message })
     }
 })
-//searching bikes
+//searching all bikes
 router.post('/search', async (req, res, next) =>
 {
 try{
     const searchedBikes = await Bike.find({id:{$regex: req.body.key, $options: 'i'}})
     res.json(searchedBikes)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
+//searching bikes that are not rented 
+router.post('/search2', async (req, res, next) =>
+{
+try{
+    const searchedBikes = await Bike.find({
+        $and: [
+            {dateRented:""},
+            {id:{$regex: req.body.key, $options: 'i'}},
+        ]
+        })
+        res.json(searchedBikes)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
+//searching bikes that are rented
+router.post('/search3', async (req, res, next) =>
+{
+try{
+    const searchedBikes = await Bike.find({
+        $and: [
+            {dateRented:{$gte:""}},
+            {id:{$regex: req.body.key, $options: 'i'}},
+        ]
+        })
+        res.json(searchedBikes)
 }catch(err){
     res.status(400).json({message: err.message })
 }
