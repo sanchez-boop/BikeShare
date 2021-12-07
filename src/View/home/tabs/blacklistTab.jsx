@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./blacklistTab.css";
 import { useDispatch, useSelector } from "react-redux";
+import { BsFillFileCheckFill, BsFillFileXFill } from "react-icons/bs";
 import {
   toggleBlackTab,
   addCustomerToBlacklisted,
@@ -12,36 +13,81 @@ import {
   swapToBlacklisted,
 } from "../../../Model/customersSlice";
 import { patchBlacklist } from "../../../Controller/patchBlacklist";
+import { postBlacklistSearch } from "../../../Controller/postBlacklistSearch";
 
 export default () => {
   const { customers } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [searchResults, setSearchResults] = useState([]);
+  const [searchResults2, setSearchResults2] = useState([]);
+  const [isActive1, setActive1] = useState(false);
+  const [isActive2, setActive2] = useState(false);
   const [modalShow, setModalShow] = useState(false);
 
   function toggleBlacklist(_id) {
     dispatch(toggleBlackTab({ _id: _id }));
   }
 
-  function searchCustomers(e) {
+  /* Toggle the outline for the first search bar */
+  const toggleClass1 = () => {
+    if (!isActive1) {
+      setActive1(!isActive1);
+    }
+  };
+  /* Untoggle the outline for the first search bar */
+  const unToggleClass1 = () => {
+    setActive1(!isActive1);
+  };
+
+  /* Toggle the outline for the first search bar */
+  const toggleClass2 = () => {
+    if (!isActive2) {
+      setActive2(!isActive1);
+    }
+  };
+  /* Untoggle the outline for the first search bar */
+  const unToggleClass2 = () => {
+    setActive2(!isActive2);
+  };
+
+  function searchBlacklisted(e) {
     /*search only if query not empty*/
     if (e.target.value != "") {
       async function asyncSearch() {
         /*since we need to toggle to show buttons,
               add a boolean to results */
-        // let results = await postCustomerSearch({ key: e.target.value });
 
-        // results.map((customer) => {
-        //   customer["repairClicked"] = false;
-        // });
-
-        setSearchResults((searchResults) => {
-          return //results;
+        let results = await postBlacklistSearch({ key: e.target.value });
+        console.log(results)
+        setSearchResults2((searchResults) => {
+          return results;
         });
       }
       asyncSearch();
     } else {
-      setSearchResults((searchResults) => {
+      setSearchResults2((searchResults) => {
+        return [];
+      });
+    }
+  }
+
+  function searchUnblacklisted(e) {
+    /*search only if query not empty*/
+    console.log('hi')
+    if (e.target.value != "") {
+      async function asyncSearch() {
+        /*since we need to toggle to show buttons,
+              add a boolean to results */
+        console.log('hi')
+        let results = await postBlacklistSearch({ key: e.target.value });
+        console.log(results)
+        setSearchResults2((searchResults) => {
+          return results;
+        });
+      }
+      asyncSearch();
+    } else {
+      setSearchResults2((searchResults) => {
         return [];
       });
     }
@@ -148,16 +194,21 @@ export default () => {
                 
                 {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
                 */}
-            <input
-              type="text"
-              placeholder="Search customers"
-              className="search-bar"
-              //onChange={searchBikes}
-            />
-            <div className="search-button" tabindex="0">
-              <AiOutlineSearch />
+            <div
+                className={isActive1 ? "search-field-active" : "search-field"}
+                onFocus={toggleClass1}
+              >
+              {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
+              <input
+                type="text"
+                placeholder="Search customers"
+                className="search-bar"
+                onChange={searchUnblacklisted}
+              />
+              <div className="search-button" tabindex="0">
+                <AiOutlineSearch />
+              </div>
             </div>
-            {/*</div>*/}
           </div>
           {/*these tables searches users, but organize them by blacklist */}
           <div className="margin" />
@@ -215,16 +266,21 @@ export default () => {
                 
                 {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
                 */}
-              <input
-                type="text"
-                placeholder="Search customers"
-                className="search-bar"
-                //onChange={searchBikes}
-              />
-              <div className="search-button" tabindex="0">
-                <AiOutlineSearch />
+              <div
+                className={isActive2 ? "search-field-active" : "search-field"}
+                onFocus={toggleClass2}
+              >
+                {isActive2 && <button onClick={unToggleClass2}>cancel</button>}
+                <input
+                  type="text"
+                  placeholder="Search customers"
+                  className="search-bar"
+                  onChange={searchBlacklisted}
+                />
+                <div className="search-button" tabindex="0">
+                  <AiOutlineSearch />
+                </div>
               </div>
-              {/*</div>*/}
             </div>
           </div>
           <div className="margin" />
@@ -238,7 +294,33 @@ export default () => {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(customers.blacklisted).map((_id, key) => {
+                {isActive2
+                    ? 
+                    searchResults2.map((customer, key) => {
+                        return (
+                          <tr className="table-body gray-highlight">
+                            <td>{customer["name"]}</td>
+                            <td>{customer["phone"]}</td>
+                            <td>
+                              {customer["email"]}
+                              <>
+                                <div class="dropdown2-menu show">
+                                  <button
+                                    className="renew"
+                                    onMouseDown={() => confirmUnblacklist(customer["_id"])}
+                                    
+                                  >
+                                    UNBLACKLIST
+                                  </button>
+                                  <MyVerticallyCenteredModal show={modalShow} />
+                                </div>
+                              </>
+                            </td>
+                          </tr>
+                        );
+                      })
+                :
+                Object.keys(customers.blacklisted).map((_id, key) => {
                   return (
                     <tr
                       tabindex="-1"
@@ -255,8 +337,8 @@ export default () => {
                             <div class="dropdown2-menu show">
                               <button
                                 className="renew"
-                                //onMouseDown={() => confirmUnblacklist(_id)}
-                                onMouseDown={() => setModalShowFunction()}
+                                onMouseDown={() => confirmUnblacklist(_id)}
+                                
                               >
                                 Unblacklist
                               </button>
@@ -267,7 +349,8 @@ export default () => {
                       </td>
                     </tr>
                   );
-                })}
+                })
+                }
               </tbody>
             </Table>
           </div>

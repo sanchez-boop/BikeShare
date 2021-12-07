@@ -77,7 +77,7 @@ export default () => {
       dateRented: ''
     };
 
-    
+
     const ret = await postBike(newBike);
     
     if(ret.name=="")
