@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
 //create a announcement 
 router.post('/', async (req, res) => {
     const announcement = new Announcement({
-        id: req.body.id,
         timeStamp: req.body.timeStamp,
         date: req.body.date,
         note: req.body.note
@@ -30,13 +29,13 @@ router.post('/', async (req, res) => {
 router.patch('/', async (req, res) => {
     try{
         const updatedAnnouncement = await Announcement.updateOne(
-            {id: req.body.id},
-            { $set: {       id: req.body.id,
+            {_id: req.body._id},
+            { $set: {
                             timeStamp: req.body.timeStamp,
                             date: req.body.date,
                             note: req.body.note } }
             )
-            const retVal = await Announcement.findOne({id:req.body.id})
+            const retVal = await Announcement.findOne({_id:req.body._id})
             res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
@@ -45,7 +44,7 @@ router.patch('/', async (req, res) => {
 //deleteing a user
 router.delete('/', async (req, res) => {
     try{
-    const deletedAnnouncement = await Announcement.deleteOne({id: req.body.id})
+    const deletedAnnouncement = await Announcement.deleteOne({_id: req.body._id})
     res.json(deletedAnnouncement)
     }catch(err){
         res.status(400).json({message: err.message })
