@@ -13,6 +13,7 @@ import {
   swapToBlacklisted,
 } from "../../../Model/customersSlice";
 import { patchBlacklist } from "../../../Controller/patchBlacklist";
+import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
 import { postBlacklistSearch } from "../../../Controller/postBlacklistSearch";
 
 export default () => {
@@ -79,9 +80,9 @@ export default () => {
         /*since we need to toggle to show buttons,
               add a boolean to results */
         console.log('hi')
-        let results = await postBlacklistSearch({ key: e.target.value });
+        let results = await postCustomerSearch({ key: e.target.value });
         console.log(results)
-        setSearchResults2((searchResults) => {
+        setSearchResults((searchResults) => {
           return results;
         });
       }
@@ -185,6 +186,7 @@ export default () => {
     <>
       <div className="content">
         <div className="table-content">
+          <div className="table-title">UNBLACKLISTED</div>
           <div className="search-bar-container">
             {/*
               <div
@@ -222,7 +224,34 @@ export default () => {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(customers.unblacklisted).map((_id, key) => {
+                {
+                  isActive1
+                  ? 
+                  searchResults.map((customer, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{customer["name"]}</td>
+                          <td>{customer["phone"]}</td>
+                          <td>
+                            {customer["email"]}
+                            <>
+                              <div class="dropdown2-menu show">
+                                <button
+                                  className="renew"
+                                  onMouseDown={() => confirmUnblacklist(customer["_id"])}
+                                  
+                                >
+                                  BLACKLIST
+                                </button>
+                                <MyVerticallyCenteredModal show={modalShow} />
+                              </div>
+                            </>
+                          </td>
+                        </tr>
+                      );
+                    })
+              :
+                Object.keys(customers.unblacklisted).map((_id, key) => {
                   return (
                     <tr
                       tabindex="-1"

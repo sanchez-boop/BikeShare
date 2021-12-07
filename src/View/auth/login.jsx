@@ -111,6 +111,7 @@ export default () => {
       array of a single object with user info, such
       as an email. if arr>0, log the user in.
       else, return login failed*/
+      console.log('hi');
       const account = await postLogin(formInput);
       console.log(account);
       
