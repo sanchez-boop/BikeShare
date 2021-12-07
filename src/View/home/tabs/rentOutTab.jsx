@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Toast, Col, ToastContainer } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { BsFillFileCheckFill, BsFillFileXFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,6 +58,7 @@ export default () => {
       setActive1(!isActive1);
     }
   };
+
   /*Untoggle the outline for the first search bar 
     and clear search results*/
   const unToggleClass1 = () => {
@@ -128,7 +129,7 @@ export default () => {
                   isActive1
                     ? searchResults.map((customer) => {
                         return (
-                          <tr className="table-body gray-highlight">
+                          <tr className="table-body gray-highlight yellow-highlight">
                             <td>{customer["name"]}</td>
                             <td>{customer["phone"]}</td>
                             <td>{customer["email"]}</td>
@@ -147,7 +148,15 @@ export default () => {
                       })
                     : Object.keys(customers.unblacklisted).map((_id, key) => {
                         return (
-                          <tr className="table-body gray-highlight">
+                          <tr
+                            className="table-body gray-highlight yellow-highlight"
+                            onClick={() =>
+                              alert(
+                                "Clicked name: " +
+                                  customers.unblacklisted[_id]["name"]
+                              )
+                            }
+                          >
                             <td>{customers.unblacklisted[_id]["name"]}</td>
                             <td>{customers.unblacklisted[_id]["phone"]}</td>
                             <td>{customers.unblacklisted[_id]["email"]}</td>
@@ -209,7 +218,7 @@ export default () => {
                   isActive2
                     ? searchResults2.map((bike, key) => {
                         return (
-                          <tr className="table-body gray-highlight">
+                          <tr className="table-body gray-highlight yellow-highlight">
                             <td>{bike["id"]}</td>
                             <td>{bike["model"]}</td>
                             <td>{bike["serialNumber"]}</td>
@@ -218,7 +227,12 @@ export default () => {
                       })
                     : Object.values(bikes.available).map((bike, key) => {
                         return (
-                          <tr className="table-body gray-highlight">
+                          <tr
+                            className="table-body gray-highlight yellow-highlight"
+                            onClick={() =>
+                              alert("You selected bike number: " + bike["id"])
+                            }
+                          >
                             <td>{bike["id"]}</td>
                             <td>{bike["model"]}</td>
                             <td>{bike["serialNumber"]}</td>

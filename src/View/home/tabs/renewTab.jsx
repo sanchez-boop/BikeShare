@@ -13,6 +13,7 @@ export default () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isActive1, setActive1] = useState(false);
   //const [selectedRow, setSelectedRow] = useState(false);
+
   const [selectedRow, setSelectedRow] = useState(
     "table-body gray-highlight yellow-highlight"
   );
@@ -180,10 +181,10 @@ export default () => {
                         return (
                           <tr
                             tabindex="-1"
-                            //className={selectedRow}
-                            className={
-                              "table-body gray-highlight yellow-highlight"
-                            }
+                            className={selectedRow}
+                            //className={
+                            //  "table-body gray-highlight yellow-highlight"
+                            //}
                             //className={
                             //  isActive4 ? "search-field-active" : "search-field"
                             //}
@@ -224,12 +225,9 @@ export default () => {
                             //onClick={() => toggleActive(key)}
                             //onClick={() => setColor(_id)}
                           >
-                            {/*console.log(
-                              "selectedRow: " +
-                                selectedRow +
-                                "\ni: " +
-                                i
-                            )*/}
+                            {console.log(
+                              "selectedRow: " + selectedRow + "\ni: " + i
+                            )}
                             <td>{bikes.due[_id]["name"]}</td>
                             <td>{bikes.due[_id]["phone"]}</td>
                             <td>{bikes.due[_id]["email"]}</td>
@@ -241,7 +239,7 @@ export default () => {
                                   <div class="dropdown2-menu show">
                                     <button
                                       className="return"
-                                      onMouseDown={() => confirmReturn()}
+                                      //onMouseDown={() => confirmReturn()}
                                       onClick={() => {
                                         setSelectedRow(
                                           "table-body yellow-highlight-active"

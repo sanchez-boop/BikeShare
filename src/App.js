@@ -6,6 +6,7 @@ import Login from "./View/auth/login";
 import Register from "./View/auth/register";
 import HomeScreen from "./View/home/homeScreen";
 import CustomerScreen from "./View/home/customerScreen";
+import RentOutTab from "./View/home/tabs/rentOutTab";
 
 function App() {
   const { acc } = useSelector((state) => state);
