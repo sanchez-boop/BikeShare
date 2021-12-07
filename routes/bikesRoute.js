@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const Bike = require('../models/bike')
-//jwt auth middleware
-const jwt = require('jsonwebtoken');
-const auth1 = require('./authenticate')
 
 //getting all bikes 
 router.get('/', async (req, res) => {
@@ -11,11 +8,11 @@ router.get('/', async (req, res) => {
         const bikes = await Bike.find()
         res.json(bikes)
     } catch (err){
-        res.status(500).json({ message : err.message })
+        res.satus(500).json({ message : err.message })
     }
 })
 //create a bike
-router.post('/', auth1, async (req, res) => {
+router.post('/', async (req, res) => {
     const bike = new Bike({
         dateRented: req.body.dateRented,
         id: req.body.id,
@@ -36,7 +33,7 @@ router.post('/', auth1, async (req, res) => {
     }
 })
 //updating a repair
-router.patch('/', auth1, async (req, res) => {
+router.patch('/', async (req, res) => {
     try{
         const updatedBike = await Bike.updateOne(
             {id: req.body.id},
@@ -49,7 +46,7 @@ router.patch('/', auth1, async (req, res) => {
                             availability: req.body.availability,
                             email: req.body.email,
                             name: req.body.name,
-                            phone: req.body.phone } }
+                            phone: req.body.phone} }
             )
             const retVal = await Bike.findOne({id:req.body.id})
             res.json(retVal)
@@ -58,7 +55,7 @@ router.patch('/', auth1, async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', auth1, async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
     const deletedBike = await Bike.deleteOne({id: req.body.id})
     res.json(deletedBike)
