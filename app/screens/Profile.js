@@ -18,6 +18,7 @@ import {
   MaterialCommunityIcons,
   Entypo,
 } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 import logo from "../assets/Shop-Logo.png";
 import eye from "../assets/icons8-eye-30.png";
 import colors from "../config/colors";
@@ -46,6 +47,7 @@ export default function Profile(props) {
 }
 
 function mainProfile({ navigation }) {
+  const { acc } = useSelector((state) => state);
   return (
     <View style={styles.mainView}>
       <View style={styles.topRectangle}>
@@ -59,7 +61,7 @@ function mainProfile({ navigation }) {
             size={104}
             color="#474747"
           />
-          <Text style={{ fontSize: 20 }}>Timothy Smith</Text>
+          <Text style={{ fontSize: 20 }}>{acc.name}</Text>
         </View>
         <TouchableOpacity
           style={styles.optionsContent}

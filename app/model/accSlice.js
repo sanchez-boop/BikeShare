@@ -15,7 +15,8 @@ const slice = createSlice({
     signIn: (state, action) => {
       /*save the name and password from the state payload passed in. Pass in
             state, name, password into authenticator*/
-      const { _id, name, email, phone, role, password } = action.payload;
+      const { _id, name, email, phone, role, password, waiver } =
+        action.payload;
       state.loggedIn = true;
       state.id = _id;
       state.name = name;
@@ -23,6 +24,7 @@ const slice = createSlice({
       state.phone = phone;
       state.role = role;
       state.password = password;
+      state.waiver = waiver;
     },
     signOut: (state) => {
       //update local storage to false then convert LoggedIn and admin to bool
@@ -48,9 +50,23 @@ const slice = createSlice({
       const { password } = action.payload;
       state.password = password;
     },
+    editWaiver: (state, action) => {
+      console.log("state.waiver after is " + state.waiver);
+
+      /* change name to desired name */
+      const { waiver } = action.payload;
+      state.waiver = waiver;
+      console.log("state.waiver after is " + state.waiver);
+    },
   },
 });
 
 export default slice.reducer;
-export const { signIn, signOut, editName, editEmail, editPassword } =
-  slice.actions;
+export const {
+  signIn,
+  signOut,
+  editName,
+  editEmail,
+  editPassword,
+  editWaiver,
+} = slice.actions;
