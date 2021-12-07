@@ -14,6 +14,7 @@ import { editStatus } from "../../../Model/repairsSlice";
 import { patchStatus } from "../../../Controller/patchStatus";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import { postRepairSearch } from "../../../Controller/postRepairSearch";
+import { postAnnouncement } from "../../../Controller/postAnnouncement";
 
 export default () => {
   const { bikes, repairs } = useSelector((state) => state);
@@ -124,6 +125,33 @@ export default () => {
       return searchResults2;
     });
     dropdownClicked(_id, status);
+  }
+
+  async function addAnnouncement(){
+    if (window.confirm("Are you sure you want to make this announcement?")) {
+      var today = new Date(); 
+      var dd = today.getDate(); 
+      var mm = today.getMonth()+1; 
+      var yyyy = today.getFullYear(); 
+
+      const credentials = {
+        id: 'fuck you',
+        timeStamp : Date.now(),
+        date : mm+'/'+dd+'/'+yyyy,
+        note : formInput.announcement
+      };
+      const res = await postAnnouncement(credentials);
+
+      console.log(res);
+      if(res.note==formInput.announcement)
+      {
+        alert("Created announcement: ", formInput.announcement);
+      }
+      else
+      {
+        alert("System might not be up to date with recent changes");
+      }
+    }
   }
 
   /* Toggle the outline for the first search bar */
@@ -244,10 +272,8 @@ export default () => {
                 onClick={() =>
                   formInput.announcement == ""
                     ? ""
-                    : alert(
-                        "The following announcement would be displayed:\n" +
-                          formInput.announcement
-                      )
+                    : 
+                    addAnnouncement()
                 }
               >
                 Submit
