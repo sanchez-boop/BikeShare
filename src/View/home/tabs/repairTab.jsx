@@ -83,23 +83,30 @@ export default () => {
     <>
       <div className="content">
         <div className="table-content">
-          <div className="search-bar-container">
-            <div
-              className={isActive1 ? "search-field-active" : "search-field"}
-              onFocus={toggleClass1}
-            >
-              {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
-              <input
-                type="text"
-                placeholder="Search customers"
-                className="search-bar"
-                onChange={searchCustomers}
-              />
-              <div className="search-button" tabindex="0">
-                <AiOutlineSearch />
+          <div className="search-cancel-container">
+            <div className="search-bar-container">
+              <div
+                className={isActive1 ? "search-field-active" : "search-field"}
+                onFocus={toggleClass1}
+              >
+                <input
+                  type="text"
+                  placeholder="Search customers"
+                  className="search-bar"
+                  onChange={searchCustomers}
+                />
+                <div className="search-button" tabindex="0">
+                  <AiOutlineSearch />
+                </div>
               </div>
             </div>
+            {isActive1 && (
+              <button className="cancel-button" onClick={unToggleClass1}>
+                Cancel
+              </button>
+            )}
           </div>
+
           {/*this table searches users */}
           <div className="margin" />
           <div className="scroll">
@@ -155,7 +162,7 @@ export default () => {
                         return (
                           <tr
                             tabindex="-1"
-                            className="table-body gray-highlight"
+                            className="table-body gray-highlight yellow-highlight"
                             onFocus={() => toggle(_id)}
                             onBlur={() => toggle(_id)}
                           >

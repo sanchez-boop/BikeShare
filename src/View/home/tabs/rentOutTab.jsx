@@ -9,19 +9,26 @@ import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import "./rentOutTab.css";
 import { patchRentedBike } from "../../../Controller/patchRentedBike";
 import { editBikeToRented } from "../../../Model/bikesSlice";
-import { setAllRentToFalse, toggleRentOut } from "../../../Model/customersSlice";
+import {
+  setAllRentToFalse,
+  toggleRentOut,
+} from "../../../Model/customersSlice";
+import {
+  setAllBikeToFalse,
+  toggleRentBikeOut,
+} from "../../../Model/bikesSlice";
 
 export default () => {
   const { customers, bikes } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [searchResults, setSearchResults] = useState([]);
   const [searchResults2, setSearchResults2] = useState([]);
-  const [selectedUser,setSelectedUser] = useState({
-    name:'',
-    email:'',
-    phone:''
+  const [selectedUser, setSelectedUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
   });
-  const [selectedBikeId,setSelectedBikeId] = useState('');
+  const [selectedBikeId, setSelectedBikeId] = useState("");
   const [isActive1, setActive1] = useState(false);
   const [isActive2, setActive2] = useState(false);
   const [isActive4, setActive4] = useState(false);
@@ -95,36 +102,37 @@ export default () => {
     setActive4(!isActive4);
   };
 
-  async function rentOutBike(){
-    if(selectedUser.name!='' && selectedBikeId!='')
-    {
-      if (window.confirm(`Are you sure you want to rent bike number ${selectedBikeId} to ${selectedUser.name}`)) {
+  async function rentOutBike() {
+    if (selectedUser.name != "" && selectedBikeId != "") {
+      if (
+        window.confirm(
+          `Are you sure you want to rent bike number ${selectedBikeId} to ${selectedUser.name}`
+        )
+      ) {
         //set dateRented to today formatted in mm/dd/yyyy
-        var today = new Date(); 
-        var dd = today.getDate(); 
-        var mm = today.getMonth()+1; 
-        var yyyy = today.getFullYear(); 
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
 
         const credentials = {
-          id : selectedBikeId,
-          name : selectedUser.name,
-          email : selectedUser.email,
-          phone : selectedUser.phone,
-          dateRented : mm+'/'+dd+'/'+yyyy
-        }
+          id: selectedBikeId,
+          name: selectedUser.name,
+          email: selectedUser.email,
+          phone: selectedUser.phone,
+          dateRented: mm + "/" + dd + "/" + yyyy,
+        };
         const res = await patchRentedBike(credentials);
         console.log(res);
-        if (res.id==selectedBikeId) {
+        if (res.id == selectedBikeId) {
           dispatch(editBikeToRented(res));
           alert(`Rented bike number ${selectedBikeId} to ${selectedUser.name}`);
         } else {
           alert("Server might be out of sync with recent changes");
         }
       }
-    }
-    else
-    {
-      alert('Please select customer and bike to rent');
+    } else {
+      alert("Please select customer and bike to rent");
     }
   }
 
@@ -193,28 +201,25 @@ export default () => {
                         return (
                           <tr
                             className={
-                              customers.unblacklisted[_id]['rentOutClicked']
-                              ?
-                              "table-body yellow-highlight-active"
-                              :
-                              "table-body gray-highlight yellow-highlight"
+                              customers.unblacklisted[_id]["rentOutClicked"]
+                                ? "table-body yellow-highlight-active"
+                                : "table-body gray-highlight yellow-highlight"
                             }
                             onClick={() => {
-                                /*set all other active clicks to false
+                              /*set all other active clicks to false
                                   and prioritize the current click */
-                                dispatch(setAllRentToFalse());
-                                dispatch(toggleRentOut({_id:_id}));
-                                setSelectedUser((selectedUser)=>{
+                              dispatch(setAllRentToFalse());
+                              dispatch(toggleRentOut({ _id: _id }));
+                              setSelectedUser((selectedUser) => {
                                 const newSelected = {
                                   name: customers.unblacklisted[_id]["name"],
                                   phone: customers.unblacklisted[_id]["phone"],
-                                  email: customers.unblacklisted[_id]["email"]
-                                }
+                                  email: customers.unblacklisted[_id]["email"],
+                                };
                                 console.log(newSelected);
                                 return newSelected;
-                                });
-                              }
-                            }
+                              });
+                            }}
                           >
                             <td>{customers.unblacklisted[_id]["name"]}</td>
                             <td>{customers.unblacklisted[_id]["phone"]}</td>
@@ -284,19 +289,28 @@ export default () => {
                           </tr>
                         );
                       })
-                    : Object.values(bikes.available).map((bike, key) => {
+                    : Object.keys(bikes.available).map((_id, key) => {
                         return (
                           <tr
-                            className="table-body gray-highlight yellow-highlight"
-                            onClick={() => {setSelectedBikeId((selectedBikeId)=>{
-                                console.log(bike["id"]);
-                                return bike["id"];
-                            });}
+                            className={
+                              bikes.available[_id]["bikeRentOutClicked"]
+                                ? "table-body yellow-highlight-active"
+                                : "table-body gray-highlight yellow-highlight"
                             }
+                            onClick={() => {
+                              /*set all other active clicks to false
+                                  and prioritize the current click */
+                              dispatch(setAllBikeToFalse());
+                              dispatch(toggleRentBikeOut({ _id: _id }));
+                              setSelectedBikeId((selectedBikeId) => {
+                                console.log(bikes.available[_id]["id"]);
+                                return bikes.available[_id]["id"];
+                              });
+                            }}
                           >
-                            <td>{bike["id"]}</td>
-                            <td>{bike["model"]}</td>
-                            <td>{bike["serialNumber"]}</td>
+                            <td>{bikes.available[_id]["id"]}</td>
+                            <td>{bikes.available[_id]["model"]}</td>
+                            <td>{bikes.available[_id]["serialNumber"]}</td>
                           </tr>
                         );
                       })
@@ -305,7 +319,9 @@ export default () => {
             </Table>
           </div>
         </div>
-        <Button variant="success" onClick={rentOutBike}>Rent out bike</Button>
+        <Button variant="success" onClick={rentOutBike}>
+          Rent out bike
+        </Button>
       </div>
     </>
   );

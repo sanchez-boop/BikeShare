@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addBikeToAvailable, toggleDelete } from "../../../Model/bikesSlice";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
-import { postBike } from "../../../Controller/postBike"
+import { postBike } from "../../../Controller/postBike";
 import { AiOutlineSearch } from "react-icons/ai";
 import "bootstrap/dist/css/bootstrap.css";
 import "./bikesTab.css";
@@ -24,7 +24,7 @@ export default () => {
         /*since we need to toggle to show buttons,
               add a boolean to results */
         let results = await postBikeSearch({ key: e.target.value });
-        
+
         setSearchResults((searchResults) => {
           return results;
         });
@@ -70,23 +70,19 @@ export default () => {
       id: id,
       model: model,
       serialNumber: serialNumber,
-      notes: '',
-      name: '',
-      email: '',
-      phone: '',
-      dateRented: ''
+      notes: "",
+      name: "",
+      email: "",
+      phone: "",
+      dateRented: "",
     };
 
-
     const ret = await postBike(newBike);
-    
-    if(ret.name=="")
-    {
+
+    if (ret.name == "") {
       dispatch(addBikeToAvailable(ret));
-    }
-    else
-    {
-      alert('Server might not be up to date with changes');
+    } else {
+      alert("Server might not be up to date with changes");
     }
   }
 
@@ -160,7 +156,7 @@ export default () => {
                           return (
                             <tr
                               tabindex="-1"
-                              className="table-body gray-highlight"
+                              className="table-body gray-highlight yellow-highlight"
                               onFocus={() => toggleRow(_id)}
                               onBlur={() => toggleRow(_id)}
                             >

@@ -188,7 +188,7 @@ export default () => {
       <div className="content">
         <div className="table-content">
           <div className="table-title">UNBLACKLISTED</div>
-          <div className="search-bar-container">
+          <div className="search-bar-container-adjust">
             {/*
               <div
                 className={isActive1 ? "search-field-active" : "search-field"}
@@ -254,7 +254,7 @@ export default () => {
                       return (
                         <tr
                           tabindex="-1"
-                          className="table-body gray-highlight"
+                          className="table-body gray-highlight yellow-highlight"
                           onFocus={() => toggleBlacklist(_id)}
                           onBlur={() => toggleBlacklist(_id)}
                         >
@@ -353,7 +353,7 @@ export default () => {
                       return (
                         <tr
                           tabindex="-1"
-                          className="table-body gray-highlight"
+                          className="table-body gray-highlight yellow-highlight"
                           onFocus={() => toggleBlacklist(_id)}
                           onBlur={() => toggleBlacklist(_id)}
                         >

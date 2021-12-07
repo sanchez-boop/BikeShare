@@ -187,7 +187,7 @@ export default () => {
                         return (
                           <tr
                             tabindex="-1"
-                            className="table-body gray-highlight"
+                            className="table-body gray-highlight yellow-highlight"
                             onFocus={() => toggle(_id)}
                             onBlur={() => toggle(_id)}
                           >

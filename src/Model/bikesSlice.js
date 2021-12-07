@@ -32,6 +32,7 @@ const slice = createSlice({
         phone: phone,
         renewClicked: false,
         deleteClicked: false,
+        bikeRentOutClicked: false,
       };
 
       state.due[_id] = bike;
@@ -60,6 +61,7 @@ const slice = createSlice({
         phone: phone,
         renewClicked: false,
         deleteClicked: false,
+        bikeRentOutClicked: false,
       };
 
       state.rented[_id] = bike;
@@ -88,11 +90,12 @@ const slice = createSlice({
         phone: phone,
         renewClicked: false,
         deleteClicked: false,
+        bikeRentOutClicked: false,
       };
 
       state.available[_id] = bike;
     },
-    editBikeToRented: (state,action) =>{
+    editBikeToRented: (state, action) => {
       const { _id, name, email, phone } = action.payload;
       state.available[_id].name = name;
       state.available[_id].email = email;
@@ -152,6 +155,17 @@ const slice = createSlice({
         }
       });
     },
+    toggleRentBikeOut: (state, action) => {
+      const { _id } = action.payload;
+      state.available[_id]["bikeRentOutClicked"] =
+        !state.available[_id]["bikeRentOutClicked"];
+    },
+    setAllBikeToFalse: (state, action) => {
+      Object.values(state.available).map((bike) => {
+        bike["bikeRentOutClicked"] = false;
+        return;
+      });
+    },
   },
 });
 
@@ -167,4 +181,6 @@ export const {
   deleteBike,
   toggleRenew,
   toggleDelete,
+  toggleRentBikeOut,
+  setAllBikeToFalse,
 } = slice.actions;

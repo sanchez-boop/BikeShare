@@ -130,6 +130,10 @@
   background-color: #ffe785;
 }
 
+.yellow-highlight:active .dropdown2-menu {
+  background-color: #ffe785;
+}
+
 tr:has(.anchor) {
   background-color: #ffe785;
 }

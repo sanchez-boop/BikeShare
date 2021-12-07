@@ -236,10 +236,11 @@ export default () => {
                               {bikes.due[_id]["serialNumber"]}
                               {bikes.due[_id]["renewClicked"] && (
                                 <>
-                                  <div class="dropdown2-menu show">
+                                  <div class="dropdown2-menu show gray-highlight">
                                     <button
                                       className="return"
                                       //onMouseDown={() => confirmReturn()}
+                                      onMouseDown={() => confirmReturn()}
                                       onClick={() => {
                                         setSelectedRow(
                                           "table-body yellow-highlight-active"

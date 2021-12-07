@@ -77,6 +77,8 @@ export default () => {
   }
 
   async function dropdownClicked(_id, status) {
+    console.log("id is: " + _id);
+    console.log("status is: " + status);
     /*toggle dropdown box on redux then edit
         status to back end. first edit the redux 
         status. then make an API call to edit status on
@@ -88,6 +90,7 @@ export default () => {
         status: status,
       })
     );
+    console.log("STATUS IS NOW: " + status);
 
     /*now edit status on back end & pull changes*/
     const credentials = {

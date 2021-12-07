@@ -159,7 +159,7 @@
   width: 83%;
 }
 
-.gray-highlight:hover {
+.gray-highlight:hover .dropdown2-menu {
   background-color: #e4e4e4;
 }
 

@@ -1,3 +1,32 @@
+.cancel-button {
+  display: flex;
+  justify-content: space-around;
+  width: 76px;
+  height: 30px;
+  background-color: #ff4741;
+  border: 1px solid #d82019;
+  border-radius: 4px;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.05));
+  color: white;
+  /*padding: 5px 10px;*/
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #ee433e;
+}
+
+.cancel-button:active {
+  background-color: #dd3e38;
+}
+
+.search-cancel-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .content {
   display: flex;
   flex-direction: column;
