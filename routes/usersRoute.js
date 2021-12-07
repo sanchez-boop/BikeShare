@@ -1,51 +1,51 @@
 const express = require('express')
 const router = express.Router()
-const Repair = require('../models/repair')
+const User = require('../models/user')
 
-//getting all repairs 
+//getting all users
 router.get('/', async (req, res) => {
     try {
-        const repairs = await Repair.find()
-        res.json(repairs)
+        const users = await User.find().limit(50)
+        res.json(users)
     } catch (err){
         res.satus(500).json({ message : err.message })
     }
 })
 
-//create a repair
+//creating a user
 router.post('/', async (req, res) => {
-    const repair = new Repair({
-        bikeModel: req.body.bikeModel,
-        customerID: req.body.customerID,
-        id: req.body.id,
-        notes: req.body.notes,
-        status: req.body.status,
+    const user = new User({
+        blacklist: req.body.blacklist,
         email: req.body.email,
         name: req.body.name,
-        phone: req.body.phone
+        password: req.body.password,
+        phone: req.body.phone,
+        role: req.body.role,
+        waiver : req.body.waiver,
+        bikeNumber: req.body.bikeNumber
     })
     try {
-        const newRepair = await repair.save()
-        res.status(201).json(newRepair)
+        const newUser = await user.save()
+        res.status(201).json(newUser)
     }catch (err){
         res.status(400).json({message: err.message })
     }
 })
-//updating a repair
+//updating a user
 router.patch('/', async (req, res) => {
     try{
-        const updatedRepair = await Repair.updateOne(
-            {id: req.body.id},
-            { $set: {           bikeModel: req.body.bikeModel,
-                                customerID: req.body.customerID,
-                                id: req.body.id,
-                                notes: req.body.notes,
-                                status: req.body.status,
-                                email: req.body.email,
-                                name: req.body.name,
-                                phone:req.body.phone } }
+        const updatedUser = await User.updateOne(
+            {_id: req.body._id},
+            { $set: {   blacklist: req.body.blacklist,
+                        email: req.body.email,
+                        name: req.body.name,
+                        password: req.body.password,
+                        phone: req.body.phone,
+                        role: req.body.role,
+                        waiver : req.body.waiver,
+                        bikeNumber: req.body.bikeNumber } }
             )
-            const retVal = await Repair.findOne({id:req.body.id})
+            const retVal = await User.findOne({_id:req.body._id})
             res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
@@ -54,23 +54,73 @@ router.patch('/', async (req, res) => {
 //deleteing a user
 router.delete('/', async (req, res) => {
     try{
-    const deletedRepair = await Repair.deleteOne({id: req.body.id})
-    res.json(deletedRepair)
+    const deletedUser = await User.deleteOne({_id: req.body._id})
+    res.json(deletedUser)
     }catch(err){
         res.status(400).json({message: err.message })
     }
 })
-//searching repairs 
+//loggin in a user
+router.post('/login', async (req, res, next) => 
+    {
+      // incoming: Email, Password
+      // outgoing: id, firstName, lastName, error
+    
+     var error = '';
+    
+      const  Email= req.body.email 
+      const Password  = req.body.password
+    
+      //const db = client.db();
+      //const results = await db.collection('Users').find({Email:email,Password:password}).toArray();
+      const results =  await User.find({ email : Email, password : Password });
+      res.status(200).json(results);
+    });
+//searching users 
 router.post('/search', async (req, res, next) =>
 {
 try{
-    const searchedRepairs = await Repair.find({$or:[{name:{$regex: req.body.key, $options: 'i'}},
-                                                {bikeModel:{$regex: req.body.key, $options: 'i'}},
-                                                {phone:{$regex: req.body.key, $options: 'i'}}]})
-    res.json(searchedRepairs)
+    const searchedUsers = await User.find({
+    $and: [
+        {blacklist:false},
+        {$or:[
+            {name:{$regex: req.body.key, $options: 'i'}},
+            {phone:{$regex: req.body.key, $options: 'i'}},
+            {email:{$regex: req.body.key, $options: 'i'}}
+            ]},
+    ]
+    })
+    res.json(searchedUsers)
 }catch(err){
     res.status(400).json({message: err.message })
 }
 });
-
+//searching blacklisted users
+router.post('/blacklistSearch', async (req, res, next) =>
+{
+try{
+    const searchedUsers = await User.find({
+    $and: [
+        {blacklist:true},
+        {$or:[
+            {name:{$regex: req.body.key, $options: 'i'}},
+            {phone:{$regex: req.body.key, $options: 'i'}},
+            {email:{$regex: req.body.key, $options: 'i'}}
+            ]},
+    ]
+    });
+    res.json(searchedUsers)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
+//blacklisted users 
+router.get('/blacklisted', async (req, res) => {
+    try {
+        const users = await User.find({blacklist:true})
+        res.json(users)
+    } catch (err){
+        res.satus(500).json({ message : err.message })
+    }
+})
 module.exports = router
