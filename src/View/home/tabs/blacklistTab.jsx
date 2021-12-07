@@ -88,7 +88,7 @@ export default () => {
       }
       asyncSearch();
     } else {
-      setSearchResults2((searchResults) => {
+      setSearchResults((searchResults) => {
         return [];
       });
     }
