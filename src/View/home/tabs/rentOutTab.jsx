@@ -97,27 +97,33 @@ export default () => {
   async function rentOutBike(){
     if(selectedUser.name!='' && selectedBikeId!='')
     {
-      //set dateRented to today formatted in mm/dd/yyyy
-      var today = new Date(); 
-      var dd = today.getDate(); 
-      var mm = today.getMonth()+1; 
-      var yyyy = today.getFullYear(); 
+      if (window.confirm(`Are you sure you want to rent bike numer ${selectedBikeId} to ${selectedUser.name}`)) {
+        //set dateRented to today formatted in mm/dd/yyyy
+        var today = new Date(); 
+        var dd = today.getDate(); 
+        var mm = today.getMonth()+1; 
+        var yyyy = today.getFullYear(); 
 
-      const credentials = {
-        id : selectedBikeId,
-        name : selectedUser.name,
-        email : selectedUser.email,
-        phone : selectedUser.phone,
-        dateRented : mm+'/'+dd+'/'+yyyy
+        const credentials = {
+          id : selectedBikeId,
+          name : selectedUser.name,
+          email : selectedUser.email,
+          phone : selectedUser.phone,
+          dateRented : mm+'/'+dd+'/'+yyyy
+        }
+        const res = await patchRentedBike(credentials);
+        console.log(res);
+        if (res.id==selectedBikeId) {
+          dispatch(editBikeToRented(res));
+          alert(`Rented bike numer ${selectedBikeId} to ${selectedUser.name}`);
+        } else {
+          alert("Server might be out of sync with recent changes");
+        }
       }
-      const res = await patchRentedBike(credentials);
-      console.log(res);
-      if (res.id==selectedBikeId) {
-        dispatch(editBikeToRented(res));
-        alert(`Rented bike numer ${selectedBikeId} to ${selectedUser.name}`);
-      } else {
-        alert("Server might be out of sync with recent changes");
-      }
+    }
+    else
+    {
+      alert('Please select customer and bike to rent');
     }
   }
 
