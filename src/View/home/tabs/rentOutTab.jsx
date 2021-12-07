@@ -9,6 +9,7 @@ import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import "./rentOutTab.css";
 import { patchRentedBike } from "../../../Controller/patchRentedBike";
 import { editBikeToRented } from "../../../Model/bikesSlice";
+import { setAllRentToFalse, toggleRentOut } from "../../../Model/customersSlice";
 
 export default () => {
   const { customers, bikes } = useSelector((state) => state);
@@ -97,7 +98,7 @@ export default () => {
   async function rentOutBike(){
     if(selectedUser.name!='' && selectedBikeId!='')
     {
-      if (window.confirm(`Are you sure you want to rent bike numer ${selectedBikeId} to ${selectedUser.name}`)) {
+      if (window.confirm(`Are you sure you want to rent bike number ${selectedBikeId} to ${selectedUser.name}`)) {
         //set dateRented to today formatted in mm/dd/yyyy
         var today = new Date(); 
         var dd = today.getDate(); 
@@ -115,7 +116,7 @@ export default () => {
         console.log(res);
         if (res.id==selectedBikeId) {
           dispatch(editBikeToRented(res));
-          alert(`Rented bike numer ${selectedBikeId} to ${selectedUser.name}`);
+          alert(`Rented bike number ${selectedBikeId} to ${selectedUser.name}`);
         } else {
           alert("Server might be out of sync with recent changes");
         }
@@ -191,8 +192,19 @@ export default () => {
                     : Object.keys(customers.unblacklisted).map((_id, key) => {
                         return (
                           <tr
-                            className="table-body gray-highlight yellow-highlight"
-                            onClick={() => {setSelectedUser((selectedUser)=>{
+                            className={
+                              customers.unblacklisted[_id]['rentOutClicked']
+                              ?
+                              "table-body yellow-highlight-active"
+                              :
+                              "table-body gray-highlight yellow-highlight"
+                            }
+                            onClick={() => {
+                                /*set all other active clicks to false
+                                  and prioritize the current click */
+                                dispatch(setAllRentToFalse());
+                                dispatch(toggleRentOut({_id:_id}));
+                                setSelectedUser((selectedUser)=>{
                                 const newSelected = {
                                   name: customers.unblacklisted[_id]["name"],
                                   phone: customers.unblacklisted[_id]["phone"],
@@ -200,7 +212,8 @@ export default () => {
                                 }
                                 console.log(newSelected);
                                 return newSelected;
-                            });}
+                                });
+                              }
                             }
                           >
                             <td>{customers.unblacklisted[_id]["name"]}</td>

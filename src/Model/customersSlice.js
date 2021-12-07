@@ -19,7 +19,8 @@ const slice = createSlice({
                 role : role,
                 repairClicked : false,
                 assignClicked : false,
-                blackTabClicked : false
+                blackTabClicked : false,
+                rentOutClicked : false
             };
 
             state.unblacklisted[_id]=customer;
@@ -35,7 +36,8 @@ const slice = createSlice({
                 role : role,
                 repairClicked : false,
                 assignClicked : false,
-                blackTabClicked : false
+                blackTabClicked : false,
+                rentOutClicked : false
             };
 
             state.blacklisted[_id]=customer;
@@ -89,9 +91,19 @@ const slice = createSlice({
                     return;
                 }
             });
+        },
+        toggleRentOut : (state,action)=>{
+            const {_id} = action.payload;
+            state.unblacklisted[_id]['rentOutClicked']= !state.unblacklisted[_id]['rentOutClicked'];
+        },
+        setAllRentToFalse : (state,action)=>{
+            Object.values(state.unblacklisted).map(customer=>{
+                customer['rentOutClicked']=false;
+                return;
+            });
         }
     }
 })
 
 export default slice.reducer;
-export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,editRole,swapToBlacklisted,swapToUnblacklisted,toggleRepair,toggleAssign,toggleBlackTab} = slice.actions;
+export const {addCustomerToUnblacklisted,addCustomerToBlacklisted,editRole,swapToBlacklisted,swapToUnblacklisted,toggleRepair,toggleAssign,toggleBlackTab,toggleRentOut,setAllRentToFalse} = slice.actions;
