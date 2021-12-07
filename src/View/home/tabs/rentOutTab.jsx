@@ -97,11 +97,18 @@ export default () => {
   async function rentOutBike(){
     if(selectedUser.name!='' && selectedBikeId!='')
     {
+      //set dateRented to today formatted in mm/dd/yyyy
+      var today = new Date(); 
+      var dd = today.getDate(); 
+      var mm = today.getMonth()+1; 
+      var yyyy = today.getFullYear(); 
+
       const credentials = {
         id : selectedBikeId,
         name : selectedUser.name,
         email : selectedUser.email,
-        phone : selectedUser.phone
+        phone : selectedUser.phone,
+        dateRented : mm+'/'+dd+'/'+yyyy
       }
       const res = await patchRentedBike(credentials);
       console.log(res);
