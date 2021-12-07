@@ -59,7 +59,7 @@ export default () => {
               add a boolean to results */
 
         let results = await postBlacklistSearch({ key: e.target.value });
-        console.log(results)
+        console.log(results);
         setSearchResults2((searchResults) => {
           return results;
         });
@@ -74,14 +74,14 @@ export default () => {
 
   function searchUnblacklisted(e) {
     /*search only if query not empty*/
-    console.log('hi')
+    console.log("hi");
     if (e.target.value != "") {
       async function asyncSearch() {
         /*since we need to toggle to show buttons,
               add a boolean to results */
-        console.log('hi')
+        console.log("hi");
         let results = await postCustomerSearch({ key: e.target.value });
-        console.log(results)
+        console.log(results);
         setSearchResults((searchResults) => {
           return results;
         });
@@ -121,7 +121,7 @@ export default () => {
       asyncDispatch();
     }
   }
-
+  /*
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -149,37 +149,38 @@ export default () => {
       </Modal>
     );
   }
-
+*/
+  /*
   function setModalShowFunction() {
     setModalShow(true);
   }
-
+*/
   function confirmUnblacklist(_id) {
-    //if (window.confirm("Are you sure you want to unblacklist?")) {
-    /*First, swap from unblack to black on 
+    if (window.confirm("Are you sure you want to unblacklist?")) {
+      /*First, swap from unblack to black on 
               front end, then patch changes to back end. 
               sync the app by checking if object on 
               front end is same as object on back end */
-    async function asyncDispatch() {
-      dispatch(swapToUnblacklisted({ _id: _id }));
+      async function asyncDispatch() {
+        dispatch(swapToUnblacklisted({ _id: _id }));
 
-      /*now edit blacklist on back end & sync changes*/
-      const credentials = {
-        _id: _id,
-        blacklist: false,
-      };
+        /*now edit blacklist on back end & sync changes*/
+        const credentials = {
+          _id: _id,
+          blacklist: false,
+        };
 
-      const customer = await patchBlacklist(credentials);
-      if (customer != null) {
-        dispatch(addCustomerToUnblacklisted(customer));
-        alert("Unblacklisted");
-      } else {
-        alert("Server might be out of sync with recent changes");
+        const customer = await patchBlacklist(credentials);
+        if (customer != null) {
+          dispatch(addCustomerToUnblacklisted(customer));
+          alert("Unblacklisted");
+        } else {
+          alert("Server might be out of sync with recent changes");
+        }
       }
-    }
 
-    asyncDispatch();
-    //}
+      asyncDispatch();
+    }
   }
 
   return (
@@ -197,9 +198,9 @@ export default () => {
                 {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
                 */}
             <div
-                className={isActive1 ? "search-field-active" : "search-field"}
-                onFocus={toggleClass1}
-              >
+              className={isActive1 ? "search-field-active" : "search-field"}
+              onFocus={toggleClass1}
+            >
               {isActive1 && <button onClick={unToggleClass1}>cancel</button>}
               <input
                 type="text"
@@ -224,10 +225,8 @@ export default () => {
                 </tr>
               </thead>
               <tbody>
-                {
-                  isActive1
-                  ? 
-                  searchResults.map((customer, key) => {
+                {isActive1
+                  ? searchResults.map((customer, key) => {
                       return (
                         <tr className="table-body gray-highlight">
                           <td>{customer["name"]}</td>
@@ -238,47 +237,49 @@ export default () => {
                               <div class="dropdown2-menu show">
                                 <button
                                   className="renew"
-                                  onMouseDown={() => confirmUnblacklist(customer["_id"])}
-                                  
+                                  onMouseDown={() =>
+                                    confirmUnblacklist(customer["_id"])
+                                  }
                                 >
                                   BLACKLIST
                                 </button>
-                                <MyVerticallyCenteredModal show={modalShow} />
+                                {/*<MyVerticallyCenteredModal show={modalShow} />*/}
                               </div>
                             </>
                           </td>
                         </tr>
                       );
                     })
-              :
-                Object.keys(customers.unblacklisted).map((_id, key) => {
-                  return (
-                    <tr
-                      tabindex="-1"
-                      className="table-body gray-highlight"
-                      onFocus={() => toggleBlacklist(_id)}
-                      onBlur={() => toggleBlacklist(_id)}
-                    >
-                      <td>{customers.unblacklisted[_id]["name"]}</td>
-                      <td>{customers.unblacklisted[_id]["phone"]}</td>
-                      <td className="anchor">
-                        {customers.unblacklisted[_id]["email"]}
-                        {customers.unblacklisted[_id]["blackTabClicked"] && (
-                          <>
-                            <div class="dropdown2-menu show">
-                              <button
-                                className="blacklist"
-                                onMouseDown={() => confirmBlacklist(_id)}
-                              >
-                                Blacklist
-                              </button>
-                            </div>
-                          </>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
+                  : Object.keys(customers.unblacklisted).map((_id, key) => {
+                      return (
+                        <tr
+                          tabindex="-1"
+                          className="table-body gray-highlight"
+                          onFocus={() => toggleBlacklist(_id)}
+                          onBlur={() => toggleBlacklist(_id)}
+                        >
+                          <td>{customers.unblacklisted[_id]["name"]}</td>
+                          <td>{customers.unblacklisted[_id]["phone"]}</td>
+                          <td className="anchor">
+                            {customers.unblacklisted[_id]["email"]}
+                            {customers.unblacklisted[_id][
+                              "blackTabClicked"
+                            ] && (
+                              <>
+                                <div class="dropdown2-menu show">
+                                  <button
+                                    className="blacklist"
+                                    onMouseDown={() => confirmBlacklist(_id)}
+                                  >
+                                    Blacklist
+                                  </button>
+                                </div>
+                              </>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </Table>
           </div>
@@ -324,67 +325,65 @@ export default () => {
               </thead>
               <tbody>
                 {isActive2
-                    ? 
-                    searchResults2.map((customer, key) => {
-                        return (
-                          <tr className="table-body gray-highlight">
-                            <td>{customer["name"]}</td>
-                            <td>{customer["phone"]}</td>
-                            <td>
-                              {customer["email"]}
+                  ? searchResults2.map((customer, key) => {
+                      return (
+                        <tr className="table-body gray-highlight">
+                          <td>{customer["name"]}</td>
+                          <td>{customer["phone"]}</td>
+                          <td>
+                            {customer["email"]}
+                            <>
+                              <div class="dropdown2-menu show">
+                                <button
+                                  className="renew"
+                                  onMouseDown={() =>
+                                    confirmUnblacklist(customer["_id"])
+                                  }
+                                >
+                                  UNBLACKLIST
+                                </button>
+                                {/*<MyVerticallyCenteredModal show={modalShow} />*/}
+                              </div>
+                            </>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : Object.keys(customers.blacklisted).map((_id, key) => {
+                      return (
+                        <tr
+                          tabindex="-1"
+                          className="table-body gray-highlight"
+                          onFocus={() => toggleBlacklist(_id)}
+                          onBlur={() => toggleBlacklist(_id)}
+                        >
+                          <td>{customers.blacklisted[_id]["name"]}</td>
+                          <td>{customers.blacklisted[_id]["phone"]}</td>
+                          <td className="anchor">
+                            {customers.blacklisted[_id]["email"]}
+                            {customers.blacklisted[_id]["blackTabClicked"] && (
                               <>
                                 <div class="dropdown2-menu show">
                                   <button
                                     className="renew"
-                                    onMouseDown={() => confirmUnblacklist(customer["_id"])}
-                                    
+                                    onMouseDown={() => confirmUnblacklist(_id)}
                                   >
-                                    UNBLACKLIST
+                                    Unblacklist
                                   </button>
-                                  <MyVerticallyCenteredModal show={modalShow} />
+                                  {/*<MyVerticallyCenteredModal show={modalShow} />*/}
                                 </div>
                               </>
-                            </td>
-                          </tr>
-                        );
-                      })
-                :
-                Object.keys(customers.blacklisted).map((_id, key) => {
-                  return (
-                    <tr
-                      tabindex="-1"
-                      className="table-body gray-highlight"
-                      onFocus={() => toggleBlacklist(_id)}
-                      onBlur={() => toggleBlacklist(_id)}
-                    >
-                      <td>{customers.blacklisted[_id]["name"]}</td>
-                      <td>{customers.blacklisted[_id]["phone"]}</td>
-                      <td className="anchor">
-                        {customers.blacklisted[_id]["email"]}
-                        {customers.blacklisted[_id]["blackTabClicked"] && (
-                          <>
-                            <div class="dropdown2-menu show">
-                              <button
-                                className="renew"
-                                onMouseDown={() => confirmUnblacklist(_id)}
-                                
-                              >
-                                Unblacklist
-                              </button>
-                              <MyVerticallyCenteredModal show={modalShow} />
-                            </div>
-                          </>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })
-                }
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </Table>
           </div>
         </div>
       </div>
+      {/*
       <button
         className="renew"
         //onMouseDown={() => confirmUnblacklist(_id)}
@@ -393,6 +392,7 @@ export default () => {
         Unblacklist
       </button>
       <MyVerticallyCenteredModal show={modalShow} />
+      */}
     </>
   );
 };
