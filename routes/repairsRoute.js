@@ -17,9 +17,8 @@ router.post('/', async (req, res) => {
     const repair = new Repair({
         bikeModel: req.body.bikeModel,
         customerID: req.body.customerID,
-        id: req.body.id,
         notes: req.body.notes,
-        status: req.body.status,
+        status: "IN SHOP",
         email: req.body.email,
         name: req.body.name,
         phone: req.body.phone
@@ -35,17 +34,16 @@ router.post('/', async (req, res) => {
 router.patch('/', async (req, res) => {
     try{
         const updatedRepair = await Repair.updateOne(
-            {id: req.body.id},
+            {_id: req.body._id},
             { $set: {           bikeModel: req.body.bikeModel,
                                 customerID: req.body.customerID,
-                                id: req.body.id,
                                 notes: req.body.notes,
                                 status: req.body.status,
                                 email: req.body.email,
                                 name: req.body.name,
                                 phone:req.body.phone } }
             )
-            const retVal = await Repair.findOne({id:req.body.id})
+            const retVal = await Repair.findOne({_id:req.body._id})
             res.json(retVal)
     }catch(err){
         res.status(400).json({message: err.message})
@@ -54,7 +52,7 @@ router.patch('/', async (req, res) => {
 //deleteing a user
 router.delete('/', async (req, res) => {
     try{
-    const deletedRepair = await Repair.deleteOne({id: req.body.id})
+    const deletedRepair = await Repair.deleteOne({_id: req.body._id})
     res.json(deletedRepair)
     }catch(err){
         res.status(400).json({message: err.message })
