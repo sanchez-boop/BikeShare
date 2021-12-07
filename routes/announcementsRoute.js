@@ -1,21 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const Announcement = require('../models/announcement')
-//jwt auth middleware
-const jwt = require('jsonwebtoken');
-const auth1 = require('./authenticate')
 
 //getting all announcements 
-router.get('/', auth1, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const announcements = await Announcement.find()
         res.json(announcements)
     } catch (err){
-        res.status(500).json({ message : err.message })
+        res.satus(500).json({ message : err.message })
     }
 })
 //create a announcement 
-router.post('/', auth1, async (req, res) => {
+router.post('/', async (req, res) => {
     const announcement = new Announcement({
         id: req.body.id,
         timeStamp: req.body.timeStamp,
@@ -30,7 +27,7 @@ router.post('/', auth1, async (req, res) => {
     }
 })
 //updating a announcement
-router.patch('/', auth1, async (req, res) => {
+router.patch('/', async (req, res) => {
     try{
         const updatedAnnouncement = await Announcement.updateOne(
             {id: req.body.id},
@@ -46,7 +43,7 @@ router.patch('/', auth1, async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', auth1, async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
     const deletedAnnouncement = await Announcement.deleteOne({id: req.body.id})
     res.json(deletedAnnouncement)
