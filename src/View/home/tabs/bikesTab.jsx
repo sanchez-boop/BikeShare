@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDelete } from "../../../Model/bikesSlice";
+import { addBikeToAvailable, toggleDelete } from "../../../Model/bikesSlice";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
+import { postBike } from "../../../Controller/postBike"
 import { AiOutlineSearch } from "react-icons/ai";
 import "bootstrap/dist/css/bootstrap.css";
 import "./bikesTab.css";
@@ -58,18 +59,35 @@ export default () => {
     }
   }
 
-  function confirmBike() {
+  async function confirmBike() {
     /*Use prompt to add bike model and notes. 
           Post new repair with bike model, notes and 
           customer info to API. Update redux state*/
-    const bikeNumber = prompt("Assign a bike number");
-    const bikeModel = prompt("Add bike model");
+    const id = prompt("Assign a bike number");
+    const model = prompt("Add bike model");
     const serialNumber = prompt("Add a serial number for this bike");
     const newBike = {
-      bikeNumber: bikeNumber,
-      bikeModel: bikeModel,
+      id: id,
+      model: model,
       serialNumber: serialNumber,
+      notes: '',
+      name: '',
+      email: '',
+      phone: '',
+      dateRented: ''
     };
+
+    
+    const ret = await postBike(newBike);
+    
+    if(ret.name=="")
+    {
+      dispatch(addBikeToAvailable(ret));
+    }
+    else
+    {
+      alert('Server might not be up to date with changes');
+    }
   }
 
   return (
