@@ -60,23 +60,6 @@ function App() {
       repairs.map((repair) => {
         dispatch(addRepair(repair));
       });
-
-      /*now request users to complete all tables.
-        limit to 100 customers*/
-      const customers = await getCustomers();
-      let count = 0;
-
-      customers.map((customer) => {
-        if (count < 101) {
-          if (customer.blacklist == false) {
-            dispatch(addCustomerToUnblacklisted(customer));
-          } else {
-            dispatch(addCustomerToBlacklisted(customer));
-          }
-        } else {
-          return;
-        }
-      });
     }
 
     asyncDispatch();
