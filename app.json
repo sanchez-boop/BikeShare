@@ -4,9 +4,9 @@
     "slug": "BikeNGold-Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Shop-Logo.png",
+    "icon": "./app/assets/Shop-Logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./app/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,7 +23,7 @@
       "package": "com.bikengold.mobiletestone",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
