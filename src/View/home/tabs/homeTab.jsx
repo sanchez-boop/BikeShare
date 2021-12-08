@@ -145,7 +145,7 @@ export default () => {
       console.log(res);
       if(res.note==formInput.announcement)
       {
-        alert("Created announcement: ", formInput.announcement);
+        alert("Created announcement: "+formInput.announcement);
       }
       else
       {
