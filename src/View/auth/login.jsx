@@ -114,7 +114,7 @@ export default () => {
       const account = await postLogin(formInput);
       console.log(account);
 
-      if (account.result[0].hasOwnProperty("_id")) {
+      if (account.result.length>0) {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
         const credentials = {
