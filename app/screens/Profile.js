@@ -27,6 +27,9 @@ import ProfileEmailChange from "./ProfileEmailChange";
 import ProfilePasswordChange from "./ProfilePasswordChange";
 import EndScreen from "./EndScreen";
 import SignIn from "./LoginScreen";
+import * as Updates from 'expo-updates';
+import { useDispatch } from "react-redux";
+import { signOut } from "../model/accSlice";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +49,8 @@ export default function Profile({ navigation }) {
 
 function mainProfile({ navigation }) {
   const { acc } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.mainView}>
       <View style={styles.topRectangle}>
@@ -98,7 +103,7 @@ function mainProfile({ navigation }) {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate(EndScreen)}
+          onPress={() => {dispatch(signOut())}}
           style={styles.signOutButton}
         >
           <Text
