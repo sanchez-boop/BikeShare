@@ -243,7 +243,9 @@ export default () => {
         const account = await postUser(credentials);
 
         if (account.blacklist==false) {
-          /*On successful login, go back to login*/
+          /*On successful login, tell customer to verify 
+            email and go back to login*/
+          alert("Please verify email before logging in. Check your email.")
           history.goBack();
         } else {
           alert("login failed, try again");
