@@ -59,6 +59,7 @@ export default () => {
               changes to back end. sync the app by adding
               the returned object to unblacklisted*/
       async function asyncDispatch() {
+        console.log(_id,role)
         const credentials = {
           _id: _id,
           role: role,
