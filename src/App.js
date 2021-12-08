@@ -5,6 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Login from "./View/auth/login";
 import Register from "./View/auth/register";
 import ForgotPassword from "./View/auth/forgotPassword";
+import NewPassword from "./View/auth/newPassword";
 import HomeScreen from "./View/home/homeScreen";
 import CustomerScreen from "./View/home/customerScreen";
 import RentOutTab from "./View/home/tabs/rentOutTab";
@@ -95,6 +96,9 @@ function App() {
         </Route>
         <Route path="/forgotPassword">
           <ForgotPassword />
+        </Route>
+        <Route path="/newPassword">
+          <NewPassword />
         </Route>
         <>
           {acc.loggedIn == true ? (

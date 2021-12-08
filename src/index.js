@@ -20,6 +20,7 @@ if(start===undefined || start === null)
 {
   localStorage.setItem('loggedIn','false');
   localStorage.setItem('id','');
+  localStorage.setItem('jwt','');
   localStorage.setItem('role','');
 }
 

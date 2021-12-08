@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import "./register.css";
+import "./newPassword.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link, useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import logo from "../../Images/bikengold.png";
-import { postUser } from "../../Controller/postUser";
-import { Container, FormControl } from "react-bootstrap";
+import { postLogin } from "../../Controller/postLogin";
+import { signIn } from "../../Model/accSlice";
+import { useDispatch } from "react-redux";
 
 class ShowPassword extends React.Component {
   constructor(props) {
@@ -41,9 +42,9 @@ class ShowPassword extends React.Component {
           label="Password"
           className="password-field"
         >
-          <Form.Control 
-            type={this.state.type} 
-            placeholder="Password" 
+          <Form.Control
+            type={this.state.type}
+            placeholder="Password"
             onChange={this.props.inputPasswordChanged}
           />
         </FloatingLabel>
@@ -152,45 +153,15 @@ class ShowPassword2 extends React.Component {
 
 export default () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const [formInput, setFormInput] = useState({
     /*set initial credentials to ""*/
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    verifyPassword: "",
-    phone: ""
   });
 
-  function ForgetPasswordAlert() {
-    alert("Forget Password clicked");
-  }
-
-  function signinLinkAlert() {
-    alert("Sign in link clicked");
-  }
-
-  function signinAlert() {
-    alert("Sign in clicked");
-  }
-
-  function inputFirstNameChanged(e){
-    /*change the state of the credentials to the name you typed*/
-    setFormInput({
-      ...formInput,
-      firstName: e.target.value,
-    });
-  }
-
-  function inputLastNameChanged(e){
-    /*change the state of the credentials to the name you typed*/
-    setFormInput({
-      ...formInput,
-      lastName: e.target.value,
-    });
-  }
-
-  function inputEmailChanged(e){
+  function inputNameChanged(e) {
     /*change the state of the credentials to the name you typed*/
     setFormInput({
       ...formInput,
@@ -198,7 +169,7 @@ export default () => {
     });
   }
 
-  function inputPasswordChanged(e){
+  function inputPasswordChanged(e) {
     /*change the state of the credentials to the name you typed*/
     setFormInput({
       ...formInput,
@@ -206,7 +177,7 @@ export default () => {
     });
   }
 
-  function verifyPasswordChanged(e){
+  function verifyPasswordChanged(e) {
     /*change the state of the credentials to the name you typed*/
     setFormInput({
       ...formInput,
@@ -214,110 +185,19 @@ export default () => {
     });
   }
 
-  function inputPhoneChanged(e){
-    /*change the state of the credentials to the name you typed*/
-    setFormInput({
-      ...formInput,
-      phone: e.target.value,
-    });
-  }
-
-  async function registerUser(){
-    /*Await the API response. The API returns an 
-      array of a single object with user info, such
-      as an email. if arr>0, log the user in.
-      else, return login failed*/
-      if(formInput.password==formInput.verifyPassword)
-      {
-        const credentials = {
-          /*set initial credentials to ""*/
-          name: formInput.firstName + " " + formInput.lastName,
-          email: formInput.email,
-          password: formInput.password,
-          phone: formInput.phone,
-          role: "customer",
-          waiver: false,
-          blacklist: false,
-          isVerified: false
-        };
-
-        const account = await postUser(credentials);
-
-        if (account.blacklist==false) {
-          /*On successful login, tell customer to verify 
-            email and go back to login*/
-          alert("Please verify email before logging in. Check your email.")
-          history.goBack();
-        } else {
-          alert("login failed, try again");
-        }
-      }
-      else
-      {
-        alert("Passwords do not match, try again");
-      }
-  }
-
   return (
     <>
       <div id="center">
-        <div id="container-register">
+        <div id="container-login">
           <div id="left-side">
-            <div className="title">Welcome to BikeN'Gold</div>
+            <div className="title-password-new">Enter your new password</div>
             <div className="input-field-auth">
-              <div id="name-container" className="mb-3">
-                <FloatingLabel label="First Name" className="name-textfield">
-                  <Form.Control 
-                    type="text" 
-                    placeholder="First Name" 
-                    onChange={inputFirstNameChanged}
-                  />
-                </FloatingLabel>
-                <FloatingLabel label="Last Name" className="name-textfield">
-                  <Form.Control 
-                    type="text" 
-                    placeholder="Last Name" 
-                    onChange={inputLastNameChanged}
-                  />
-                </FloatingLabel>
-              </div>
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Phone Number"
-                className="mb-3"
-              >
-                <Form.Control 
-                  type="text" 
-                  placeholder="XXX-XXX-XXXX" 
-                  onChange={inputPhoneChanged}
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Knights Email"
-                className="mb-3"
-              >
-                <Form.Control 
-                  type="email" 
-                  placeholder="name@example.com" 
-                  onChange={inputEmailChanged}
-                />
-              </FloatingLabel>
               <ShowPassword inputPasswordChanged={inputPasswordChanged} />
-              <ShowPassword2 inputPasswordChanged={verifyPasswordChanged} />
             </div>
-            <button className="signup" onClick={registerUser}>
-              Sign up
-            </button>
+            <button className="newButton">Submit new password</button>
           </div>
           <div id="right-side">
             <img className="logoBig" src={logo} alt="BikeN'Gold Logo" />
-            <div className="linkField-register">
-              <span>Have an account?</span>{" "}
-              <span className="link">
-                <Link to="./">Sign in</Link>
-              </span>
-            </div>
           </div>
         </div>
       </div>

@@ -128,27 +128,24 @@ export default () => {
     dropdownClicked(_id, status);
   }
 
-  async function addAnnouncement(){
+  async function addAnnouncement() {
     if (window.confirm("Are you sure you want to make this announcement?")) {
-      var today = new Date(); 
-      var dd = today.getDate(); 
-      var mm = today.getMonth()+1; 
-      var yyyy = today.getFullYear(); 
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
 
       const credentials = {
-        timeStamp : Date.now(),
-        date : mm+'/'+dd+'/'+yyyy,
-        note : formInput.announcement
+        timeStamp: Date.now(),
+        date: mm + "/" + dd + "/" + yyyy,
+        note: formInput.announcement,
       };
       const res = await postAnnouncement(credentials);
 
       console.log(res);
-      if(res.note==formInput.announcement)
-      {
-        alert("Created announcement: "+formInput.announcement);
-      }
-      else
-      {
+      if (res.note == formInput.announcement) {
+        alert("Created announcement: " + formInput.announcement);
+      } else {
         alert("System might not be up to date with recent changes");
       }
     }
@@ -270,10 +267,7 @@ export default () => {
                     : "submit-announcement"
                 }
                 onClick={() =>
-                  formInput.announcement == ""
-                    ? ""
-                    : 
-                    addAnnouncement()
+                  formInput.announcement == "" ? "" : addAnnouncement()
                 }
               >
                 Submit
