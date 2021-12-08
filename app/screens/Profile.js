@@ -10,7 +10,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
@@ -25,11 +25,12 @@ import colors from "../config/colors";
 import ProfileNameChange from "./ProfileNameChange";
 import ProfileEmailChange from "./ProfileEmailChange";
 import ProfilePasswordChange from "./ProfilePasswordChange";
-import ProfileNotificationChange from "./ProfileNotificationChange";
+import EndScreen from "./EndScreen";
+import SignIn from "./LoginScreen";
 
 const Stack = createNativeStackNavigator();
 
-export default function Profile(props) {
+export default function Profile({ navigation }) {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -37,10 +38,7 @@ export default function Profile(props) {
         <Stack.Screen name="NameChange" component={ProfileNameChange} />
         <Stack.Screen name="EmailChange" component={ProfileEmailChange} />
         <Stack.Screen name="PasswordChange" component={ProfilePasswordChange} />
-        <Stack.Screen
-          name="NotificationChange"
-          component={ProfileNotificationChange}
-        />
+        <Stack.Screen name="EndScreen" component={EndScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -100,19 +98,7 @@ function mainProfile({ navigation }) {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.optionsContent}
-          onPress={() => navigation.navigate("NotificationChange")}
-        >
-          <View style={styles.nameContainer}>
-            <View style={styles.iconContainer}>
-              <MaterialCommunityIcons name="bell-outline" size={30} />
-            </View>
-            <Text style={styles.optionTitle}>Push notifications</Text>
-            <Entypo name="chevron-small-right" size={24} color="black" />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => Alert.alert("Hi")}
+          onPress={() => navigation.navigate(EndScreen)}
           style={styles.signOutButton}
         >
           <Text

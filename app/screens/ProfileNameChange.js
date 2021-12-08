@@ -54,7 +54,12 @@ export default function ProfileNameChange({ navigation }) {
       name: formInput.name,
     };
 
+    console.log("name credentials is " + JSON.stringify(credentials));
     dispatch(editName(credentials));
+
+    console.log(
+      "await patchUserInfo: " + JSON.stringify(await patchUserInfo(credentials))
+    );
 
     const response = await patchUserInfo(credentials);
 

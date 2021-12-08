@@ -23,11 +23,16 @@ export default function Waiver(props) {
 
   async function waiverSubmit() {
     const credentials = {
+      _id: acc.id,
       waiver: true,
     };
 
+    console.log("waiver credentials is " + JSON.stringify(credentials));
     dispatch(editWaiver(credentials));
 
+    console.log(
+      "await patchWaiver: " + JSON.stringify(await patchWaiver(credentials))
+    );
     const response = await patchWaiver(credentials);
 
     if (response != null) {
@@ -221,20 +226,35 @@ export default function Waiver(props) {
             associated fees (as listed above) for non-compliance with this
             agreement.
           </Text>
-          <TouchableOpacity
-            onPress={() => waiverSubmit()}
-            style={styles.signOutButton}
-          >
-            <Text
-              style={{
-                fontSize: 20,
-                color: "#fff",
-                textAlign: "center",
-              }}
+          {acc.waiver == false && (
+            <TouchableOpacity
+              onPress={() => waiverSubmit()}
+              style={styles.signWaiver}
             >
-              I, {acc.name}, hereby acknowledge the contents of this waiver
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "#fff",
+                  textAlign: "center",
+                }}
+              >
+                I, {acc.name}, hereby acknowledge the contents of this waiver
+              </Text>
+            </TouchableOpacity>
+          )}
+          {acc.waiver == true && (
+            <View style={styles.waiverSubmit}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "#fff",
+                  textAlign: "center",
+                }}
+              >
+                Waiver submitted
+              </Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </View>
@@ -242,8 +262,20 @@ export default function Waiver(props) {
 }
 
 const styles = StyleSheet.create({
-  signOutButton: {
+  signWaiver: {
     backgroundColor: "#000000",
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    justifyContent: "center",
+    alignSelf: "center",
+    padding: 10,
+  },
+  waiverSubmit: {
+    backgroundColor: "#22C16B",
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },

@@ -1,8 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, FlatList, SafeAreaView, Linking } from "react-native";
+import React, { Component, useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  FlatList,
+  SafeAreaView,
+  Linking,
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { getAnnouncements } from "../controller/getAnnouncements";
 import colors from "../config/colors";
-
+/*
 const AnnouncementsHolder = [
   {
     id: 1,
@@ -47,81 +57,91 @@ const AnnouncementsHolder = [
     message: 'This is a test announcement. ',
   },
 ];
-
+*/
 const bikeHours = [
   {
     id: 1,
-    inText: 'Monday - Friday: 8am - 5pm'
+    inText: "Monday - Friday: 8am - 5pm",
   },
   {
     id: 2,
-    inText: 'Saturday - Sunday: Closed'
-  } 
-]
+    inText: "Saturday - Sunday: Closed",
+  },
+];
 
 const socMedia = [
   {
     id: 1,
-    inText: 'FaceBook: https://www.facebook.com/bikengold/',
-    press: 'https://www.facebook.com/bikengold/'
+    inText: "FaceBook: https://www.facebook.com/bikengold/",
+    press: "https://www.facebook.com/bikengold/",
   },
   {
     id: 2,
-    inText: 'Instagram: https://www.instagram.com/ucfbikengold/?hl=en',
-    press: 'https://www.instagram.com/ucfbikengold/?hl=en'
-  }
-]
-
+    inText: "Instagram: https://www.instagram.com/ucfbikengold/?hl=en",
+    press: "https://www.instagram.com/ucfbikengold/?hl=en",
+  },
+];
 
 export default function ShopInfo(props) {
+  const dispatch = useDispatch();
+  const [announcementArray, setAnnouncementArray] = useState("");
+
+  // useEffect will render once when given arg of []x
+  useEffect(() => {
+    async function asyncDispatch() {
+      /* the API returns an arr of announcement objects. 
+        await both APIs and map through arr*/
+      let response = await getAnnouncements();
+      response.reverse();
+      setAnnouncementArray(response);
+      //response.map((bike) => {
+      //  dispatch(addBikeToAvailable(bike));
+      //});
+    }
+
+    asyncDispatch();
+  }, []);
+
   const renderAnnouncement = ({ item }) => {
     return (
       <Announcement
         item={item}
-        id={item.id}
-        dateDay={item.dateDay}
-        dateMonth={item.dateMonth}
-        dateYear={item.dateYear}
-        message={item.message}
+        id={item.date}
+        //dateDay={item.dateDay}
+        //dateMonth={item.dateMonth}
+        //dateYear={item.dateYear}
+        message={item.note}
       />
     );
   };
 
-  const Announcement = ({ id, dateDay, dateMonth, dateYear, message}) => (
+  const Announcement = ({ id, dateDay, dateMonth, dateYear, message }) => (
     <View style={[styles.itemAnnouncement]}>
       <View style={styles.itemAnnouncementContainer}>
-        <View>
-          <Text style={[styles.itemText]}>{id}</Text>
+        <View style={styles.announcementTextDate}>
+          <Text style={[styles.itemTextDate]}>{id}</Text>
         </View>
-        <Text style={[styles.itemText]}>
-          {message}
-        </Text>
+        <View style={styles.announcementText}>
+          <Text style={[styles.itemTextAnnouncement]}>{message}</Text>
+        </View>
       </View>
     </View>
   );
 
   const renderHour = ({ item }) => {
-    return (
-      <Hour
-        item={item}
-        id={item.id}
-        inText={item.inText}
-      />
-    );
+    return <Hour item={item} id={item.id} inText={item.inText} />;
   };
 
-  const Hour = ({ id, inText}) => (
+  const Hour = ({ id, inText }) => (
     <View style={[styles.item]}>
       <View style={styles.itemContainer}>
-        <Text style={[styles.itemText]}>
-          {inText}
-        </Text>
+        <Text style={[styles.itemText]}>{inText}</Text>
       </View>
     </View>
   );
 
   const renderMedia = ({ item }) => {
-    const color = '#0645AD';
+    const color = "#0645AD";
     return (
       <Media
         item={item}
@@ -133,10 +153,13 @@ export default function ShopInfo(props) {
     );
   };
 
-  const Media = ({ id, inText, press, textColor}) => (
+  const Media = ({ id, inText, press, textColor }) => (
     <View style={[styles.item]}>
       <View style={styles.itemContainer}>
-        <Text style={[styles.itemText, textColor]} onPress={() => Linking.openURL(press)}>
+        <Text
+          style={[styles.itemText, textColor]}
+          onPress={() => Linking.openURL(press)}
+        >
           {inText}
         </Text>
       </View>
@@ -175,7 +198,7 @@ export default function ShopInfo(props) {
       </View>
     );
   };
-
+  console.log("\n\narray is " + JSON.stringify(announcementArray));
   const HoursHeader = () => {
     //View to set in Header
     return (
@@ -215,7 +238,18 @@ export default function ShopInfo(props) {
       </View>
     );
   };
-  
+  // let j = announcementArray.length - 1;
+  // for (let i = 0; i > j; i++) {
+  //   const tmp = announcementArray[j];
+  //   announcementArray[j] = announcementArray[i];
+  //   announcementArray[i] = tmp;
+  //   j--;
+  // }
+  //setAnnouncementArray(announcementArray.reverse());
+  // setAnnouncementArray({
+  //   ...announcementArray,
+  //   announcementArray.reverse()
+  // });
   return (
     <View style={styles.mainView}>
       <View style={styles.topRectangle}>
@@ -225,19 +259,21 @@ export default function ShopInfo(props) {
         <SafeAreaView style={styles.announcements}>
           <FlatList
             nestedScrollEnabled
-            data={AnnouncementsHolder}
+            data={announcementArray}
             renderItem={renderAnnouncement}
             keyExtractor={(item) => item.id}
             ItemSeparatorComponent={ItemSeparatorView}
-            ListHeaderComponent={AnnouncementHeader}/>
+            ListHeaderComponent={AnnouncementHeader}
+          />
         </SafeAreaView>
         <View style={styles.shopHours}>
           <FlatList
-              data={bikeHours}
-              renderItem={renderHour}
-              keyExtractor={(item) => item.id}
-              ItemSeparatorComponent={ItemSeparatorView}
-              ListHeaderComponent={HoursHeader}/>
+            data={bikeHours}
+            renderItem={renderHour}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={ItemSeparatorView}
+            ListHeaderComponent={HoursHeader}
+          />
         </View>
         <View style={styles.socialMedia}>
           <FlatList
@@ -245,7 +281,8 @@ export default function ShopInfo(props) {
             renderItem={renderMedia}
             keyExtractor={(item) => item.id}
             ItemSeparatorComponent={ItemSeparatorView}
-            ListHeaderComponent={MediaHeader}/>
+            ListHeaderComponent={MediaHeader}
+          />
         </View>
       </ScrollView>
       <StatusBar style="auto" />
@@ -273,13 +310,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 4,
   },
-  content: {
-
-  },
+  content: {},
   announcements: {
     flex: 1,
     width: "95%",
-    marginTop: '6%',
+    marginTop: "6%",
     height: 400,
     borderRadius: 10,
     borderWidth: 1,
@@ -287,7 +322,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   shopHours: {
-    marginTop: '6%',
+    marginTop: "6%",
     width: "95%",
     borderRadius: 10,
     borderWidth: 1,
@@ -295,8 +330,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   socialMedia: {
-    marginTop: '6%',
-    marginBottom: '6%',
+    marginTop: "6%",
+    marginBottom: "6%",
     width: "95%",
     borderRadius: 10,
     borderWidth: 1,
@@ -305,6 +340,7 @@ const styles = StyleSheet.create({
   },
   itemAnnouncement: {
     paddingVertical: 18,
+    paddingHorizontal: 18,
   },
   item: {
     paddingVertical: 14,
@@ -329,8 +365,9 @@ const styles = StyleSheet.create({
   itemAnnouncementContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingLeft: 40,
-    paddingRight: 26,
+    alignItems: "center",
+    paddingLeft: 20,
+    paddingRight: 20,
     //backgroundColor: "red",
   },
   itemContainer: {
@@ -338,9 +375,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingLeft: 20,
     paddingRight: 20,
-    //backgroundColor: "red",
+    //backgroundColor: "blue",
   },
-  itemText: {
+  itemTextAnnouncement: {
     fontSize: 12.5,
   },
+  itemTextDate: {
+    fontSize: 12.5,
+    fontWeight: "bold",
+  },
+  announcementTextDate: { width: 80 },
+  announcementText: { width: 210, marginLeft: 10 },
 });

@@ -16,13 +16,13 @@ import colors from "../config/colors";
 export default function BikeAvailability(props) {
   const dispatch = useDispatch();
 
-  // useEffect will render once when given arg of []
+  // useEffect will render once when given arg of []x
   useEffect(() => {
     async function asyncDispatch() {
       /* the API returns an arr of bike objects. 
         await both APIs and map through arr*/
       const response = await getBikes();
-
+      //console.log("getBikes: " + JSON.stringify(response[0]));
       response.map((bike) => {
         dispatch(addBikeToAvailable(bike));
       });
