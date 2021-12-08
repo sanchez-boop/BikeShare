@@ -6,6 +6,7 @@ import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import { AiOutlineSearch } from "react-icons/ai";
 import { patchRentedBike } from "../../../Controller/patchRentedBike";
 import { editBikeToAvailable } from "../../../Model/bikesSlice";
+import { postRentedBikeSearch } from "../../../Controller/postRentedBikeSearch";
 import "bootstrap/dist/css/bootstrap.css";
 import "./renewTab.css";
 
@@ -26,7 +27,7 @@ export default () => {
       async function asyncSearch() {
         /*since we need to toggle to show buttons,
               add a boolean to results */
-        let results = await postBikeSearch({ key: e.target.value });
+        let results = await postRentedBikeSearch(e.target.value);
         setSearchResults((searchResults) => {
           return results;
         });
