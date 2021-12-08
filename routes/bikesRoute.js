@@ -97,7 +97,7 @@ router.post('/search3', async (req, res, next) =>
 try{
     const searchedBikes = await Bike.find({
         $and: [
-            {dateRented:{$gte:""}},
+            {dateRented:{$gte:" "}},
             {$or:[
                 {name:{$regex: req.body.key, $options: 'i'}},
                 {id:{$regex: req.body.key, $options: 'i'}}
