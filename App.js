@@ -99,7 +99,11 @@ function App() {
 
 function Main() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Tab.Screen
         name="Profile"
         component={Profile}

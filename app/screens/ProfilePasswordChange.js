@@ -45,6 +45,8 @@ export default function ProfilePasswordChange({ navigation }) {
   }
 
   function verifyPassword(enteredPassword, confirmPassword) {
+    console.log("acc.password is: " + acc.password);
+
     if (enteredPassword == acc.password) {
       if (formInput.password == confirmPassword) {
         alert("Passwords match, Your password was changed!");
@@ -199,12 +201,6 @@ export default function ProfilePasswordChange({ navigation }) {
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
               Save
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => alert("Continue to password forget here!")}
-            style={{ marginTop: 30 }}
-          >
-            <Text style={styles.forgotPassword}>Forget your password?</Text>
           </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
