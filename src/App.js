@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -27,7 +27,7 @@ function App() {
 
   /*SINCE NONE OF THESE APIS REQUIRE AN ACCOUNT,
     YOU CAN IMPLEMENT IN APP.JS TO SPEED UP APP*/
-  
+
   //useEffect will render once when given arg of []
   useEffect(() => {
     /*since the home tab is due bikes and repairs,
@@ -65,18 +65,15 @@ function App() {
         limit to 100 customers*/
       const customers = await getCustomers();
       let count = 0;
-      
+
       customers.map((customer) => {
-        if(count<101){
+        if (count < 101) {
           if (customer.blacklist == false) {
             dispatch(addCustomerToUnblacklisted(customer));
-
           } else {
             dispatch(addCustomerToBlacklisted(customer));
           }
-        }
-        else
-        {
+        } else {
           return;
         }
       });
@@ -106,7 +103,11 @@ function App() {
               </Route>
             )
           ) : (
-            <>you're logged out</>
+            <>
+              <Route path="/homeScreen">
+                <HomeScreen />
+              </Route>
+            </>
           )}
         </>
       </Switch>
