@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
     }
     const message = 
     {
-       from: 'karanpatel7301@gmail.com',
+       from: 'bikeshareemail@gmail.com',
        to: user.email,
        subject: 'BikeNGold- verify your email', 
        text: `
