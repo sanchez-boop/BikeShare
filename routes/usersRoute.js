@@ -160,7 +160,7 @@ router.post('/forgotpassword', async(req,res,next)=>
             }
     })
 //updating a user
-router.patch('/', auth1, async (req, res) => {
+router.patch('/', async (req, res) => {
     try{
         const updatedUser = await User.updateOne(
             {_id: req.body._id},
@@ -180,7 +180,7 @@ router.patch('/', auth1, async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', auth1, async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
     const deletedUser = await User.deleteOne({_id: req.body._id})
     res.json(deletedUser)
