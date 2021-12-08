@@ -115,7 +115,7 @@ export default () => {
       if(res!=null || res.name=='')
       {
         /*now add to available and delete from rented */
-        dispatch(editBikeToAvailable(res));
+        await dispatch(editBikeToAvailable(res));
         alert("Returned bike");
       }
       else
