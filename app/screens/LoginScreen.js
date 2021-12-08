@@ -58,16 +58,49 @@ export default function LoginScreen({ navigation }) {
       else, return login failed*/
       const account = await postLogin(formInput);
 
-      if (account.length > 0) {
+      if (account.hasOwnProperty("result")) {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
+        const credentials = {
+          _id: account.result[0]._id,
+          jwt: account["auth-token"],
+          name: account.result[0].name,
+          email: account.result[0].email,
+          phone: account.result[0].phone,
+          role: account.result[0].role,
+        };
+        console.log("to redux", credentials);
+        dispatch(signIn(credentials));
+        console.log("User logged in is " + JSON.stringify(account.result));
 
-        dispatch(signIn(account[0]));
-        navigation.navigate("Main", { screen: "Bike Availability" });
+        if (account.result[0].isVerified == false) {
+          alert("Email is not verified. Check your email.");
+        } else if (
+          account.result[0].role == "admin" ||
+          account.result.role == "worker" ||
+          account.result[0].role == "customer"
+        ) {
+          navigation.navigate("Main", { screen: "Bike Availability" });
+        }
       } else {
-        alert("login failed, try again");
+        alert("Login failed, try again");
       }
     }
+
+    //FOR WHEN WE IMPLEMENT JWT
+    // if (account.role.length > 0) {
+    //   /*On successful login, update the redux state
+    //   with account info and push the home screen*/
+    //   dispatch(signIn(account));
+    //   //console.log("User logged in is a " + account[0].role);
+    //   if (account.role == "admin" || account.role == "worker") {
+    //     history.push("/homeScreen");
+    //   } else if (account.role == "customer") {
+    //     history.push("/customerScreen");
+    //   }
+    // } else {
+    //   alert("login failed, try again");
+    // }
 
     asyncDispatch();
   }
