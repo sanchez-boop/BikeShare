@@ -16,9 +16,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const repair = new Repair({
         bikeModel: req.body.bikeModel,
-        customerID: req.body.customerID,
         notes: req.body.notes,
-        status: "IN SHOP",
+        status: "IN-SHOP",
         email: req.body.email,
         name: req.body.name,
         phone: req.body.phone
@@ -36,7 +35,6 @@ router.patch('/', async (req, res) => {
         const updatedRepair = await Repair.updateOne(
             {_id: req.body._id},
             { $set: {           bikeModel: req.body.bikeModel,
-                                customerID: req.body.customerID,
                                 notes: req.body.notes,
                                 status: req.body.status,
                                 email: req.body.email,
