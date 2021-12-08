@@ -1,21 +1,16 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useState } from "react";
+import React, {useState } from "react";
 import { TextInput } from "react-native-paper";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  LogBox,
   Image,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from "react-native";
 import { postLogin } from "../controller/postLogin";
 import { signIn } from "../model/accSlice";
 import { useDispatch } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import logo from "../assets/Shop-Logo.png";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,8 +18,6 @@ import colors from "../config/colors";
 
 export default function LoginScreen({ navigation }) {
   /* We may not need the following three const's */
-  const [emailInput, changeEmailInput] = React.useState(null);
-  const [passwordInput, changePasswordInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
 
   const dispatch = useDispatch();
@@ -157,7 +150,7 @@ export default function LoginScreen({ navigation }) {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              onPress={() => alert("Continue to password forget here!")}
+              onPress={() => navigation.navigate("Forgot-Password")}
               style={{ alignSelf: "flex-start", marginTop: 8 }}
             >
               <Text style={styles.forgotPassword}>Forget your password?</Text>
@@ -216,6 +209,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "#fff",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
   topRectangle: {
     width: "100%",

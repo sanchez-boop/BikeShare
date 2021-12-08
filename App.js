@@ -25,13 +25,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
+import ForgotPasswordScreen from "./app/screens/ForgotPassword"
 import BikeAvailability from "./app/screens/BikeAvailability";
 import Waiver from "./app/screens/Waiver";
 import Profile from "./app/screens/Profile";
 import ShopInfo from "./app/screens/ShopInfo";
 import colors from "./app/config/colors";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 
 //reducers
 import accReducer from "./app/model/accSlice";
@@ -61,6 +62,7 @@ export default AppWrapper = () => {
 };
 
 function App() {
+  const {acc} = useSelector(state => state);
   let [fontsLoaded] = useFonts({
     HindVadodara_600SemiBold,
     Inter_500Medium,
@@ -79,11 +81,17 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Sign-In" component={LoginScreen} />
           <Stack.Screen name="Sign-Up" component={RegisterScreen} />
+          <Stack.Screen name="Forgot-Password" component={ForgotPasswordScreen} />
+          { acc.loggedIn 
+          ?
           <Stack.Screen
             name="Main"
             component={Main}
             options={{ headerShown: false }}
           />
+          :
+          <Stack.Screen name="Sign-In2" component={LoginScreen} />
+          }
         </Stack.Navigator>
       </NavigationContainer>
       //</Provider>
