@@ -1,35 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useState } from "react";
+import React, {useState } from "react";
 import { TextInput } from "react-native-paper";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  LogBox,
   Image,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Modal,
-  Pressable,
 } from "react-native";
 import { postLogin } from "../controller/postLogin";
 import { signIn } from "../model/accSlice";
 import { useDispatch } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { BlurView } from "expo-blur";
 import logo from "../assets/Shop-Logo.png";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 
 export default function LoginScreen({ navigation }) {
   /* We may not need the following three const's */
-  const [emailInput, changeEmailInput] = React.useState(null);
-  const [passwordInput, changePasswordInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -128,7 +117,7 @@ export default function LoginScreen({ navigation }) {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              onPress={() => setModalVisible(true)}
+              onPress={() => navigation.navigate("Forgot-Password")}
               style={{ alignSelf: "flex-start", marginTop: 8 }}
             >
               <Text style={styles.forgotPassword}>Forget your password?</Text>
@@ -167,29 +156,6 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
-      </View>
-      <View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView }>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
       </View>
     </KeyboardAwareScrollView>
   );

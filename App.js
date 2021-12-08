@@ -25,6 +25,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import LoginScreen from "./app/screens/LoginScreen";
+import ForgotPasswordScreen from "./app/screens/ForgotPassword"
 import BikeAvailability from "./app/screens/BikeAvailability";
 import Waiver from "./app/screens/Waiver";
 import Profile from "./app/screens/Profile";
@@ -80,6 +81,7 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Sign-In" component={LoginScreen} />
           <Stack.Screen name="Sign-Up" component={RegisterScreen} />
+          <Stack.Screen name="Forgot-Password" component={ForgotPasswordScreen} />
           { acc.loggedIn 
           ?
           <Stack.Screen
