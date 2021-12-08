@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
+const sgMail = require('@sendgrid/mail');
 //jwt auth middleware
 const jwt = require('jsonwebtoken');
 const auth1 = require('./authenticate')
+require("dotenv").config();
 
 //getting all users
 router.get('/', async (req, res) => {
@@ -17,6 +19,7 @@ router.get('/', async (req, res) => {
 
 //creating a user
 router.post('/', async (req, res) => {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const user = new User({
         blacklist: req.body.blacklist,
         email: req.body.email,
@@ -24,15 +27,81 @@ router.post('/', async (req, res) => {
         password: req.body.password,
         phone: req.body.phone,
         role: req.body.role,
-        waiver : req.body.waiver
-    })
+        waiver : req.body.waiver,
+        isVerified: false
+    });
+
+    var jwtEmail = ''
     try {
         const newUser = await user.save()
-        res.status(201).json(newUser)
-    }catch (err){
+        jwtEmail = jwt.sign({email:user.email, name:user.name}, process.env.JWT_SECRET);
+    }
+        catch (err){
         res.status(400).json({message: err.message })
     }
+    const message = 
+    {
+       from: 'karanpatel7301@gmail.com',
+       to: user.email,
+       subject: 'BikeNGold- verify your email', 
+       text: `
+       Hello, thanks for registering on our site. 
+       Please copy and paste the address below to verify your account.
+          https://${req.headers.host}/users/verify-email?jwtToken=${jwtEmail}
+       `
+    }
+    await sgMail.send(message)
+        .then(response => {
+          ret = {error: ''};
+          res.status(200).send(ret);
+        })
+        .catch(error => res.send({error:error.message}));
+        
 })
+router.get('/verify-email', async (req,res,next)=>{
+// incoming: jwtToken (from url, not from the request body)
+      // outgoing: nothing 
+    
+      // Get jwtToken from the url
+      const jwtEmail = req.query.jwtToken;
+      var ret;
+
+      // Redirect url (homepage)
+      const redirect = `${req.protocol}://`+req.headers.host+`/`;
+
+      try{
+        // Verify the jwtToken, and then search for user
+        const verifiedJwt = jwt.verify( jwtEmail, process.env.JWT_SECRET);
+        const user = await User.find({email: verifiedJwt.email});
+        // If user does not exist, log the message and redirect the user
+        if (!user)
+        {
+          ret = {error: 'Trying to verify user that does not exist'};
+          console.log(ret);
+          return res.status(404).redirect(redirect);
+        }
+        
+        const work = await User.findOneAndUpdate({"email":verifiedJwt.email}, {"isVerified":true})
+        // If user is successfully verified and saved, redirect the user to the homepage
+        try
+        {
+            
+            console.log('Successfully verified');
+          res.status(200).redirect(redirect);
+        }
+        catch(error)
+        {
+          ret = {error1:error.message};
+          console.log(ret);
+        }
+      }
+      catch (error)
+      {
+        ret = {error2:error.message}
+        console.log(ret);
+      }
+    });
+
 //updating a user
 router.patch('/', auth1, async (req, res) => {
     try{

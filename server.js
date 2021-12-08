@@ -13,7 +13,6 @@ const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to db'))
 
-
 app.use(express.json())
 
 app.use(express.urlencoded({extended: false}));
