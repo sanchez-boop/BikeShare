@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const auth1 = require('./authenticate')
 
 //getting all repairs 
-router.get('/', auth1, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const repairs = await Repair.find()
         res.json(repairs)
