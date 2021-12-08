@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 })
 
 //creating a user
-router.post('/', async (req, res) => {
+router.post('/', auth1, async (req, res) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const user = new User({
         blacklist: req.body.blacklist,
