@@ -159,12 +159,6 @@ export default function ProfileNameChange({ navigation }) {
               Save
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => alert("Continue to password forget here!")}
-            style={{ marginTop: 30 }}
-          >
-            <Text style={styles.forgotPassword}>Forget your password?</Text>
-          </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
       </View>

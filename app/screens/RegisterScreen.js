@@ -83,8 +83,14 @@ export default function RegisterScreen({ navigation }) {
   }
 
   async function registerUser() {
-    if (formInput.firstName == "" || formInput.lastName == "" || formInput.email == "" || 
-    formInput.password == "" || formInput.verifyPassword == "" || formInput.phone == "") {
+    if (
+      formInput.firstName == "" ||
+      formInput.lastName == "" ||
+      formInput.email == "" ||
+      formInput.password == "" ||
+      formInput.verifyPassword == "" ||
+      formInput.phone == ""
+    ) {
       alert("Please fill all text fields!");
       return;
     }
@@ -106,7 +112,7 @@ export default function RegisterScreen({ navigation }) {
         /*On successful login, go back to login*/
         navigation.navigate("Main", { screen: "Bike Availability" });
       } else {
-        alert("login failed, try again");
+        alert("Login failed, try again");
       }
     } else {
       alert("Passwords do not match, try again");
