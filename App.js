@@ -31,7 +31,7 @@ import Profile from "./app/screens/Profile";
 import ShopInfo from "./app/screens/ShopInfo";
 import colors from "./app/config/colors";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 
 //reducers
 import accReducer from "./app/model/accSlice";
@@ -61,6 +61,7 @@ export default AppWrapper = () => {
 };
 
 function App() {
+  const {acc} = useSelector(state => state);
   let [fontsLoaded] = useFonts({
     HindVadodara_600SemiBold,
     Inter_500Medium,
@@ -79,11 +80,16 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Sign-In" component={LoginScreen} />
           <Stack.Screen name="Sign-Up" component={RegisterScreen} />
+          { acc.loggedIn 
+          ?
           <Stack.Screen
             name="Main"
             component={Main}
             options={{ headerShown: false }}
           />
+          :
+          <Stack.Screen name="Sign-In2" component={LoginScreen} />
+          }
         </Stack.Navigator>
       </NavigationContainer>
       //</Provider>
