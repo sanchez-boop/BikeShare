@@ -1,9 +1,10 @@
-export function deleteBike(id){
-    /*To search, send the body as a stringified JSON*/
+export function deleteBikeReq(id){
+    /*To delete, send the body as a stringified JSON*/
     const credentials = {
         id : id
     }
-    const curl = 'https://bikengold.herokuapp.com/repairs/search';
+
+    const curl = 'https://bikengold.herokuapp.com/bikes';
     const options = {
         method : 'DELETE',
         headers : {

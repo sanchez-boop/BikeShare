@@ -140,9 +140,10 @@ const slice = createSlice({
       const { _id } = action.payload;
       /* search through the three bike states 
                and delete when id is found*/
-
+      
       Object.keys(state).map((bikeState) => {
         if (_id in state[bikeState]) {
+          console.log(state[bikeState][_id]);
           delete state[bikeState][_id];
           return;
         }

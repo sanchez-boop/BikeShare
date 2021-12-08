@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addBikeToAvailable, toggleDelete } from "../../../Model/bikesSlice";
+import { addBikeToAvailable, deleteBike, toggleDelete } from "../../../Model/bikesSlice";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import { postBike } from "../../../Controller/postBike";
 import { AiOutlineSearch } from "react-icons/ai";
 import "bootstrap/dist/css/bootstrap.css";
 import "./bikesTab.css";
+import { deleteBikeReq } from "../../../Controller/deleteBikeReq";
 
 export default () => {
   const { bikes } = useSelector((state) => state);
@@ -52,10 +53,21 @@ export default () => {
     dispatch(toggleDelete({ _id: _id }));
   }
 
-  function confirmDelete() {
-    if (window.confirm("Are you sure you want to delete?")) {
-      //post delete
-      alert("Deleted");
+  async function confirmDelete(_id,id) {
+    if (window.confirm(`Are you sure you want to delete bike number ${id}?`)) {
+      //delete bike
+      const res = await deleteBikeReq(id);
+      console.log(res)
+      if(res.deletedCount==1)
+      {
+        //delete from bikes model
+        await dispatch(deleteBike({_id:_id}));
+        alert("Deleted");
+      }
+      else
+      {
+        alert("Server might not be up to date with changes");
+      }
     }
   }
 
@@ -141,7 +153,7 @@ export default () => {
                               <>
                                 <button
                                   className="return"
-                                  onMouseDown={() => confirmDelete()}
+                                  onMouseDown={() => confirmDelete(bike["_id"],bike["id"])}
                                 >
                                   Delete
                                 </button>
@@ -170,7 +182,7 @@ export default () => {
                                       <div class="dropdown2-menu show">
                                         <button
                                           className="return"
-                                          onMouseDown={() => confirmDelete()}
+                                          onMouseDown={() => confirmDelete(_id,bikeObjects[_id]["id"])}
                                         >
                                           Delete
                                         </button>
