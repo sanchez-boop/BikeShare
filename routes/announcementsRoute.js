@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const auth1 = require('./authenticate')
 
 //getting all announcements 
-router.get('/', auth1, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const announcements = await Announcement.find()
         res.json(announcements)
@@ -15,7 +15,7 @@ router.get('/', auth1, async (req, res) => {
     }
 })
 //create a announcement 
-router.post('/', auth1, async (req, res) => {
+router.post('/', async (req, res) => {
     const announcement = new Announcement({
         timeStamp: req.body.timeStamp,
         date: req.body.date,
@@ -29,7 +29,7 @@ router.post('/', auth1, async (req, res) => {
     }
 })
 //updating a announcement
-router.patch('/', auth1, async (req, res) => {
+router.patch('/', async (req, res) => {
     try{
         const updatedAnnouncement = await Announcement.updateOne(
             {_id: req.body._id},
@@ -45,7 +45,7 @@ router.patch('/', auth1, async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', auth1, async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
     const deletedAnnouncement = await Announcement.deleteOne({_id: req.body._id})
     res.json(deletedAnnouncement)

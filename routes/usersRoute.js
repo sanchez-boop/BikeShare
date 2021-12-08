@@ -9,7 +9,7 @@ const auth1 = require('./authenticate')
 require("dotenv").config();
 
 //getting all users
-router.get('/', auth1, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const users = await User.find().limit(50)
         res.json(users)
@@ -161,7 +161,7 @@ router.post('/forgotpassword', async(req,res,next)=>
     })
     
 //updating a user
-router.patch('/', auth1, async (req, res) => {
+router.patch('/', async (req, res) => {
     try{
         const updatedUser = await User.updateOne(
             {_id: req.body._id},
@@ -181,7 +181,7 @@ router.patch('/', auth1, async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', auth1, async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
     const deletedUser = await User.deleteOne({_id: req.body._id})
     res.json(deletedUser)

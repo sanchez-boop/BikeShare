@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 //create a bike
-router.post('/', auth1, async (req, res) => {
+router.post('/', async (req, res) => {
     const bike = new Bike({
         dateRented: req.body.dateRented,
         id: req.body.id,
@@ -36,7 +36,7 @@ router.post('/', auth1, async (req, res) => {
     }
 })
 //updating a repair
-router.patch('/', auth1, async (req, res) => {
+router.patch('/', async (req, res) => {
     try{
         const updatedBike = await Bike.updateOne(
             {id: req.body.id},
@@ -58,7 +58,7 @@ router.patch('/', auth1, async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', auth1, async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
     const deletedBike = await Bike.deleteOne({id: req.body.id})
     res.json(deletedBike)

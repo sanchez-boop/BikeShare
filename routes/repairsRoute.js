@@ -51,7 +51,7 @@ router.patch('/', auth1, async (req, res) => {
     }
 })
 //deleteing a user
-router.delete('/', auth1, async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
     const deletedRepair = await Repair.deleteOne({_id: req.body._id})
     res.json(deletedRepair)
@@ -60,7 +60,7 @@ router.delete('/', auth1, async (req, res) => {
     }
 })
 //searching repairs 
-router.post('/search',  auth1, async (req, res, next) =>
+router.post('/search', async (req, res, next) =>
 {
 try{
     const searchedRepairs = await Repair.find({$or:[{name:{$regex: req.body.key, $options: 'i'}},
