@@ -15,6 +15,7 @@ import { patchStatus } from "../../../Controller/patchStatus";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import { postRepairSearch } from "../../../Controller/postRepairSearch";
 import { postAnnouncement } from "../../../Controller/postAnnouncement";
+import { postRentedBikeSearch } from "../../../Controller/postRentedBikeSearch";
 
 export default () => {
   const { bikes, repairs } = useSelector((state) => state);
@@ -45,7 +46,7 @@ export default () => {
       async function asyncSearch() {
         /*since we need to toggle to show buttons,
           add a boolean to results */
-        let results = await postBikeSearch({ key: e.target.value });
+        let results = await postRentedBikeSearch(e.target.value);
         setSearchResults((searchResults) => {
           return results;
         });

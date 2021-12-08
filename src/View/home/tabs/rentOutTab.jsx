@@ -8,6 +8,7 @@ import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import "./rentOutTab.css";
 import { patchRentedBike } from "../../../Controller/patchRentedBike";
+import { postAvailableBikeSearch } from "../../../Controller/postAvailableBikeSearch";
 import { editBikeToRented } from "../../../Model/bikesSlice";
 import {
   setAllRentToFalse,
@@ -56,7 +57,7 @@ export default () => {
       async function asyncSearch() {
         /*since we need to toggle to show buttons,
           add a boolean to results */
-        let results = await postBikeSearch({ key: e.target.value });
+        let results = await postAvailableBikeSearch(e.target.value);
         setSearchResults2((searchResults2) => {
           return results;
         });
