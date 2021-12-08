@@ -9,7 +9,7 @@ const auth1 = require('./authenticate')
 require("dotenv").config();
 
 //getting all users
-router.get('/', async (req, res) => {
+router.get('/', auth1, async (req, res) => {
     try {
         const users = await User.find().limit(50)
         res.json(users)
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 })
 
 //creating a user
-router.post('/', auth1, async (req, res) => {
+router.post('/', async (req, res) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const user = new User({
         blacklist: req.body.blacklist,
