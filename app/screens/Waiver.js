@@ -47,6 +47,8 @@ export default function Waiver(props) {
     }
   }
 
+  console.log("waiver button: " + acc.waiver);
+
   return (
     <View style={styles.mainView}>
       <View style={styles.topRectangle}>
@@ -226,22 +228,20 @@ export default function Waiver(props) {
             associated fees (as listed above) for non-compliance with this
             agreement.
           </Text>
-          {acc.waiver == false && (
-            <TouchableOpacity
-              onPress={() => waiverSubmit()}
-              style={styles.signWaiver}
+          <TouchableOpacity
+            onPress={() => waiverSubmit()}
+            style={styles.signWaiver}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                color: "#fff",
+                textAlign: "center",
+              }}
             >
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "#fff",
-                  textAlign: "center",
-                }}
-              >
-                I, {acc.name}, hereby acknowledge the contents of this waiver
-              </Text>
-            </TouchableOpacity>
-          )}
+              I, {acc.name}, hereby acknowledge the contents of this waiver
+            </Text>
+          </TouchableOpacity>
           {acc.waiver == true && (
             <View style={styles.waiverSubmit}>
               <Text
@@ -285,6 +285,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     padding: 10,
+    marginTop: 10,
   },
   mainView: {
     height: "100%",
