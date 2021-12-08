@@ -54,9 +54,9 @@ router.post('/', async (req, res) => {
     await sgMail.send(message)
         .then(response => {
           ret = {error: ''};
-          res.status(200).send(ret);
+          res.status(200).send(user);
         })
-        .catch(error => res.send({error:error.message}));
+        .catch(error => res.send({user}));
 })
 router.get('/verify-email', async (req,res,next)=>{
     // incoming: jwtToken (from url, not from the request body)
@@ -65,7 +65,6 @@ router.get('/verify-email', async (req,res,next)=>{
           // Get jwtToken from the url
           const jwtEmail = req.query.jwtToken;
           var ret;
-    
           // Redirect url (homepage)
           const redirect = `${req.protocol}://`+req.headers.host+`/`;
     
@@ -101,6 +100,65 @@ router.get('/verify-email', async (req,res,next)=>{
             console.log(ret);
           }
         });
+router.post('/forgotpassword', async(req,res,next)=>
+        {
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    
+            const { email } = req.body;
+            var ret;
+      
+            // If user did not input email
+            if (!email)
+            {
+              ret = {error:'Email is required.'}
+              return res.status(400).send(ret);
+            }
+      
+            try
+            {
+              // Find the user associated with the email
+              const user = await User.find({ Email:email });
+      
+              // If there is no account associated with the email
+              if (!user)
+              {
+                ret = {error:'There is no account associated with this email.'};
+                return res.status(404).send(ret);
+              }
+              var jwtEmail = ''
+        try {
+            jwtEmail = jwt.sign({email:user.email, name:user.name}, process.env.JWT_SECRET);
+        }
+            catch (err){
+            res.status(400).json({message: err.message })
+        }
+        const message = 
+        {
+           from: 'karanpatel7301@gmail.com',
+           to: email,
+           subject: 'BikeNGold- Reset your Password', 
+           text: `
+           Please click on the link to reset your password
+         http://${req.protocol}://${req.headers.host}/users/resetpassword/?jwtToken=${jwtEmail}`
+        }
+              
+      
+              // If email successfully sends to user, return empty error
+              // Email will contain link to /resetpassword page
+              await sgMail.send(message)
+              .then(response => {
+                ret = {error:""};
+                res.status(200).send(ret);
+              })  
+              .catch(error => res.send({error:error}));
+      
+            }
+            catch(e)
+            {
+              ret = {error:e.message};
+              res.send(ret);
+            }
+    })
 //updating a user
 router.patch('/', auth1, async (req, res) => {
     try{
