@@ -112,8 +112,9 @@ export default () => {
       as an email. if arr>0, log the user in.
       else, return login failed*/
       const account = await postLogin(formInput);
+      console.log(account);
 
-      if (account.hasOwnProperty("result")) {
+      if (account.result.hasOwnProperty("_id")) {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
         const credentials = {
