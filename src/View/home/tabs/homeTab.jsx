@@ -135,7 +135,6 @@ export default () => {
       var yyyy = today.getFullYear(); 
 
       const credentials = {
-        id: 'fuck you',
         timeStamp : Date.now(),
         date : mm+'/'+dd+'/'+yyyy,
         note : formInput.announcement
