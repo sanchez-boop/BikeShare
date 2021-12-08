@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 
 //verify request has JWT auth otken in header, and that token matches expected identity
 module.exports = function(req, res, next) {
-    let jwtToken = req.header('auth-token');
-    if(!jwtToken) {
+    //let jwtToken = req.header('auth-token');
+    //if(!jwtToken) {
         //workaround for front end issues...
         //res.status(403).send('auth-token header required');
         //return;
@@ -19,7 +19,7 @@ module.exports = function(req, res, next) {
             return;
         }
 
-    }
+    //}
     try{
         const verified = jwt.verify(jwtToken, process.env.JWT_SECRET);
         next();
