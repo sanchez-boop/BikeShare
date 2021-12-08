@@ -29,7 +29,8 @@ router.post('/', async (req, res) => {
         phone: req.body.phone,
         role: req.body.role,
         waiver : req.body.waiver,
-        bikeNumber: req.body.bikeNumber
+        bikeNumber: req.body.bikeNumber,
+        isVerified: false
     });
     var jwtEmail = ''
     try {

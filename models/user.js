@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     waiver: {
         type: Boolean,
         required: true
+    },
+    isVerified: {
+        type: Boolean,
+        required: false
     }
 })
 
