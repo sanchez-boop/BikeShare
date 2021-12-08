@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const auth1 = require('./authenticate')
 
 //getting all repairs 
-router.get('/', auth1, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const repairs = await Repair.find()
         res.json(repairs)
@@ -16,7 +16,7 @@ router.get('/', auth1, async (req, res) => {
 })
 
 //create a repair
-router.post('/', auth1, async (req, res) => {
+router.post('/', async (req, res) => {
     const repair = new Repair({
         bikeModel: req.body.bikeModel,
         notes: req.body.notes,
