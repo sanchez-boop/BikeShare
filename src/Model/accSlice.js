@@ -4,33 +4,40 @@ const slice = createSlice({
   name: "acc",
   initialState: {
     /*convert string to bool using equality*/
-    loggedIn: false,
-    id: -1,
+    loggedIn: (localStorage.getItem('loggedIn')=='true'),
+    id: localStorage.getItem('id'),
     name: "",
     email: "",
     phone: "",
-    role: "",
+    role: localStorage.getItem('role'),
   },
   reducers: {
     signIn: (state, action) => {
       /*save the name and password from the state payload passed in. Pass in
             state, name, password into authenticator*/
       const { _id, name, email, phone, role } = action.payload;
+
+      localStorage.setItem('loggedIn','true');
+      localStorage.setItem('id',_id);
+      localStorage.setItem('role',role);
       state.loggedIn = true;
-      state.id = _id;
+      state.id = localStorage.getItem('id');
       state.name = name;
       state.email = email;
       state.phone = phone;
-      state.role = role;
+      state.role = localStorage.getItem('role');
     },
     signOut: (state) => {
       //update local storage to false then convert LoggedIn and admin to bool
+      localStorage.setItem('loggedIn','false');
+      localStorage.setItem('id','');
+      localStorage.setItem('role','');
       state.loggedIn = false;
-      state.id = -1;
+      state.id = localStorage.getItem('id');
       state.email = "";
       state.name = "";
       state.phone = "";
-      state.role = "";
+      state.role = localStorage.getItem('role');
     },
   },
 });

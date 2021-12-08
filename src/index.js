@@ -12,6 +12,17 @@ import bikesReducer from "./Model/bikesSlice";
 import customersSlice from "./Model/customersSlice";
 import repairsSlice from "./Model/repairsSlice";
 
+/*To stay logged in after refreshing, you must configure local storage to save state. If you
+recently started the app, set the default items to false. Otherwise let the model
+manage the items. Local storage ONLY saves items as strings, so you must convert to bool.*/
+let start = localStorage.getItem('loggedIn');
+if(start===undefined || start === null)
+{
+  localStorage.setItem('loggedIn','false');
+  localStorage.setItem('id','');
+  localStorage.setItem('role','');
+}
+
 //Redux configuration
 const reducer = combineReducers({
   acc: accReducer,
