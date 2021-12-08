@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
        text: `
        Hello, thanks for registering on our site. 
        Please copy and paste the address below to verify your account.
-     http://${req.protocol}://${req.headers.host}/users/verify-email/?jwtToken=${jwtEmail}`
+     ${req.protocol}://${req.headers.host}/users/verify-email/?jwtToken=${jwtEmail}`
      //https://${req.headers.host}/users/verify-email?jwtToken=${jwtEmail}  `
     }
     await sgMail.send(message)
