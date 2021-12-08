@@ -129,7 +129,7 @@ export default function ProfileEmailChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={() => verifyPassword(passwordInput)}
+            onPress={() => emailChangeSubmit()}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>

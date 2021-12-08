@@ -152,7 +152,7 @@ export default function ProfileNameChange({ navigation }) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={() => verifyPassword(passwordInput)}
+            onPress={() => nameChangeSubmit()}
             style={styles.signUpButton}
           >
             <Text style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
