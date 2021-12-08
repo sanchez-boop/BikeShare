@@ -7,6 +7,8 @@ import { BsFillFileCheckFill, BsFillFileXFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleRepair } from "../../../Model/customersSlice";
 import { postCustomerSearch } from "../../../Controller/postCustomerSearch";
+import { postRepair } from "../../../Controller/postRepair";
+import { addRepair } from "../../../Model/repairsSlice";
 
 export default () => {
   const { customers } = useSelector((state) => state);
@@ -63,20 +65,40 @@ export default () => {
     setActive1(false);
   };
 
-  function confirmRepair(_id, customer) {
+  async function confirmRepair(_id, customer) {
     /*Use prompt to add bike model and notes. 
           Post new repair with bike model, notes and 
           customer info to API. Update redux state*/
     const bikeModel = prompt("Add bike model for this repair");
     const notes = prompt("Add notes for this repair");
-    const repair = {
-      bikeModel: bikeModel,
-      notes: notes,
-      status: "IN-SHOP",
-      name: customer.name,
-      email: customer.email,
-      phone: customer.phone,
-    };
+
+    if(bikeModel!=null && notes!=null)
+    {
+      const repair = {
+        bikeModel: bikeModel,
+        notes: notes,
+        name: customer.name,
+        email: customer.email,
+        phone: customer.phone,
+      };
+
+      const res = await postRepair(repair);
+      console.log(res);
+      
+      if(res!=null && res.email==customer.email)
+      {
+        await dispatch(addRepair(res));
+        alert("Repair added");
+      }
+      else
+      {
+        alert("Server might not be up to sync with changes");
+      }
+    }
+    else
+    {
+      alert("Cancelled")
+    }
   }
 
   return (
