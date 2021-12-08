@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     }
 })
 //updating a repair
-router.patch('/', auth1, async (req, res) => {
+router.patch('/', async (req, res) => {
     try{
         const updatedRepair = await Repair.updateOne(
             {_id: req.body._id},
