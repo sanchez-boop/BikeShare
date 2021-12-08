@@ -9,7 +9,7 @@ const auth1 = require('./authenticate')
 require("dotenv").config();
 
 //getting all users
-router.get('/', auth1, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const users = await User.find().limit(50)
         res.json(users)
