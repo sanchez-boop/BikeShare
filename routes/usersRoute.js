@@ -47,8 +47,8 @@ router.post('/', async (req, res) => {
        text: `
        Hello, thanks for registering on our site. 
        Please copy and paste the address below to verify your account.
-          https://${req.headers.host}/users/verify-email?jwtToken=${jwtEmail}
-       `
+     http://${req.protocol}://${req.headers.host}/users/verify-email/?jwtToken=${jwtEmail}`
+     //https://${req.headers.host}/users/verify-email?jwtToken=${jwtEmail}  `
     }
     await sgMail.send(message)
         .then(response => {
@@ -80,7 +80,7 @@ router.get('/verify-email', async (req,res,next)=>{
           console.log(ret);
           return res.status(404).redirect(redirect);
         }
-        
+        console.log("hi");
         const work = await User.findOneAndUpdate({"email":verifiedJwt.email}, {"isVerified":true})
         // If user is successfully verified and saved, redirect the user to the homepage
         try
