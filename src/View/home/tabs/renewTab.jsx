@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleRenew } from "../../../Model/bikesSlice";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import { AiOutlineSearch } from "react-icons/ai";
+import { patchRentedBike } from "../../../Controller/patchRentedBike";
+import { addBikeToAvailable, deleteBike } from "../../../Model/bikesSlice";
 import "bootstrap/dist/css/bootstrap.css";
 import "./renewTab.css";
 
@@ -66,17 +68,61 @@ export default () => {
     setActive1(!isActive1);
   };
 
-  function confirmRenew() {
-    if (window.confirm("Are you sure you want to renew?")) {
-      //post renew
-      alert("Renewed");
+  async function confirmRenew(id,name) {
+    if (window.confirm(`Are you sure you want to renew ${name}?`)) {
+      //get todays date, add 7 days, display in mm/dd/yyyy
+      var today = new Date(); 
+      today.setDate(today.getDate()+7);
+
+      var dd = today.getDate(); 
+      var mm = today.getMonth()+1; 
+      var yyyy = today.getFullYear(); 
+      console.log(mm+'/'+dd+'/'+yyyy);
+
+      const credentials = {
+        id : id,
+        dateRented : mm+'/'+dd+'/'+yyyy
+      }
+
+      const res = await patchRentedBike(credentials);
+      console.log(res)
+      if(res!=null || res.name!='')
+      {
+        alert("Renewed");
+      }
+      else
+      {
+        alert("Server might not be up to date with recent changes");
+      }
     }
   }
 
-  function confirmReturn() {
-    if (window.confirm("Are you sure you want to return?")) {
-      //post return
-      alert("Returned");
+  async function confirmReturn(id) {
+    if (window.confirm("Are you sure you want to return this bike?")) {
+      //patch rented bike to user cred=="", add ret val
+      //to bikes.available, and delete bike from rented/overdue
+      const credentials = {
+        id : id,
+        name : "",
+        email : "",
+        phone : "",
+        dateRented : "",
+        availability : true
+      }
+
+      const res = await patchRentedBike(credentials);
+      console.log(res)
+      if(res!=null || res.name=='')
+      {
+        /*now add to available and delete from rented */
+        dispatch(addBikeToAvailable(res));
+        dispatch(deleteBike({_id : res._id}));
+        alert("Returned bike");
+      }
+      else
+      {
+        alert("Server might not be up to date with recent changes");
+      }
     }
   }
   /*
@@ -158,13 +204,13 @@ export default () => {
                               <>
                                 <button
                                   className="return"
-                                  onMouseDown={() => confirmReturn()}
+                                  onMouseDown={() => confirmReturn(bike["id"])}
                                 >
                                   Return
                                 </button>
                                 <button
                                   className="renew"
-                                  onMouseDown={() => confirmRenew()}
+                                  onMouseDown={() => confirmRenew(bike["id"],bike["name"])}
                                 >
                                   Renew
                                 </button>
@@ -240,7 +286,7 @@ export default () => {
                                     <button
                                       className="return"
                                       //onMouseDown={() => confirmReturn()}
-                                      onMouseDown={() => confirmReturn()}
+                                      onMouseDown={() => confirmReturn(bikes.due[_id]["id"])}
                                       onClick={() => {
                                         setSelectedRow(
                                           "table-body yellow-highlight-active"
@@ -252,7 +298,7 @@ export default () => {
                                     </button>
                                     <button
                                       className="renew"
-                                      onMouseDown={() => confirmRenew()}
+                                      onMouseDown={() => confirmRenew(bikes.due[_id]["id"],bikes.due[_id]["name"])}
                                     >
                                       Renew
                                     </button>
@@ -281,13 +327,13 @@ export default () => {
                             <>
                               <button
                                 className="return"
-                                onMouseDown={() => confirmReturn()}
+                                onMouseDown={() => confirmReturn(bikes.rented[_id]["id"])}
                               >
                                 Return
                               </button>
                               <button
                                 className="renew"
-                                onMouseDown={() => confirmRenew()}
+                                onMouseDown={() => confirmRenew(bikes.rented[_id]["id"],bikes.rented[_id]["name"])}
                               >
                                 Renew
                               </button>
