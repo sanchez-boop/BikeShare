@@ -44,7 +44,13 @@ const slice = createSlice({
         },
         editRole : (state,action)=>{
             const {_id,role} = action.payload;
-            state.unblacklisted[_id].role = role;
+
+            /*ONLY EDIT IN REDUX WHEN YOU ARENT USING SEARCH
+              TABLE */
+            if(_id in state.unblacklisted)
+            {
+                state.unblacklisted[_id].role = role;
+            }
         },
         swapToBlacklisted : (state,action)=>{
             const {_id} = action.payload;

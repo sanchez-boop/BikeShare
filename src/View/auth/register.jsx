@@ -242,6 +242,7 @@ export default () => {
         };
 
         const account = await postUser(credentials);
+        console.log(JSON.stringify(account));
 
         if (account.blacklist==false) {
           /*On successful login, tell customer to verify 
