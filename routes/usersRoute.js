@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
     }
     const message = 
     {
-       from: 'karanpatel7301@gmail.com',
+       from: 'bikeshareemail@gmail.com',
        to: user.email,
        subject: 'BikeNGold- verify your email', 
        text: `
@@ -159,6 +159,7 @@ router.post('/forgotpassword', async(req,res,next)=>
               res.send(ret);
             }
     })
+    
 //updating a user
 router.patch('/', auth1, async (req, res) => {
     try{
