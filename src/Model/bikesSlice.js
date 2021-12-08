@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,current } from "@reduxjs/toolkit";
 
 const slice = createSlice({
   name: "bikes",
@@ -96,14 +96,33 @@ const slice = createSlice({
       state.available[_id] = bike;
     },
     editBikeToRented: (state, action) => {
-      const { _id, name, email, phone } = action.payload;
+      const { _id, name, email, phone, dateRented } = action.payload;
       state.available[_id].name = name;
       state.available[_id].email = email;
       state.available[_id].phone = phone;
+      state.available[_id].dateRented = dateRented;
 
       //now add bike to rented and delete from available
       state.rented[_id] = state.available[_id];
       delete state.available[_id];
+    },
+    editBikeToAvailable: (state, action) => {
+      const { _id } = action.payload;
+      Object.keys(state).map((bikeState) => {
+        if (_id in state[bikeState]) {
+          //empty user cred
+          state[bikeState][_id].name = "";
+          state[bikeState][_id].email = "";
+          state[bikeState][_id].phone = "";
+          state[bikeState][_id].dateRented = "";
+
+          //swap to available delete from state
+          state.available[_id] = state[bikeState][_id];
+          console.log('redux',current(state.available[_id]));
+          delete state[bikeState][_id];
+          return;
+        }
+      });
     },
     deleteFromDue: (state, action) => {
       const { _id } = action.payload;
@@ -175,6 +194,7 @@ export const {
   addBikeToRented,
   addBikeToAvailable,
   editBikeToRented,
+  editBikeToAvailable,
   deleteFromDue,
   deleteFromAvailable,
   deleteFromRented,

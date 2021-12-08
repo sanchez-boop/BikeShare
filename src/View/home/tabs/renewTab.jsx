@@ -5,7 +5,7 @@ import { toggleRenew } from "../../../Model/bikesSlice";
 import { postBikeSearch } from "../../../Controller/postBikeSearch";
 import { AiOutlineSearch } from "react-icons/ai";
 import { patchRentedBike } from "../../../Controller/patchRentedBike";
-import { addBikeToAvailable, deleteBike } from "../../../Model/bikesSlice";
+import { editBikeToAvailable } from "../../../Model/bikesSlice";
 import "bootstrap/dist/css/bootstrap.css";
 import "./renewTab.css";
 
@@ -115,8 +115,7 @@ export default () => {
       if(res!=null || res.name=='')
       {
         /*now add to available and delete from rented */
-        dispatch(addBikeToAvailable(res));
-        dispatch(deleteBike({_id : res._id}));
+        dispatch(editBikeToAvailable(res));
         alert("Returned bike");
       }
       else
@@ -220,10 +219,7 @@ export default () => {
                         );
                       })
                     : Object.keys(bikes.due).map((_id, i) => {
-                        //console.log("_id is: " + _id);
-                        //console.log(
-                        //  "selectedRow: " + selectedRow + "\ni: " + i
-                        //);
+              
                         return (
                           <tr
                             tabindex="-1"
