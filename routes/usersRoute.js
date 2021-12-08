@@ -143,7 +143,7 @@ router.post('/login', async (req, res, next) =>
       const jwtToken = jwt.sign({_id: result._id}, process.env.JWT_SECRET, {expiresIn: '20m'});
       res.header('auth-token', jwtToken);
       //return sucess
-      res.status(200).json(result);
+      res.status(200).send({"result":result, "auth-token":jwtToken});
     });
 //searching users 
 router.post('/search', async (req, res, next) =>
