@@ -117,26 +117,26 @@ export default () => {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
         const credentials = { 
-          _id : account.result._id,
+          _id : account.result[0]._id,
           jwt : account["auth-token"], 
-          name : account.result.name,
-          email : account.result.email, 
-          phone : account.result.phone,
-          role : account.result.role, 
+          name : account.result[0].name,
+          email : account.result[0].email, 
+          phone : account.result[0].phone,
+          role : account.result[0].role, 
         };
         console.log("to redux", credentials);
         dispatch(signIn(credentials));
         console.log("User logged in is " + JSON.stringify(account.result));
 
-        if(account.result.isVerified==false)
+        if(account.result[0].isVerified==false)
         {
           alert("Email is not verified. Check your email.");
         }
-        else if (account.result.role == "admin" || account.result.role == "worker") 
+        else if (account.result[0].role == "admin" || account.result.role == "worker") 
         {
           history.push("/homeScreen");
         } 
-        else if (account.result.role == "customer") 
+        else if (account.result[0].role == "customer") 
         {
           history.push("/customerScreen");
         }

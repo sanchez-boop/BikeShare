@@ -1,6 +1,6 @@
 export function postLogin(credentials) {
   /*To log in, send the body as a stringified JSON*/
-  const curl = "https://bikengoldtest.herokuapp.com/users/login";
+  const curl = "https://bikengold.herokuapp.com/users/login";
   const options = {
     method: "POST",
     headers: {
