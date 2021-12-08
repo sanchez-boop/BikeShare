@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineSearch } from "react-icons/ai";
 import Login from "./View/auth/login";
 import Register from "./View/auth/register";
+import ForgotPassword from "./View/auth/forgotPassword";
 import HomeScreen from "./View/home/homeScreen";
 import CustomerScreen from "./View/home/customerScreen";
 import RentOutTab from "./View/home/tabs/rentOutTab";
@@ -20,6 +21,7 @@ import {
   addCustomerToUnblacklisted,
   addCustomerToBlacklisted,
 } from "./Model/customersSlice";
+import forgotPassword from "./View/auth/forgotPassword";
 
 function App() {
   const { acc } = useSelector((state) => state);
@@ -90,6 +92,9 @@ function App() {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/forgotPassword">
+          <ForgotPassword />
         </Route>
         <>
           {acc.loggedIn == true ? (

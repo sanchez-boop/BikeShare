@@ -119,16 +119,11 @@ export default () => {
         dispatch(signIn(account[0]));
         console.log("User logged in is " + JSON.stringify(account[0]));
 
-        if(account[0].isVerified==false)
-        {
+        if (account[0].isVerified == false) {
           alert("Email is not verified. Check your email.");
-        }
-        else if (account[0].role == "admin" || account[0].role == "worker") 
-        {
+        } else if (account[0].role == "admin" || account[0].role == "worker") {
           history.push("/homeScreen");
-        } 
-        else if (account[0].role == "customer") 
-        {
+        } else if (account[0].role == "customer") {
           history.push("/customerScreen");
         }
       } else {
@@ -138,7 +133,7 @@ export default () => {
 
     //FOR WHEN WE IMPLEMENT JWT
     // if (account.role.length > 0) {
-    //   /*On successful login, update the redux state 
+    //   /*On successful login, update the redux state
     //   with account info and push the home screen*/
     //   dispatch(signIn(account));
     //   //console.log("User logged in is a " + account[0].role);
@@ -186,7 +181,11 @@ export default () => {
               </FloatingLabel>
               <ShowPassword inputPasswordChanged={inputPasswordChanged} />
               <div id="forget-password">
-                <span onClick={ForgetPasswordAlert}>Forget your password?</span>
+                <span>
+                  <Link className="forgotPassword" to="/forgotPassword">
+                    Forget your password?
+                  </Link>
+                </span>
               </div>
             </div>
             <button className="signin" onClick={logIn}>

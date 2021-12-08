@@ -1,11 +1,22 @@
 import React from "react";
 import "./customerScreen.css";
+import { useDispatch } from "react-redux";
 import iPhone from "../../Images/iPhone.png";
 import android from "../../Images/android.png";
 import { VscSignOut } from "react-icons/vsc";
+import { signIn, signOut } from "../../Model/accSlice";
+import { useHistory } from "react-router";
 import logo from "../../Images/bikengold.png";
 
 export default () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  function logOut() {
+    dispatch(signOut());
+    history.goBack();
+  }
+
   return (
     <>
       <div id="customer-background">
@@ -14,7 +25,7 @@ export default () => {
             <img className="logo" src={logo} alt="image error" />
             <text id="title">BikeN'Gold</text>
           </div>
-          <button className="signout" onClick={() => alert("Sign out clicked")}>
+          <button className="signout" onClick={logOut}>
             Sign out
             <VscSignOut size={23} />
           </button>
