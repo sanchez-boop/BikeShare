@@ -28,14 +28,23 @@ export default function ProfileNameChange({ navigation }) {
   const { acc } = useSelector((state) => state);
   const [formInput, setFormInput] = useState({
     /*set initial credentials to ""*/
-    name: "",
+    firstName: "",
+    lastName: "",
   });
 
-  function inputNameChanged(text) {
+  function inputFirstNameChanged(text) {
     /*change the state of the credentials to the name you typed*/
     setFormInput({
       ...formInput,
-      name: text,
+      firstName: text,
+    });
+  }
+
+  function inputLastNameChanged(text) {
+    /*change the state of the credentials to the name you typed*/
+    setFormInput({
+      ...formInput,
+      lastName: text,
     });
   }
 
@@ -51,7 +60,7 @@ export default function ProfileNameChange({ navigation }) {
   async function nameChangeSubmit() {
     const credentials = {
       _id: acc.id,
-      name: formInput.name,
+      name: formInput.firstName + " " + formInput.lastName,
     };
 
     console.log("name credentials is " + JSON.stringify(credentials));
@@ -107,9 +116,17 @@ export default function ProfileNameChange({ navigation }) {
         <View style={styles.content}>
           <TextInput
             style={styles.textInput}
-            onChangeText={(text) => inputNameChanged(text)}
+            onChangeText={(text) => inputFirstNameChanged(text)}
             mode="outlined"
-            label="New Name"
+            label="New First Name"
+            outlineColor="#b1b1b1"
+            activeOutlineColor="#000000"
+          />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => inputLastNameChanged(text)}
+            mode="outlined"
+            label="New Last Name"
             outlineColor="#b1b1b1"
             activeOutlineColor="#000000"
           />
