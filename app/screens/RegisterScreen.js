@@ -21,12 +21,6 @@ import { postUser } from "../controller/postUser";
 import colors from "../config/colors";
 
 export default function RegisterScreen({ navigation }) {
-  const [emailInput, changeEmailInput] = React.useState(null);
-  const [phoneNumberInput, changePhoneNumberInput] = React.useState(null);
-  const [passwordInput, changePasswordInput] = React.useState(null);
-  const [rePasswordInput, changeRePasswordInput] = React.useState(null);
-  const [firstNameInput, changeFirstNameInput] = React.useState(null);
-  const [lastNameInput, changeLastNameInput] = React.useState(null);
   const [isSecureEntry, changeIsSecureEntry] = React.useState(true);
   const [isSecureEntry2, changeIsSecureEntry2] = React.useState(true);
 
@@ -89,6 +83,11 @@ export default function RegisterScreen({ navigation }) {
   }
 
   async function registerUser() {
+    if (formInput.firstName == "" || formInput.lastName == "" || formInput.email == "" || 
+    formInput.password == "" || formInput.verifyPassword == "" || formInput.phone == "") {
+      alert("Please fill all text fields!");
+      return;
+    }
     if (formInput.password == formInput.verifyPassword) {
       const credentials = {
         /*set initial credentials to ""*/
