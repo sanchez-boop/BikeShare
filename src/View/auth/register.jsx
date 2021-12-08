@@ -237,7 +237,8 @@ export default () => {
           phone: formInput.phone,
           role: "customer",
           waiver: false,
-          blacklist: false
+          blacklist: false,
+          isVerified: false
         };
 
         const account = await postUser(credentials);

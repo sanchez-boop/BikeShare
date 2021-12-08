@@ -113,26 +113,35 @@ export default () => {
       else, return login failed*/
       const account = await postLogin(formInput);
 
-      if (account.length > 0) {
+      if (account.hasOwnProperty('result')) {
         /*On successful login, update the redux state 
         with account info and push the home screen*/
-        dispatch(signIn(account[0]));
-        console.log("User logged in is " + JSON.stringify(account[0]));
+        const credentials = { 
+          _id : account.result._id,
+          jwt : account["auth-token"], 
+          name : account.result.name,
+          email : account.result.email, 
+          phone : account.result.phone,
+          role : account.result.role, 
+        };
+        console.log("to redux", credentials);
+        dispatch(signIn(credentials));
+        console.log("User logged in is " + JSON.stringify(account.result));
 
-        if(account[0].isVerified==false)
+        if(account.result.isVerified==false)
         {
           alert("Email is not verified. Check your email.");
         }
-        else if (account[0].role == "admin" || account[0].role == "worker") 
+        else if (account.result.role == "admin" || account.result.role == "worker") 
         {
           history.push("/homeScreen");
         } 
-        else if (account[0].role == "customer") 
+        else if (account.result.role == "customer") 
         {
           history.push("/customerScreen");
         }
       } else {
-        alert("login failed, try again");
+        alert("Login failed, try again");
       }
     }
 
